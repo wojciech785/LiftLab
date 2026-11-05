@@ -2,12 +2,22 @@
   "name": "lift-lab",
   "private": true,
   "version": "0.1.0",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev:web": "npm run dev --workspace=@lift-lab/web",
     "dev:api": "npm run start:dev --workspace=@lift-lab/api",
     "build": "npm run build --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present"
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "hygraph:schema:foundation:plan": "node scripts/hygraph/apply-foundation.mjs",
+    "hygraph:schema:foundation:apply": "node scripts/hygraph/apply-foundation.mjs --apply"
   },
-  "engines": { "node": ">=22" }
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@hygraph/management-sdk": "^1.6.1"
+  }
 }
