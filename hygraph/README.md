@@ -5,9 +5,11 @@ applied migration; create the next number for any schema change. The initial
 foundation provisions a **blank** environment with Lift Lab's shared enums,
 components, core models, fields, and relations.
 
-Create a Hygraph Permanent Auth Token with only the Management API permissions
-needed for the schema operations, then set these server-only values in
-`apps/api/.env`:
+Create a Hygraph Permanent Auth Token with the Management API
+`ENVIRONMENT_READ` permission plus the create permissions required by the
+schema operations (models, components, fields, enumerations, and relations).
+`ENVIRONMENT_READ` is required because the SDK resolves the environment before
+submitting a migration. Then set these server-only values in `apps/api/.env`:
 
 ```dotenv
 HYGRAPH_MANAGEMENT_API_TOKEN=...
