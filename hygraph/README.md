@@ -32,3 +32,21 @@ The script deliberately fails when run a second time against the same
 environment. This prevents accidentally treating a destructive reset as a
 normal migration. Later schema changes should be added as ordered, incremental
 migrations.
+
+Hygraph reserves a migration name even when a submission fails. To retry the
+same code after fixing permissions, provide a fresh audit name:
+
+```sh
+HYGRAPH_MIGRATION_NAME=lift-lab-002-workflow-and-localization-retry-1 \
+  node --env-file=apps/api/.env scripts/hygraph/apply-workflow-localization.mjs --apply
+```
+
+## Applying incremental migrations
+
+For an environment where the foundation is already present, plan and apply the
+Review-stage and Czech-localization migration independently:
+
+```sh
+node --env-file=apps/api/.env scripts/hygraph/apply-workflow-localization.mjs
+node --env-file=apps/api/.env scripts/hygraph/apply-workflow-localization.mjs --apply
+```

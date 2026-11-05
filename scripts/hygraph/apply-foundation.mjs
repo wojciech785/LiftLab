@@ -4,6 +4,7 @@ import { scheduleFoundation } from "../../hygraph/schema/001-foundation.mjs";
 const shouldApply = process.argv.includes("--apply");
 const endpoint = process.env.HYGRAPH_SCHEMA_API_ENDPOINT || process.env.HYGRAPH_CONTENT_API_URL;
 const authToken = process.env.HYGRAPH_MANAGEMENT_API_TOKEN;
+const migrationName = process.env.HYGRAPH_MIGRATION_NAME || "lift-lab-001-foundation";
 
 if (!endpoint || !authToken) {
   console.error("Missing Hygraph schema credentials. Set HYGRAPH_MANAGEMENT_API_TOKEN and HYGRAPH_SCHEMA_API_ENDPOINT (or HYGRAPH_CONTENT_API_URL).");
@@ -12,7 +13,7 @@ if (!endpoint || !authToken) {
   const client = new Client({
     endpoint,
     authToken,
-    name: "lift-lab-001-foundation",
+    name: migrationName,
   });
 
   scheduleFoundation(client);

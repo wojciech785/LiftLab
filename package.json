@@ -12,7 +12,9 @@
     "build": "npm run build --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "hygraph:schema:foundation:plan": "node scripts/hygraph/apply-foundation.mjs",
-    "hygraph:schema:foundation:apply": "node scripts/hygraph/apply-foundation.mjs --apply"
+    "hygraph:schema:foundation:apply": "node scripts/hygraph/apply-foundation.mjs --apply",
+    "hygraph:schema:workflow-localization:plan": "node scripts/hygraph/apply-workflow-localization.mjs",
+    "hygraph:schema:workflow-localization:apply": "node scripts/hygraph/apply-workflow-localization.mjs --apply"
   },
   "engines": {
     "node": ">=22"
