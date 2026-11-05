@@ -43,7 +43,7 @@ The product is deliberately suited to Hygraph practice. The same exercise is reu
 | Stages/scheduling | Draft → review → published exercise updates, scheduled seasonal programmes. |
 | Variants | Beginner vs experienced-lifter copy; later “Lift Lab Home” brand. |
 | Versions/environments | Compare coaching revisions and promote schema safely from development to production. |
-| Extensibility | Webhook on publish; YouTube-powered remote field for exercise tutorials; optional editorial sidebar app. |
+| Extensibility | Direct Hygraph publish webhook to an external endpoint; YouTube-powered remote field for exercise tutorials; optional editorial sidebar app. |
 
 ## 3. Architecture
 
@@ -58,12 +58,12 @@ Browser
        NestJS API (backend-for-frontend)
             ├─ read queries ──────────────► Hygraph Content API
             ├─ protected mutations ───────► Hygraph Content API
-            └─ webhook receiver ◄───────── Hygraph Webhooks
                                               │
                                               └─ Hygraph project
                                                  ├─ schema, entries, assets
                                                  ├─ locales, stages, variants
                                                  └─ taxonomy
+                                                  └─ publish webhook ──► external endpoint
 ```
 
 ### Architectural decisions
@@ -78,7 +78,7 @@ Browser
 | Area | Technology | Why |
 | --- | --- | --- |
 | Frontend | React 19, Vite, TypeScript, React Router | A familiar, fast local SPA development workflow with explicit client routes. |
-| Backend / BFF | NestJS, TypeScript, Node.js | Modular API, dependency injection, validation, configuration, webhook handling, and a clear boundary around Hygraph credentials. |
+| Backend / BFF | NestJS, TypeScript, Node.js | Modular API, dependency injection, validation, configuration, and a clear boundary around Hygraph credentials. |
 | Styling | Tailwind CSS + CSS variables | Fast, consistent responsive UI with design tokens. |
 | 3D | React Three Fiber, Three.js, `@react-three/drei` | Declarative React integration, loading helpers, accessible fallback design. |
 | CMS | Hygraph | Structured GraphQL content, assets, stages, locales, variants, and schema management. |
@@ -87,7 +87,7 @@ Browser
 | Validation | Zod | Validates environment values and incoming mutation payloads. |
 | Testing | Vitest, React Testing Library, NestJS Jest tests, Playwright | Unit/component/API/browser coverage; 3D logic tested separately from rendering where practical. |
 | Quality | ESLint, Prettier, TypeScript strict mode | Consistent, safe learning project. |
-| Local runtime | Node.js LTS, two local dev servers | Frontend and API run locally; a temporary HTTPS tunnel is only needed when testing Hygraph Live Preview or webhooks. |
+| Local runtime | Node.js LTS, two local dev servers | Frontend and API run locally; a temporary HTTPS tunnel is only needed when testing Hygraph Live Preview. |
 
 ## 5. Repository structure (planned)
 
@@ -111,13 +111,12 @@ lift-lab/
 │   │   │   └── routes/
 │   │   └── public/models/           # optimised GLB, if licensing permits
 │   └── api/                         # NestJS BFF
-│       ├── .env.example             # Hygraph tokens and webhook secret
+│       ├── .env.example             # Hygraph tokens
 │       └── src/
 │           ├── hygraph/             # GraphQL client, operations, generated types
 │           ├── exercises/
 │           ├── programmes/
 │           ├── workout-intents/
-│           ├── webhooks/
 │           ├── common/              # guards, filters, DTOs, config
 │           └── app.module.ts
 ├── packages/
@@ -246,7 +245,7 @@ NestJS services query the Hygraph Content API using a least-privilege read token
 
 ### Webhooks
 
-Hygraph sends a signed publish/unpublish webhook to `POST /webhooks/hygraph`. The NestJS handler verifies the shared secret and logs only non-sensitive event metadata. For the local SPA, it can clear the API's short-lived cache and notify connected development clients; a deployed version could additionally trigger a frontend rebuild or CDN purge.
+Hygraph publish/unpublish webhooks are configured in Hygraph and delivered directly to a separately operated external endpoint. The Lift Lab BFF does not receive, verify, or relay webhook events.
 
 ### Remote field: YouTube tutorials
 
@@ -327,7 +326,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 ### Phase 5 — Advanced operations
 
 - [x] Configure roles and permissions (already practised).
-- [ ] Add a signed publish webhook and path revalidation.
+- [ ] Configure a signed Hygraph publish webhook for the external endpoint.
 - [ ] Create a YouTube Data API remote field that searches/selects exercise tutorials, with a video-ID fallback and approved-channel policy.
 - [ ] Document backup/export, recovery drill, and audit-log review.
 
