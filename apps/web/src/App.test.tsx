@@ -3,11 +3,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
-import { getExercise, getExercises, getMuscleGroups } from "./api/client";
+import { getArticle, getArticles, getExercise, getExercises, getMuscleGroups } from "./api/client";
 
-vi.mock("./api/client", () => ({ getExercise: vi.fn(), getExercises: vi.fn(), getMuscleGroups: vi.fn(), PAGE_SIZE: 12 }));
+vi.mock("./api/client", () => ({ getExercise: vi.fn(), getExercises: vi.fn(), getMuscleGroups: vi.fn(), getArticle: vi.fn(), getArticles: vi.fn(), getProgramme: vi.fn(), getProgrammes: vi.fn(), PAGE_SIZE: 12 }));
 const item = { title: "Squat", slug: "squat", difficulty: "beginner" as const, primaryMuscle: "quadriceps" };
 beforeEach(() => {
+  window.history.replaceState(null, "", "/");
   vi.mocked(getExercises).mockResolvedValue([item]);
   vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps" }]);
   vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: "Move with control.", modality: "bodyweight", durationMinutes: 5, primaryMuscles: [{ name: "Quadriceps", slug: "quadriceps" }], equipment: [] });
@@ -15,6 +16,19 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.resetAllMocks(); });
 
 describe("exercise browser", () => {
+  it("opens an article from navigation and follows its related exercise link", async () => {
+    const user = userEvent.setup();
+    vi.mocked(getArticles).mockResolvedValue([{title:'Guide',slug:'guide',excerpt:'Read this guide'}]);
+    vi.mocked(getArticle).mockResolvedValue({title:'Guide',slug:'guide',excerpt:'Overview',author:null,heroAsset:null,contentBlocks:[],relatedExercises:[{title:'Squat',slug:'squat'}],relatedProgrammes:[]});
+    render(<App />);
+    await user.click(screen.getByRole('link',{name:'articles'}));
+    await user.click(await screen.findByRole('link',{name:'Guide'}));
+    await screen.findByRole('heading',{name:'Guide',level:1});
+    await user.click(screen.getByRole('link',{name:'Squat'}));
+    await screen.findByText('Move with control.');
+    expect(window.location.hash).toBe('#/exercises/squat');
+    expect(getExercise).toHaveBeenLastCalledWith('squat','en',expect.any(AbortSignal));
+  });
   it("loads published exercises, changes muscle/locale, and restores focus after closing detail", async () => {
     const user = userEvent.setup();
     render(<App />);

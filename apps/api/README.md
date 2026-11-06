@@ -28,3 +28,19 @@ not perform an authenticated connectivity check.
 
 Run `npm test --workspace=@lift-lab/api` from the repository root for focused
 service/client tests. No content is created or published by those tests.
+
+## Programmes and articles
+
+- `GET /api/programmes?locale=cs&limit=13&offset=0` returns programme summaries.
+- `GET /api/programmes/:slug?locale=cs` includes ordered sessions and exercise
+  prescriptions, warm-ups, cool-downs, and editorial profile attribution.
+- `GET /api/articles?locale=en&limit=13&offset=0` returns article summaries.
+- `GET /api/articles/:slug?locale=en` includes a discriminated block list and
+  related exercise/programme links.
+
+All reads select PUBLISHED. The same locale and pagination bounds apply as for
+exercises. Detail reads return 404 when absent. Nested collections are capped
+at 100 entries each. Rich text is exposed as structured nodes, not HTML;
+frontend rendering supports standard text formatting and safe links. Images
+include alt text and rights/source metadata. New block types receive a visible
+unsupported-block fallback until the renderer is extended.
