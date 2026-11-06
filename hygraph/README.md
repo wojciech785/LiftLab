@@ -50,3 +50,12 @@ Review-stage and Czech-localization migration independently:
 node --env-file=apps/api/.env scripts/hygraph/apply-workflow-localization.mjs
 node --env-file=apps/api/.env scripts/hygraph/apply-workflow-localization.mjs --apply
 ```
+
+The programme/article core migration adds the four top-level editorial models
+and the Training attributes taxonomy. Its article blocks and media fields are
+intentionally deferred to a later migration.
+
+```sh
+node --env-file=apps/api/.env scripts/hygraph/apply-programme-article-core.mjs
+node --env-file=apps/api/.env scripts/hygraph/apply-programme-article-core.mjs --apply
+```
