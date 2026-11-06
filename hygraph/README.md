@@ -52,10 +52,24 @@ node --env-file=apps/api/.env scripts/hygraph/apply-workflow-localization.mjs --
 ```
 
 The programme/article core migration adds the four top-level editorial models
-and the Training attributes taxonomy. Its article blocks and media fields are
-intentionally deferred to a later migration.
+and the Training attributes taxonomy. Migration 004 adds article blocks and media fields.
 
 ```sh
 node --env-file=apps/api/.env scripts/hygraph/apply-programme-article-core.mjs
 node --env-file=apps/api/.env scripts/hygraph/apply-programme-article-core.mjs --apply
 ```
+
+After 003, provision the seven Article block types, comparison-table rows, and
+asset references with 004:
+
+```sh
+node --env-file=apps/api/.env scripts/hygraph/apply-article-blocks-media.mjs
+node --env-file=apps/api/.env scripts/hygraph/apply-article-blocks-media.mjs --apply
+```
+
+Plan mode only prints SDK operations; it does not validate them on the server.
+Article block order and media references are shared across locales; block copy,
+captions, and asset alt text are localized. Asset rights/source metadata and
+alt text are optional at schema level so existing entries stay editable;
+editors must check them before publishing. Comparison-table rows should have
+the same number of cells as column headings. No assets are uploaded by this migration.

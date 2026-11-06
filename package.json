@@ -16,7 +16,9 @@
     "hygraph:schema:workflow-localization:plan": "node scripts/hygraph/apply-workflow-localization.mjs",
     "hygraph:schema:workflow-localization:apply": "node scripts/hygraph/apply-workflow-localization.mjs --apply",
     "hygraph:schema:programme-article-core:plan": "node scripts/hygraph/apply-programme-article-core.mjs",
-    "hygraph:schema:programme-article-core:apply": "node scripts/hygraph/apply-programme-article-core.mjs --apply"
+    "hygraph:schema:programme-article-core:apply": "node scripts/hygraph/apply-programme-article-core.mjs --apply",
+    "hygraph:schema:article-blocks-media:plan": "node scripts/hygraph/apply-article-blocks-media.mjs",
+    "hygraph:schema:article-blocks-media:apply": "node scripts/hygraph/apply-article-blocks-media.mjs --apply"
   },
   "engines": {
     "node": ">=22"
