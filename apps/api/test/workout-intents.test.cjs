@@ -1,6 +1,7 @@
 require('reflect-metadata');
 const {test} = require('node:test');
 const assert = require('node:assert/strict');
+const { print } = require('graphql');
 const {ValidationPipe} = require('@nestjs/common');
 const {Test} = require('@nestjs/testing');
 const {ConfigModule} = require('@nestjs/config');
@@ -22,7 +23,7 @@ test('DTO requires consent, valid values, and bounded unique muscle slugs',async
 test('write mapping keeps the entry in draft and returns no personal data or CMS IDs',async()=>{
   let wrote=false;
   const service = new WorkoutIntentsService({query:async()=>({muscleGroups:[{slug:'quadriceps'}]}),mutate:async(query,variables)=>{
-    wrote=true;assert.match(query,/createWorkoutIntent/);assert.doesNotMatch(query,/publishWorkoutIntent/);
+    wrote=true;assert.match(print(query),/createWorkoutIntent/);assert.doesNotMatch(print(query),/publishWorkoutIntent/);
     assert.deepEqual(variables.data,{goal:'GENERAL_FITNESS',availableMinutes:45,experienceLevel:'BEGINNER',consent:true,intentStatus:'NEW',selectedMuscles:{connect:[{slug:'quadriceps'}]}});
     return {createWorkoutIntent:{id:'private-id'}};
   }});

@@ -1,0 +1,6 @@
+query IntentMuscles($slugs:[String!]!) {
+  muscleGroups(stage:PUBLISHED,where:{slug_in:$slugs},first:3) {slug}
+}
+mutation SaveWorkoutIntent($data:WorkoutIntentCreateInput!) {
+  createWorkoutIntent(data:$data) { id }
+}

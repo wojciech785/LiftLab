@@ -1,0 +1,30 @@
+query ProgrammeList($locales:[Locale!]!, $first:Int!, $skip:Int!) {
+  workoutProgrammes(stage:PUBLISHED,locales:$locales,first:$first,skip:$skip,orderBy:slug_ASC) { title slug goal level durationWeeks sessionsPerWeek }
+}
+query ArticleList($locales:[Locale!]!, $first:Int!, $skip:Int!) {
+  articles(stage:PUBLISHED,locales:$locales,first:$first,skip:$skip,orderBy:slug_ASC) { title slug excerpt }
+}
+query ProgrammeDetail($slug:String!, $locales:[Locale!]!) {
+  workoutProgramme(where:{slug:$slug},stage:PUBLISHED,locales:$locales) {
+    title slug goal level durationWeeks sessionsPerWeek overview {raw}
+    coach {name role} heroAsset {url altText rightsSource}
+    sessions(first:100,orderBy:order_ASC) {title order estimatedMinutes warmup {raw} cooldown {raw}
+      exerciseSets(first:100,orderBy:order_ASC) {order sets repRange tempo restSeconds coachNote {raw} exercise {title slug}}
+    }
+  }
+}
+query ArticleDetail($slug:String!, $locales:[Locale!]!) {
+  article(where:{slug:$slug},stage:PUBLISHED,locales:$locales) {
+    title slug excerpt author {name role} heroAsset {url altText rightsSource}
+    relatedExercises(first:100) {title slug} relatedProgrammes(first:100) {title slug}
+    contentBlocks(first:100) { __typename
+      ... on RichTextBlock {body {raw}}
+      ... on ExerciseCarouselBlock {heading exercises(first:100) {title slug}}
+      ... on MuscleMapBlock {heading body {raw} muscleGroups(first:100) {name slug}}
+      ... on ComparisonTableBlock {caption columnHeadings rows(first:100) {cells}}
+      ... on CoachQuoteBlock {quote coach {name role}}
+      ... on CalloutBlock {callout {tone heading body {raw} destination}}
+      ... on ImageGalleryBlock {heading items(first:100) {caption altTextOverride asset {url altText rightsSource}}}
+    }
+  }
+}

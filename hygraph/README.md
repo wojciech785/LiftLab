@@ -89,6 +89,11 @@ are goal, availableMinutes, experienceLevel, selectedMuscles, consent, optional
 contactEmail, and intentStatus. The application always creates DRAFT entries with
 NEW intentStatus; it never publishes requests.
 
+After each schema migration, run `npm run hygraph:schema:refresh`, then
+`npm run codegen` and `npm run typecheck` from the repository root. This keeps
+the API's operation contracts aligned with the new schema. See
+`apps/api/src/hygraph/README.md` for the offline generation/check workflow.
+
 Keep this model out of public permissions. Configure a dedicated server token
 with Read/Create for WorkoutIntent on Draft/en, and Read on MuscleGroup for
 connecting existing entries. Do not reuse the Management or MCP token in the app.

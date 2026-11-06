@@ -81,6 +81,18 @@ Missing write configuration returns 503; upstream failure returns a sanitized
 an entry has already been stored. Review saved requests in Hygraph and remove
 them when no longer needed. Never publish them or enable public model reads.
 
-Verification includes a real Nest HTTP pipeline with a mocked CMS writer;
-the Hygraph write shape was separately simulated without persisting an entry.
-An app-to-Hygraph save still needs the dedicated local mutation credentials.
+Verification includes a real Nest HTTP pipeline with a mocked CMS writer.
+On 2026-11-06 the configured dedicated token also passed an actual app-to-Hygraph
+save: HTTP 201 with only `{"accepted":true}`, followed by a CMS read confirming
+one NEW draft, the selected muscle, no email, and no published version. The
+email-free 37-minute smoke-test request is retained for inspection in Hygraph.
+
+## GraphQL code generation
+
+Application operations live in `src/hygraph/operations/*.graphql`; services use
+generated typed documents rather than handwritten CMS response interfaces.
+From the repository root, use `npm run hygraph:schema:refresh` after a schema
+change, then `npm run codegen`. `npm run codegen:check` validates operations and
+checks generated-file freshness offline against the committed schema snapshot.
+The `typecheck` script also verifies rejected variables and article-union
+narrowing in `test/type-contracts.ts`. Full workflow: `src/hygraph/README.md`.

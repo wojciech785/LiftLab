@@ -4,8 +4,11 @@ import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import type { Request } from "express";
 import { HygraphModule, HygraphService } from "../hygraph/hygraph.module";
 import { CreateWorkoutIntentDto } from "./dto/create-workout-intent.dto";
+import { IntentMusclesDocument, SaveWorkoutIntentDocument } from "../hygraph/generated/operations";
+import type { Difficulty, TrainingGoal, WorkoutIntentCreateInput } from "../hygraph/generated/operations";
 
-export const SAVE_WORKOUT_INTENT = `mutation SaveWorkoutIntent($data:WorkoutIntentCreateInput!) { createWorkoutIntent(data:$data) { id } }`;
+const goals: Record<CreateWorkoutIntentDto["goal"],TrainingGoal> = {strength:"STRENGTH",hypertrophy:"HYPERTROPHY",endurance:"ENDURANCE",mobility:"MOBILITY","general-fitness":"GENERAL_FITNESS"};
+const levels: Record<CreateWorkoutIntentDto["experienceLevel"],Difficulty> = {beginner:"BEGINNER",intermediate:"INTERMEDIATE",advanced:"ADVANCED"};
 @Injectable()
 export class WorkoutIntentOriginGuard implements CanActivate {
   constructor(private readonly config: ConfigService) {}
@@ -28,14 +31,14 @@ export class WorkoutIntentsService {
     // Validate relation targets against published content before any write.
     const selected = intent.selectedMuscles;
     if (selected.length) {
-      const {muscleGroups} = await this.hygraph.query<{muscleGroups:{slug:string}[]}>(`query IntentMuscles($slugs:[String!]!) {muscleGroups(stage:PUBLISHED,where:{slug_in:$slugs},first:3) {slug}}`,{slugs:selected});
+      const {muscleGroups} = await this.hygraph.query(IntentMusclesDocument,{slugs:selected});
       if (muscleGroups.length !== selected.length || selected.some(slug=>!muscleGroups.some(g=>g.slug===slug))) throw new BadRequestException("Select published muscle groups from the library.");
     }
-    const data = {goal:intent.goal.toUpperCase().replaceAll("-","_"),availableMinutes:intent.availableMinutes,
-      experienceLevel:intent.experienceLevel.toUpperCase(),consent:true,intentStatus:"NEW",
+    const data: WorkoutIntentCreateInput = {goal:goals[intent.goal],availableMinutes:intent.availableMinutes,
+      experienceLevel:levels[intent.experienceLevel],consent:true,intentStatus:"NEW",
       ...(intent.contactEmail ? {contactEmail:intent.contactEmail} : {}),
       ...(selected.length ? {selectedMuscles:{connect:selected.map(slug=>({slug}))}} : {})};
-    const result = await this.hygraph.mutate<{createWorkoutIntent:{id:string} | null}>(SAVE_WORKOUT_INTENT,{data});
+    const result = await this.hygraph.mutate(SaveWorkoutIntentDocument,{data});
     if (!result.createWorkoutIntent?.id) throw new ServiceUnavailableException("Workout request could not be saved.");
     return {accepted:true};
   }

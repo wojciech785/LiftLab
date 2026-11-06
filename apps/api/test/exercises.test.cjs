@@ -1,12 +1,14 @@
 require('reflect-metadata');
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const { print } = require('graphql');
 const { ExercisesService } = require('../dist/exercises/exercises.module.js');
 const { HygraphService } = require('../dist/hygraph/hygraph.module.js');
+const { ListExercisesDocument } = require('../dist/hygraph/generated/operations.js');
 
 test('list uses published content, Czech fallback, filtering, and pagination', async () => {
   const service = new ExercisesService({ query: async (query, variables) => {
-    assert.match(query, /stage: PUBLISHED/);
+    assert.match(print(query), /stage: PUBLISHED/);
     assert.deepEqual(variables, { locales: ['cs', 'en'], first: 10, skip: 20, where: { primaryMuscles_some: { slug: 'quadriceps' } } });
     return { exercises: [{ title: 'Dřep', slug: 'squat', difficulty: 'BEGINNER', primaryMuscles: [{ name: 'Quadriceps', slug: 'quadriceps' }] }] };
   }});
@@ -21,7 +23,7 @@ test('invalid inputs fail before querying', async () => {
 test('muscle filter options include subsequent CMS pages', async () => {
   const firstPage = Array.from({ length: 100 }, (_, i) => ({ name: `Muscle ${i}`, slug: `muscle-${i}` }));
   const service = new ExercisesService({ query: async (query, variables) => {
-    assert.match(query, /stage: PUBLISHED/);
+    assert.match(print(query), /stage: PUBLISHED/);
     assert.deepEqual(variables.locales, ['cs', 'en']);
     return { muscleGroups: variables.skip === 0 ? firstPage : [{ name: 'Last muscle', slug: 'last' }] };
   }});
@@ -31,7 +33,7 @@ test('muscle filter options include subsequent CMS pages', async () => {
 });
 test('missing published exercise returns 404', async () => {
   const service = new ExercisesService({ query: async query => {
-    assert.match(query, /stage: PUBLISHED/);
+    assert.match(print(query), /stage: PUBLISHED/);
     return { exercise: null };
   }});
   await assert.rejects(service.get('draft-only'), { status: 404 });
@@ -54,10 +56,12 @@ test('upstream errors are sanitized and credentials stay server-side', async () 
   const original = global.fetch;
   global.fetch = async (_url, options) => {
     assert.equal(options.headers.Authorization, 'Bearer secret');
+    assert.equal(typeof JSON.parse(options.body).query, 'string');
+    assert.match(JSON.parse(options.body).query, /query ListExercises/);
     return { ok: true, json: async () => ({ errors: [{ message: 'sensitive upstream detail' }] }) };
   };
   try {
     const config = { get: () => 'configured', getOrThrow: key => key.endsWith('TOKEN') ? 'secret' : 'https://example.test' };
-    await assert.rejects(new HygraphService(config).query('query {}', {}), error => error.status === 502 && !error.message.includes('sensitive'));
+    await assert.rejects(new HygraphService(config).query(ListExercisesDocument, {locales:['en'],first:1,skip:0,where:{}}), error => error.status === 502 && !error.message.includes('sensitive'));
   } finally { global.fetch = original; }
 });

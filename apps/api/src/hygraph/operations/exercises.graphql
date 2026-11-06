@@ -1,0 +1,14 @@
+query ListExercises($locales: [Locale!]!, $first: Int!, $skip: Int!, $where: ExerciseWhereInput!) {
+  exercises(stage: PUBLISHED, locales: $locales, first: $first, skip: $skip, orderBy: slug_ASC, where: $where) {
+    title slug difficulty primaryMuscles { name slug }
+  }
+}
+query GetExercise($slug: String!, $locales: [Locale!]!) {
+  exercise(where: {slug: $slug}, stage: PUBLISHED, locales: $locales) {
+    title slug difficulty primaryMuscles { name slug }
+    summary instructions { text } modality durationMinutes equipment { name slug }
+  }
+}
+query ListMuscleGroups($locales: [Locale!]!, $skip: Int!) {
+  muscleGroups(stage: PUBLISHED, locales: $locales, first: 100, skip: $skip, orderBy: slug_ASC) { name slug }
+}

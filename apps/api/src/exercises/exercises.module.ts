@@ -3,32 +3,15 @@ import type { ExerciseDetail, ExerciseSummary, MuscleGroupSummary } from "@lift-
 
 import { HygraphModule, HygraphService } from "../hygraph/hygraph.module";
 
-const FIELDS = `title slug difficulty primaryMuscles { name slug }`;
-export const LIST_EXERCISES = `query ListExercises($locales: [Locale!]!, $first: Int!, $skip: Int!, $where: ExerciseWhereInput!) {
-  exercises(stage: PUBLISHED, locales: $locales, first: $first, skip: $skip, orderBy: slug_ASC, where: $where) { ${FIELDS} }
-}`;
-export const GET_EXERCISE = `query GetExercise($slug: String!, $locales: [Locale!]!) {
-  exercise(where: {slug: $slug}, stage: PUBLISHED, locales: $locales) {
-    ${FIELDS} summary instructions { text } modality durationMinutes equipment { name slug }
-  }
-}`;
-export const LIST_MUSCLE_GROUPS = `query ListMuscleGroups($locales: [Locale!]!, $skip: Int!) {
-  muscleGroups(stage: PUBLISHED, locales: $locales, first: 100, skip: $skip, orderBy: slug_ASC) { name slug }
-}`;
-type ContentExercise = {
-  title: string; slug: string; difficulty: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
-  primaryMuscles: { name: string; slug: string }[];
-};
-type ContentDetail = ContentExercise & {
-  summary: string; instructions: { text: string }; modality: string;
-  durationMinutes: number | null; equipment: { name: string; slug: string }[];
-};
+import { GetExerciseDocument, ListExercisesDocument, ListMuscleGroupsDocument } from "../hygraph/generated/operations";
+import type { ListExercisesQuery, Locale } from "../hygraph/generated/operations";
+type ContentExercise = ListExercisesQuery["exercises"][number];
 const summary = (entry: ContentExercise): ExerciseSummary => ({
   title: entry.title, slug: entry.slug,
   difficulty: entry.difficulty.toLowerCase() as ExerciseSummary["difficulty"],
   primaryMuscle: entry.primaryMuscles[0]?.slug ?? "",
 });
-function locales(locale = "en"): string[] {
+function locales(locale = "en"): Locale[] {
   if (locale !== "en" && locale !== "cs") throw new BadRequestException("locale must be en or cs.");
   return locale === "cs" ? ["cs", "en"] : ["en"];
 }
@@ -45,20 +28,20 @@ export class ExercisesService {
   async list(locale?: string, muscle?: string, limit?: string, offset?: string): Promise<ExerciseSummary[]> {
     const variables = { locales: locales(locale), first: integer(limit, 30, 1, 100), skip: integer(offset, 0, 0, 10000),
       where: muscle ? { primaryMuscles_some: { slug: muscle } } : {} };
-    const data = await this.hygraph.query<{ exercises: ContentExercise[] }>(LIST_EXERCISES, variables);
+    const data = await this.hygraph.query(ListExercisesDocument, variables);
     return data.exercises.map(summary);
   }
   async muscleGroups(locale?: string): Promise<MuscleGroupSummary[]> {
     const result: MuscleGroupSummary[] = [];
     const selectedLocales = locales(locale);
     for (let skip = 0; ; skip += 100) {
-      const data = await this.hygraph.query<{ muscleGroups: MuscleGroupSummary[] }>(LIST_MUSCLE_GROUPS, { locales: selectedLocales, skip });
+      const data = await this.hygraph.query(ListMuscleGroupsDocument, { locales: selectedLocales, skip });
       result.push(...data.muscleGroups);
       if (data.muscleGroups.length < 100) return result;
     }
   }
   async get(slug: string, locale?: string): Promise<ExerciseDetail> {
-    const { exercise } = await this.hygraph.query<{ exercise: ContentDetail | null }>(GET_EXERCISE, { slug, locales: locales(locale) });
+    const { exercise } = await this.hygraph.query(GetExerciseDocument, { slug, locales: locales(locale) });
     if (!exercise) throw new NotFoundException("Exercise not found.");
     return { ...summary(exercise), summary: exercise.summary, instructions: exercise.instructions.text,
       modality: exercise.modality.toLowerCase(), durationMinutes: exercise.durationMinutes,

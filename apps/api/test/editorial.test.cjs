@@ -1,12 +1,13 @@
 require('reflect-metadata');
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const { print } = require('graphql');
 const { EditorialService } = require('../dist/editorial/editorial.module.js');
 const rich = { raw: { children: [{ type: 'paragraph', children: [{text:'Content'}] }] } };
 
 test('programme list uses published content, Czech fallback, and bounded pagination', async () => {
   const service = new EditorialService({query: async (query, variables) => {
-    assert.match(query, /stage:PUBLISHED/);
+    assert.match(print(query), /stage:\s*PUBLISHED/);
     assert.deepEqual(variables,{locales:['cs','en'],first:13,skip:12});
     return {workoutProgrammes:[{title:'Practice',slug:'practice',goal:'GENERAL_FITNESS',level:'BEGINNER',durationWeeks:2,sessionsPerWeek:3}]};
   }});
@@ -14,7 +15,7 @@ test('programme list uses published content, Czech fallback, and bounded paginat
 });
 test('programme detail unwraps rich text and includes missing exercise links safely', async () => {
   const service = new EditorialService({query: async query => {
-    assert.match(query,/orderBy:order_ASC/);
+    assert.match(print(query),/orderBy:\s*order_ASC/);
     return {workoutProgramme:{id:'internal',title:'Practice',slug:'practice',goal:'GENERAL_FITNESS',level:'BEGINNER',durationWeeks:2,sessionsPerWeek:3,overview:rich,coach:null,heroAsset:null,
       sessions:[{title:'Session',order:1,estimatedMinutes:20,warmup:rich,cooldown:null,exerciseSets:[{order:1,sets:2,repRange:'6–8',restSeconds:90,tempo:null,coachNote:rich,exercise:null}]}]}};
   }});
@@ -26,7 +27,7 @@ test('programme detail unwraps rich text and includes missing exercise links saf
 });
 test('article converts all seven modular block types without exposing CMS IDs', async () => {
   const service = new EditorialService({query: async query => {
-    assert.match(query,/stage:PUBLISHED/);
+    assert.match(print(query),/stage:\s*PUBLISHED/);
     return {article:{title:'Guide',slug:'guide',excerpt:'Overview',author:null,heroAsset:null,relatedExercises:[],relatedProgrammes:[],contentBlocks:[
       {__typename:'RichTextBlock',body:rich}, {__typename:'ExerciseCarouselBlock',heading:'Moves',exercises:[{title:'Squat',slug:'squat'}]},
       {__typename:'MuscleMapBlock',body:rich,muscleGroups:[]}, {__typename:'ComparisonTableBlock',columnHeadings:['A'],rows:[{cells:['B']}]},
@@ -40,7 +41,7 @@ test('article converts all seven modular block types without exposing CMS IDs', 
   assert.equal(result.contentBlocks[5].tone,'tip');
 });
 test('article list and missing details have predictable contracts', async () => {
-  const service = new EditorialService({query: async query => query.includes('ArticleList') ? {articles:[]} : query.includes('ProgrammeDetail') ? {workoutProgramme:null} : {article:null}});
+  const service = new EditorialService({query: async query => print(query).includes('ArticleList') ? {articles:[]} : print(query).includes('ProgrammeDetail') ? {workoutProgramme:null} : {article:null}});
   assert.deepEqual(await service.articles(),[]);
   await assert.rejects(service.article('missing'),{status:404});
   await assert.rejects(service.programme('missing'),{status:404});
