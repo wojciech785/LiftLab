@@ -18,6 +18,17 @@ test('invalid inputs fail before querying', async () => {
     await assert.rejects(service.list(...args), { status: 400 });
   }
 });
+test('muscle filter options include subsequent CMS pages', async () => {
+  const firstPage = Array.from({ length: 100 }, (_, i) => ({ name: `Muscle ${i}`, slug: `muscle-${i}` }));
+  const service = new ExercisesService({ query: async (query, variables) => {
+    assert.match(query, /stage: PUBLISHED/);
+    assert.deepEqual(variables.locales, ['cs', 'en']);
+    return { muscleGroups: variables.skip === 0 ? firstPage : [{ name: 'Last muscle', slug: 'last' }] };
+  }});
+  const result = await service.muscleGroups('cs');
+  assert.equal(result.length, 101);
+  assert.equal(result[100].slug, 'last');
+});
 test('missing published exercise returns 404', async () => {
   const service = new ExercisesService({ query: async query => {
     assert.match(query, /stage: PUBLISHED/);

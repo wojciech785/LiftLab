@@ -9,6 +9,8 @@ Equipment in the PUBLISHED stage and the requested locales. Keep this read
 token separate from the management/mutation tokens.
 
 - `GET /api/exercises` returns up to 30 published summaries.
+- `GET /api/muscle-groups?locale=en` returns published muscle names and slugs
+  for the frontend filter. It retrieves all pages from Hygraph.
 - `GET /api/exercises?locale=cs&muscle=quadriceps&limit=10&offset=0` filters by a
   primary muscle slug. Czech reads fall back to English. Maximum limit is 100;
   offset is bounded at 10000. Lists are sorted by slug.

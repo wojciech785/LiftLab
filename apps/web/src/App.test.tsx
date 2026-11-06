@@ -1,0 +1,65 @@
+// @vitest-environment jsdom
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import App from "./App";
+import { getExercise, getExercises, getMuscleGroups } from "./api/client";
+
+vi.mock("./api/client", () => ({ getExercise: vi.fn(), getExercises: vi.fn(), getMuscleGroups: vi.fn(), PAGE_SIZE: 12 }));
+const item = { title: "Squat", slug: "squat", difficulty: "beginner" as const, primaryMuscle: "quadriceps" };
+beforeEach(() => {
+  vi.mocked(getExercises).mockResolvedValue([item]);
+  vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps" }]);
+  vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: "Move with control.", modality: "bodyweight", durationMinutes: 5, primaryMuscles: [{ name: "Quadriceps", slug: "quadriceps" }], equipment: [] });
+});
+afterEach(() => { cleanup(); vi.resetAllMocks(); });
+
+describe("exercise browser", () => {
+  it("loads published exercises, changes muscle/locale, and restores focus after closing detail", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    const open = await screen.findByRole("button", { name: /View exercise: Squat/ });
+    await user.click(open);
+    await screen.findByText("Move with control.");
+    expect(document.activeElement).toBe(screen.getByRole("heading", { name: "Squat", level: 2 }));
+    await user.click(screen.getByRole("button", { name: "Close details" }));
+    expect(document.activeElement).toBe(open);
+    await user.selectOptions(screen.getByLabelText("Muscle group"), "quadriceps");
+    await waitFor(() => expect(getExercises).toHaveBeenLastCalledWith("en", "quadriceps", 0, expect.any(AbortSignal)));
+    await user.selectOptions(screen.getByLabelText("Content language"), "cs");
+    await waitFor(() => expect(getExercises).toHaveBeenLastCalledWith("cs", "quadriceps", 0, expect.any(AbortSignal)));
+  });
+  it("shows an honest empty state", async () => {
+    vi.mocked(getExercises).mockResolvedValue([]);
+    render(<App />);
+    expect(await screen.findByText(/library is getting ready/)).toBeTruthy();
+    expect(screen.queryByRole("button", { name: /View exercise/ })).toBeNull();
+  });
+  it("recovers from an API failure using retry", async () => {
+    const user = userEvent.setup();
+    vi.mocked(getExercises).mockRejectedValueOnce(new Error("unavailable"));
+    render(<App />);
+    await screen.findByRole("alert");
+    await user.click(screen.getByRole("button", { name: "Try again" }));
+    expect(await screen.findByRole("button", { name: /View exercise: Squat/ })).toBeTruthy();
+  });
+  it("uses the lookahead record to paginate without displaying it", async () => {
+    const user = userEvent.setup();
+    vi.mocked(getExercises).mockResolvedValueOnce(Array.from({ length: 13 }, (_, i) => ({ ...item, slug: `squat-${i}`, title: `Squat ${i}` })));
+    render(<App />);
+    await screen.findByRole("button", { name: "Next" });
+    expect(screen.getAllByRole("button", { name: /View exercise/ }).length).toBe(12);
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    await waitFor(() => expect(getExercises).toHaveBeenLastCalledWith("en", "", 12, expect.any(AbortSignal)));
+  });
+  it("ignores a stale response after locale changes", async () => {
+    const user = userEvent.setup();
+    let resolveOld!: (items: typeof item[]) => void;
+    vi.mocked(getExercises).mockImplementationOnce(() => new Promise(resolve => { resolveOld = resolve; }));
+    render(<App />);
+    await user.selectOptions(screen.getByLabelText("Content language"), "cs");
+    await screen.findByRole("button", { name: /View exercise: Squat/ });
+    resolveOld([{ ...item, title: "Stale title" }]);
+    await waitFor(() => expect(screen.queryByText("Stale title")).toBeNull());
+  });
+});

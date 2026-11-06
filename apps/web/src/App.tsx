@@ -1,21 +1,53 @@
-import { useEffect, useState } from "react";
-import type { ExerciseSummary } from "@lift-lab/shared-types";
-import { getApiStatus, getExercises } from "./api/client";
-import { MuscleMap } from "./components/muscle-map/MuscleMap";
-
-const groups = ["chest", "back", "legs"];
+import { useEffect, useRef, useState } from "react";
+import type { ExerciseDetail, ExerciseSummary, MuscleGroupSummary } from "@lift-lab/shared-types";
+import { getExercise, getExercises, getMuscleGroups, PAGE_SIZE, type ContentLocale } from "./api/client";
 
 export default function App() {
-  const [selected, setSelected] = useState("chest");
+  const [selected, setSelected] = useState("");
+  const [locale, setLocale] = useState<ContentLocale>("en");
   const [exercises, setExercises] = useState<ExerciseSummary[]>([]);
-  const [apiReady, setApiReady] = useState(false);
+  const [groups, setGroups] = useState<MuscleGroupSummary[]>([]);
+  const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [retry, setRetry] = useState(0);
+  const [slug, setSlug] = useState("");
+  const [detail, setDetail] = useState<ExerciseDetail | null>(null);
+  const [detailError, setDetailError] = useState("");
+  const detailHeading = useRef<HTMLHeadingElement>(null);
+  const opener = useRef<HTMLButtonElement | null>(null);
 
-  useEffect(() => { Promise.all([getExercises(), getApiStatus()]).then(([items, status]) => { setExercises(items); setApiReady(status.hygraphConfigured); }).catch(() => setExercises([])); }, []);
-  const visible = exercises.filter((exercise) => exercise.primaryMuscle === selected);
+  useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true); setError(""); setExercises([]);
+    Promise.all([getExercises(locale, selected, offset, controller.signal), getMuscleGroups(locale, controller.signal)])
+      .then(([items, muscles]) => { if (!controller.signal.aborted) { setExercises(items); setGroups(muscles); } })
+      .catch(() => { if (!controller.signal.aborted) setError("We couldn’t load the exercise library. Please try again."); })
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, [locale, selected, offset, retry]);
+
+  useEffect(() => {
+    if (!slug) return;
+    const controller = new AbortController();
+    setDetail(null); setDetailError("");
+    getExercise(slug, locale, controller.signal)
+      .then(item => { if (!controller.signal.aborted) setDetail(item); })
+      .catch(error => { if (!controller.signal.aborted) setDetailError(error instanceof Error ? error.message : "Could not load exercise details."); });
+    return () => controller.abort();
+  }, [slug, locale, retry]);
+
+  useEffect(() => { if (slug) detailHeading.current?.focus(); }, [slug]);
+  function closeDetail() { setSlug(""); setDetail(null); opener.current?.focus(); }
 
   return <main>
-    <header><span className="wordmark">LIFT LAB</span><span className="status">{apiReady ? "Hygraph connected" : "Local skeleton mode"}</span></header>
-    <section className="hero"><div><p className="eyebrow">STRENGTH, EXPLAINED</p><h1>Train with<br /><em>intention.</em></h1><p className="intro">Choose a muscle group to explore the first Lift Lab data flow: React → NestJS → Hygraph.</p></div><MuscleMap selected={selected} onSelect={setSelected} /></section>
-    <section className="explore"><p className="eyebrow">MUSCLE EXPLORER</p><div className="group-picker" role="group" aria-label="Select muscle group">{groups.map((group) => <button className={group === selected ? "active" : ""} key={group} onClick={() => setSelected(group)}>{group}</button>)}</div><div className="cards">{visible.map((exercise) => <article key={exercise.slug}><p>{exercise.difficulty}</p><h2>{exercise.title}</h2><span>{exercise.primaryMuscle}</span></article>)}{!visible.length && <p>Start the API to load the local skeleton exercises.</p>}</div></section>
+    <header><span className="wordmark">LIFT LAB</span><label className="locale-picker">Content language <select value={locale} onChange={event => { setLocale(event.target.value as ContentLocale); setOffset(0); closeDetail(); }}><option value="en">English</option><option value="cs">Čeština</option></select></label></header>
+    <section className="hero"><div><p className="eyebrow">STRENGTH, EXPLAINED</p><h1>Train with<br /><em>intention.</em></h1><p className="intro">Explore exercises, find your focus, and learn the movements behind your next session.</p><a className="browse-link" href="#library">Explore the library ↓</a></div><aside className="hero-note"><span className="eyebrow">YOUR NEXT MOVEMENT</span><p>Start with a muscle.<br />Find your exercise.<br /><em>Make it count.</em></p></aside></section>
+    <section className="explore" id="library" aria-labelledby="library-title"><p className="eyebrow">EXERCISE LIBRARY</p><h2 id="library-title">Find your focus.</h2><label className="muscle-filter">Muscle group <select value={selected} onChange={event => { setSelected(event.target.value); setOffset(0); closeDetail(); }}><option value="">All muscles</option>{groups.map(group => <option key={group.slug} value={group.slug}>{group.name}</option>)}</select></label>
+      <div aria-live="polite" aria-busy={loading}>
+        {loading ? <p className="notice">Loading exercises…</p> : error ? <div className="notice" role="alert"><p>{error}</p><button onClick={() => setRetry(value => value + 1)}>Try again</button></div> : !exercises.length ? <p className="notice">{selected ? "No exercises are available for this muscle group yet." : "The exercise library is getting ready. Check back soon."}</p> : <><div className="cards">{exercises.slice(0, PAGE_SIZE).map(exercise => <article key={exercise.slug}><p>{exercise.difficulty}</p><h3>{exercise.title}</h3><span>{groups.find(group => group.slug === exercise.primaryMuscle)?.name ?? exercise.primaryMuscle}</span><button className="detail-button" onClick={event => { opener.current = event.currentTarget; setDetail(null); setDetailError(""); setSlug(exercise.slug); }}>View exercise<span className="sr-only">: {exercise.title}</span> →</button></article>)}</div><nav className="pagination" aria-label="Exercise pages"><button disabled={offset === 0} onClick={() => { setOffset(Math.max(0, offset - PAGE_SIZE)); closeDetail(); }}>Previous</button><span>Page {offset / PAGE_SIZE + 1}</span><button disabled={exercises.length <= PAGE_SIZE || offset + PAGE_SIZE > 10000} onClick={() => { setOffset(offset + PAGE_SIZE); closeDetail(); }}>Next</button></nav></>}
+      </div>
+      {slug && <section className="exercise-detail" aria-labelledby="detail-title"><button onClick={closeDetail}>Close details</button><h2 id="detail-title" tabIndex={-1} ref={detailHeading}>{detail?.title ?? "Exercise details"}</h2><div aria-live="polite">{detailError ? <div role="alert"><p>{detailError}</p><button onClick={() => setRetry(value => value + 1)}>Try again</button></div> : !detail ? <p>Loading exercise…</p> : <><p>{detail.summary}</p><dl><dt>Difficulty</dt><dd>{detail.difficulty}</dd><dt>Modality</dt><dd>{detail.modality}</dd><dt>Primary muscles</dt><dd>{detail.primaryMuscles.map(group => group.name).join(", ") || "Not specified"}</dd><dt>Equipment</dt><dd>{detail.equipment.map(item => item.name).join(", ") || "Not specified"}</dd>{detail.durationMinutes !== null && <><dt>Estimated duration</dt><dd>{detail.durationMinutes} minutes</dd></>}</dl><h3>Instructions</h3><p className="instructions">{detail.instructions}</p></>}</div></section>}
+    </section>
   </main>;
 }

@@ -1,5 +1,5 @@
 import { BadRequestException, Controller, Get, Injectable, Module, NotFoundException, Param, Query } from "@nestjs/common";
-import type { ExerciseSummary } from "@lift-lab/shared-types";
+import type { ExerciseDetail, ExerciseSummary, MuscleGroupSummary } from "@lift-lab/shared-types";
 
 import { HygraphModule, HygraphService } from "../hygraph/hygraph.module";
 
@@ -11,6 +11,9 @@ export const GET_EXERCISE = `query GetExercise($slug: String!, $locales: [Locale
   exercise(where: {slug: $slug}, stage: PUBLISHED, locales: $locales) {
     ${FIELDS} summary instructions { text } modality durationMinutes equipment { name slug }
   }
+}`;
+export const LIST_MUSCLE_GROUPS = `query ListMuscleGroups($locales: [Locale!]!, $skip: Int!) {
+  muscleGroups(stage: PUBLISHED, locales: $locales, first: 100, skip: $skip, orderBy: slug_ASC) { name slug }
 }`;
 type ContentExercise = {
   title: string; slug: string; difficulty: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
@@ -45,13 +48,28 @@ export class ExercisesService {
     const data = await this.hygraph.query<{ exercises: ContentExercise[] }>(LIST_EXERCISES, variables);
     return data.exercises.map(summary);
   }
-  async get(slug: string, locale?: string) {
+  async muscleGroups(locale?: string): Promise<MuscleGroupSummary[]> {
+    const result: MuscleGroupSummary[] = [];
+    const selectedLocales = locales(locale);
+    for (let skip = 0; ; skip += 100) {
+      const data = await this.hygraph.query<{ muscleGroups: MuscleGroupSummary[] }>(LIST_MUSCLE_GROUPS, { locales: selectedLocales, skip });
+      result.push(...data.muscleGroups);
+      if (data.muscleGroups.length < 100) return result;
+    }
+  }
+  async get(slug: string, locale?: string): Promise<ExerciseDetail> {
     const { exercise } = await this.hygraph.query<{ exercise: ContentDetail | null }>(GET_EXERCISE, { slug, locales: locales(locale) });
     if (!exercise) throw new NotFoundException("Exercise not found.");
     return { ...summary(exercise), summary: exercise.summary, instructions: exercise.instructions.text,
       modality: exercise.modality.toLowerCase(), durationMinutes: exercise.durationMinutes,
       primaryMuscles: exercise.primaryMuscles, equipment: exercise.equipment };
   }
+}
+
+@Controller("muscle-groups")
+export class MuscleGroupsController {
+  constructor(private readonly exercises: ExercisesService) {}
+  @Get() list(@Query("locale") locale?: string) { return this.exercises.muscleGroups(locale); }
 }
 
 @Controller("exercises")
@@ -65,5 +83,5 @@ export class ExercisesController {
   }
 }
 
-@Module({ imports: [HygraphModule], controllers: [ExercisesController], providers: [ExercisesService] })
+@Module({ imports: [HygraphModule], controllers: [ExercisesController, MuscleGroupsController], providers: [ExercisesService] })
 export class ExercisesModule {}
