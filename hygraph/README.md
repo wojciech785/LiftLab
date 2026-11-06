@@ -73,3 +73,24 @@ captions, and asset alt text are localized. Asset rights/source metadata and
 alt text are optional at schema level so existing entries stay editable;
 editors must check them before publishing. Comparison-table rows should have
 the same number of cells as column headings. No assets are uploaded by this migration.
+
+## Workout intents (005)
+
+After 004, provision the private workout-intake model:
+
+```sh
+node --env-file=apps/api/.env scripts/hygraph/apply-workout-intents.mjs
+node --env-file=apps/api/.env scripts/hygraph/apply-workout-intents.mjs --apply
+```
+
+`WorkoutIntent` uses the existing TrainingGoal, Difficulty, and WorkoutIntentStatus
+enums. `intentStatus` avoids Hygraph's reserved `status` field name. Entry fields
+are goal, availableMinutes, experienceLevel, selectedMuscles, consent, optional
+contactEmail, and intentStatus. The application always creates DRAFT entries with
+NEW intentStatus; it never publishes requests.
+
+Keep this model out of public permissions. Configure a dedicated server token
+with Read/Create for WorkoutIntent on Draft/en, and Read on MuscleGroup for
+connecting existing entries. Do not reuse the Management or MCP token in the app.
+Migration 005 does not change account/token permissions. Anonymous DRAFT reads
+were checked and denied after provisioning.

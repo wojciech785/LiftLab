@@ -42,3 +42,12 @@ metadata are available. Otherwise a text placeholder appears. Rich-text embeds
 are displayed as unavailable media; the dedicated image-gallery block handles
 licensed images. Muscle-map blocks currently display explanatory copy and
 muscle lists, pending the anatomy asset.
+
+## Workout requests
+
+`/#/request` provides the saved-intent form: goal, time, experience, optional
+muscle focus (up to three), optional email, and explicit storage consent.
+Submission is disabled while saving. Success clears the email and consent and
+shows a receipt; failures retain the form values and explain the next step.
+There are no automatic retries, subscriptions, or generated workout plans.
+The API's dedicated mutation credentials must be configured to save for real.

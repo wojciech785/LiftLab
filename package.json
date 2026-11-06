@@ -18,7 +18,9 @@
     "hygraph:schema:programme-article-core:plan": "node scripts/hygraph/apply-programme-article-core.mjs",
     "hygraph:schema:programme-article-core:apply": "node scripts/hygraph/apply-programme-article-core.mjs --apply",
     "hygraph:schema:article-blocks-media:plan": "node scripts/hygraph/apply-article-blocks-media.mjs",
-    "hygraph:schema:article-blocks-media:apply": "node scripts/hygraph/apply-article-blocks-media.mjs --apply"
+    "hygraph:schema:article-blocks-media:apply": "node scripts/hygraph/apply-article-blocks-media.mjs --apply",
+    "hygraph:schema:workout-intents:plan": "node scripts/hygraph/apply-workout-intents.mjs",
+    "hygraph:schema:workout-intents:apply": "node scripts/hygraph/apply-workout-intents.mjs --apply"
   },
   "engines": {
     "node": ">=22"

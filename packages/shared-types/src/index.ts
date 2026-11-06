@@ -45,3 +45,12 @@ export type ArticleDetail = ArticleSummary & {
   author: EditorialProfile | null; heroAsset: MediaAsset | null; contentBlocks: ArticleBlock[];
   relatedExercises: ContentLink[]; relatedProgrammes: ContentLink[];
 };
+
+export type WorkoutIntentRequest = {
+  goal: "strength" | "hypertrophy" | "endurance" | "mobility" | "general-fitness";
+  availableMinutes: number;
+  experienceLevel: "beginner" | "intermediate" | "advanced";
+  selectedMuscles: string[];
+  consent: boolean;
+  contactEmail?: string;
+};

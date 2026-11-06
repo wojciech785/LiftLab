@@ -44,3 +44,43 @@ at 100 entries each. Rich text is exposed as structured nodes, not HTML;
 frontend rendering supports standard text formatting and safe links. Images
 include alt text and rights/source metadata. New block types receive a visible
 unsupported-block fallback until the renderer is extended.
+
+## Saved workout requests
+
+`POST /api/workout-intents` saves a draft in Hygraph and returns only
+`{"accepted":true}` with HTTP 201. It does not publish, send an email, or generate
+a workout plan. Configure `HYGRAPH_MUTATION_API_URL` and the dedicated
+`HYGRAPH_MUTATION_API_TOKEN` in `apps/api/.env`; see the environment example for
+permissions. No fallback to read, Management, or MCP tokens is used.
+
+```json
+{
+  "goal": "general-fitness",
+  "availableMinutes": 45,
+  "experienceLevel": "beginner",
+  "selectedMuscles": ["quadriceps"],
+  "consent": true
+}
+```
+
+Goal must match the five training goals; time is an integer from 15–180 minutes;
+experience is beginner/intermediate/advanced. Select zero to three unique,
+published muscle slugs. Optional contactEmail must be a valid email, at most
+254 characters. Consent must be the boolean true, whether email is supplied or
+not. Status is server-controlled and personal data/CMS IDs are not echoed.
+
+The endpoint accepts JSON from WEB_ORIGIN; localhost and 127.0.0.1 are equivalent
+for local development. Missing/foreign Origin is rejected with 403. This is a
+cross-site browser check, not user authentication. A per-IP, in-memory throttle
+allows five attempts per minute, including invalid payloads (429 afterward).
+The API remains bound to loopback. A public/multi-instance deployment needs a
+reviewed proxy configuration and shared rate-limit storage.
+
+Missing write configuration returns 503; upstream failure returns a sanitized
+502. No automatic write retry is made because a lost response can occur after
+an entry has already been stored. Review saved requests in Hygraph and remove
+them when no longer needed. Never publish them or enable public model reads.
+
+Verification includes a real Nest HTTP pipeline with a mocked CMS writer;
+the Hygraph write shape was separately simulated without persisting an entry.
+An app-to-Hygraph save still needs the dedicated local mutation credentials.

@@ -7,10 +7,19 @@ export class HygraphService {
   get isConfigured() { return Boolean(this.config.get<string>("HYGRAPH_CONTENT_API_URL") && this.config.get<string>("HYGRAPH_CONTENT_API_TOKEN")); }
   async query<T>(query: string, variables: Record<string, unknown>): Promise<T> {
     if (!this.isConfigured) throw new ServiceUnavailableException("Hygraph content access is not configured.");
+    return this.request<T>("HYGRAPH_CONTENT_API_URL", "HYGRAPH_CONTENT_API_TOKEN", query, variables);
+  }
+  async mutate<T>(query: string, variables: Record<string, unknown>): Promise<T> {
+    if (!this.config.get<string>("HYGRAPH_MUTATION_API_URL") || !this.config.get<string>("HYGRAPH_MUTATION_API_TOKEN")) {
+      throw new ServiceUnavailableException("Workout intent storage is not configured.");
+    }
+    return this.request<T>("HYGRAPH_MUTATION_API_URL", "HYGRAPH_MUTATION_API_TOKEN", query, variables);
+  }
+  private async request<T>(urlKey: string, tokenKey: string, query: string, variables: Record<string, unknown>): Promise<T> {
     try {
-      const response = await fetch(this.config.getOrThrow<string>("HYGRAPH_CONTENT_API_URL"), {
+      const response = await fetch(this.config.getOrThrow<string>(urlKey), {
         method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${this.config.getOrThrow<string>("HYGRAPH_CONTENT_API_TOKEN")}` },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${this.config.getOrThrow<string>(tokenKey)}` },
         body: JSON.stringify({ query, variables }), signal: AbortSignal.timeout(10000),
       });
       if (!response.ok) throw new Error("Content request failed");
