@@ -4,7 +4,8 @@ import { getMuscleGroups, saveWorkoutIntent, type ContentLocale } from "./api/cl
 
 export function WorkoutIntentPage({locale}: {locale: ContentLocale}) {
   const [groups,setGroups] = useState<MuscleGroupSummary[]>([]);
-  const [groupsError,setGroupsError] = useState(false);
+  const [groupsErrorLocale,setGroupsErrorLocale] = useState<ContentLocale | null>(null);
+  const groupsError = groupsErrorLocale === locale;
   const [goal,setGoal] = useState<WorkoutIntentRequest["goal"]>("general-fitness");
   const [minutes,setMinutes] = useState(45);
   const [level,setLevel] = useState<WorkoutIntentRequest["experienceLevel"]>("beginner");
@@ -17,8 +18,8 @@ export function WorkoutIntentPage({locale}: {locale: ContentLocale}) {
   const mounted = useRef(true);
   useEffect(()=>{mounted.current=true;return ()=>{mounted.current=false;};},[]);
   useEffect(()=>{
-    const controller = new AbortController(); setGroupsError(false);
-    getMuscleGroups(locale,controller.signal).then(items=>{if(!controller.signal.aborted)setGroups(items);}).catch(()=>{if(!controller.signal.aborted)setGroupsError(true);});
+    const controller = new AbortController();
+    getMuscleGroups(locale,controller.signal).then(items=>{if(!controller.signal.aborted){setGroups(items);setGroupsErrorLocale(null);}}).catch(()=>{if(!controller.signal.aborted)setGroupsErrorLocale(locale);});
     return ()=>controller.abort();
   },[locale]);
   async function submit(event: FormEvent<HTMLFormElement>) {

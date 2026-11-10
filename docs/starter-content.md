@@ -17,6 +17,13 @@ Programme slugs: `bodyweight-movement-practice`, `dumbbell-movement-practice`.
 Article slugs: `how-to-use-the-exercise-library`, `bodyweight-or-dumbbells`,
 `reading-a-practice-session`.
 
+## Common mistakes (2026-11-10)
+
+All 8 exercises have three `commonMistakes` in en + cs (general, widely taught
+form cues; AI-written, not coach-reviewed). Seven were published on
+2026-11-10; `glute-bridge` publishes with its scheduled release
+(2026-11-11 09:00 Prague) together with the revised summary.
+
 ## Editorial status
 
 Exercise cues are original summaries checked against the references below.

@@ -11,12 +11,7 @@ export default tseslint.config(
     files: ["apps/web/**/*.{ts,tsx}"],
     languageOptions: { globals: globals.browser },
     plugins: { "react-hooks": reactHooks },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      // Existing fetch effects reset loading/error state synchronously. Tracked as
-      // a follow-up refactor; keep visible as warnings rather than blocking lint.
-      "react-hooks/set-state-in-effect": "warn",
-    },
+    rules: { ...reactHooks.configs.recommended.rules },
   },
   {
     // Compile-time contract assertions intentionally use bare expressions.

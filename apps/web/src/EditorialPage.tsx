@@ -42,7 +42,6 @@ export function EditorialPage({section,slug,locale}: {section: "programmes" | "a
   const key = `${section}/${slug}/${locale}/${offset}/${retry}`;
   useEffect(()=>{
     const controller = new AbortController();
-    setState({key,data:null,error:""});
     const request = section === "programmes" ? (slug ? getProgramme(slug,locale,controller.signal) : getProgrammes(locale,offset,controller.signal)) : (slug ? getArticle(slug,locale,controller.signal) : getArticles(locale,offset,controller.signal));
     request.then(data=>{if(!controller.signal.aborted)setState({key,data,error:""});}).catch(error=>{if(!controller.signal.aborted)setState({key,data:null,error:error instanceof Error ? error.message : "Could not load content."});});
     return ()=>controller.abort();

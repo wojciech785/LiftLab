@@ -110,8 +110,8 @@ the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` en
 ## Known gaps vs. SDD
 
 - Deliberately not adopted: Tailwind, React Router, Zod, Prettier, NestJS Jest (see SDD §4). Playwright e2e still planned.
-- `react-hooks/set-state-in-effect` is downgraded to a warning (4 fetch effects reset state
-  synchronously) — refactor candidates, don't add new ones.
+- Fetch effects never reset state synchronously (`react-hooks/set-state-in-effect` is an error):
+  store results with the request key they belong to and derive loading/error from it.
 - No `docs/schema-changelog.md` (migration files + `hygraph/README.md` serve this role).
 - Webhook handling was removed from the BFF on purpose; `HYGRAPH_WEBHOOK_SECRET` in the SDD
   env list is obsolete.
