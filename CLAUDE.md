@@ -56,6 +56,7 @@ npm run hygraph:schema:<name>:plan | :apply   # foundation, workflow-localizatio
   3 labelled demo editorial profiles (not real coaches), 2 programmes × 3 sessions,
   3 articles. No assets uploaded; `meshId`s are placeholders. `mcp-test-*` entries are
   drafts and must stay unpublished. Inventory + references: `docs/starter-content.md`.
+- Assets: import by public URL from this repo (direct S3 upload is blocked); see `docs/assets.md`.
 - Editorial workflow recipe, gotchas and practice log: `docs/editorial-workflow.md`.
   Publishing copies DRAFT (not REVIEW); always pass `locales:[en, cs]` + `publishBase:true`.
 - Content is AI-assisted, not coach-reviewed; keep educational/no-medical-advice framing and

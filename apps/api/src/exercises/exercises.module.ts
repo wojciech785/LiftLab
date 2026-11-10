@@ -1,5 +1,5 @@
 import { BadRequestException, Controller, Get, Injectable, Module, NotFoundException, Param, Query } from "@nestjs/common";
-import type { ExerciseDetail, ExerciseSummary, MuscleGroupSummary } from "@lift-lab/shared-types";
+import type { ExerciseDetail, ExerciseSummary, MuscleGroupOption } from "@lift-lab/shared-types";
 
 import { HygraphModule, HygraphService } from "../hygraph/hygraph.module";
 
@@ -31,12 +31,12 @@ export class ExercisesService {
     const data = await this.hygraph.query(ListExercisesDocument, variables);
     return data.exercises.map(summary);
   }
-  async muscleGroups(locale?: string): Promise<MuscleGroupSummary[]> {
-    const result: MuscleGroupSummary[] = [];
+  async muscleGroups(locale?: string): Promise<MuscleGroupOption[]> {
+    const result: MuscleGroupOption[] = [];
     const selectedLocales = locales(locale);
     for (let skip = 0; ; skip += 100) {
       const data = await this.hygraph.query(ListMuscleGroupsDocument, { locales: selectedLocales, skip });
-      result.push(...data.muscleGroups);
+      result.push(...data.muscleGroups.map(({ name, slug, illustration }) => ({ name, slug, illustration: illustration ?? null })));
       if (data.muscleGroups.length < 100) return result;
     }
   }

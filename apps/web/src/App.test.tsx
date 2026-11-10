@@ -16,6 +16,16 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.resetAllMocks(); });
 
 describe("exercise browser", () => {
+  it("shows the selected muscle group's licensed illustration", async () => {
+    const user = userEvent.setup();
+    vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps", illustration: { url: "https://cdn.example.test/quads.svg", altText: "Front view with the thighs highlighted", rightsSource: "Original Lift Lab illustration, CC0" } }]);
+    render(<App />);
+    await screen.findByRole("button", { name: /View exercise: Squat/ });
+    expect(screen.queryByRole("img")).toBeNull();
+    await user.selectOptions(screen.getByRole("combobox", { name: "Muscle group" }), "quadriceps");
+    expect(await screen.findByRole("img", { name: "Front view with the thighs highlighted" })).toHaveProperty("src", "https://cdn.example.test/quads.svg");
+    expect(screen.getByText(/Original Lift Lab illustration, CC0/)).toBeTruthy();
+  });
   it("opens an article from navigation and follows its related exercise link", async () => {
     const user = userEvent.setup();
     vi.mocked(getArticles).mockResolvedValue([{title:'Guide',slug:'guide',excerpt:'Read this guide'}]);

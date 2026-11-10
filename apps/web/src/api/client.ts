@@ -1,4 +1,4 @@
-import type { ArticleDetail, ArticleSummary, ExerciseDetail, ExerciseSummary, MuscleGroupSummary, ProgrammeDetail, ProgrammeSummary, WorkoutIntentRequest } from "@lift-lab/shared-types";
+import type { ArticleDetail, ArticleSummary, ExerciseDetail, ExerciseSummary, MuscleGroupOption, ProgrammeDetail, ProgrammeSummary, WorkoutIntentRequest } from "@lift-lab/shared-types";
 
 const apiUrl = import.meta.env.VITE_API_URL ?? "/api";
 
@@ -13,10 +13,10 @@ export async function getExercises(locale: ContentLocale, muscle: string, offset
   return response.json() as Promise<ExerciseSummary[]>;
 }
 
-export async function getMuscleGroups(locale: ContentLocale, signal: AbortSignal): Promise<MuscleGroupSummary[]> {
+export async function getMuscleGroups(locale: ContentLocale, signal: AbortSignal): Promise<MuscleGroupOption[]> {
   const response = await fetch(`${apiUrl}/muscle-groups?locale=${locale}`, { signal });
   if (!response.ok) throw new Error("Could not load muscle groups.");
-  return response.json() as Promise<MuscleGroupSummary[]>;
+  return response.json() as Promise<MuscleGroupOption[]>;
 }
 
 export async function getExercise(slug: string, locale: ContentLocale, signal: AbortSignal): Promise<ExerciseDetail> {

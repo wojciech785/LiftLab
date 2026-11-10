@@ -6,6 +6,8 @@ export type ExerciseSummary = {
 };
 
 export type MuscleGroupSummary = { name: string; slug: string };
+/** Muscle-group filter option; the illustration is a CMS asset (original Lift Lab artwork). */
+export type MuscleGroupOption = MuscleGroupSummary & { illustration?: MediaAsset | null };
 
 export type ExerciseDetail = ExerciseSummary & {
   summary: string;

@@ -10,5 +10,7 @@ query GetExercise($slug: String!, $locales: [Locale!]!) {
   }
 }
 query ListMuscleGroups($locales: [Locale!]!, $skip: Int!) {
-  muscleGroups(stage: PUBLISHED, locales: $locales, first: 100, skip: $skip, orderBy: slug_ASC) { name slug }
+  muscleGroups(stage: PUBLISHED, locales: $locales, first: 100, skip: $skip, orderBy: slug_ASC) {
+    name slug illustration { url altText rightsSource }
+  }
 }

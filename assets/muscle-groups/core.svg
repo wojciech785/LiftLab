@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 264" width="480" height="528" role="img">
+  <!-- Lift Lab muscle-group illustration: core. Original work, CC0. Left: front view. Right: back view. -->
+  <rect width="240" height="264" rx="16" fill="#f6f0e3"/>
+  <g transform="translate(64 0)">
+    <g fill="#dfd2b9" stroke="#14251f" stroke-width="1.5" stroke-linejoin="round">
+  <circle cx="0" cy="26" r="14"/>
+  <rect x="-6" y="38" width="12" height="10" rx="3"/>
+  <path d="M-34 52 Q0 42 34 52 L30 120 Q0 130 -30 120 Z"/>
+  <path d="M-36 54 Q-48 58 -48 76 L-52 132 Q-50 138 -44 136 L-38 82 Z"/>
+  <path d="M36 54 Q48 58 48 76 L52 132 Q50 138 44 136 L38 82 Z"/>
+  <path d="M-30 118 Q0 130 30 118 L28 140 Q0 148 -28 140 Z"/>
+  <path d="M-28 138 L-4 142 L-8 206 L-22 206 Z"/>
+  <path d="M28 138 L4 142 L8 206 L22 206 Z"/>
+  <path d="M-22 206 L-8 206 L-10 252 L-20 252 Z"/>
+  <path d="M22 206 L8 206 L10 252 L20 252 Z"/></g>
+    <g fill="#b34d25" stroke="#14251f" stroke-width="1" opacity="0.92"><rect x="-14" y="78" width="28" height="44" rx="8"/></g>
+  </g>
+  <g transform="translate(176 0)">
+    <g fill="#dfd2b9" stroke="#14251f" stroke-width="1.5" stroke-linejoin="round">
+  <circle cx="0" cy="26" r="14"/>
+  <rect x="-6" y="38" width="12" height="10" rx="3"/>
+  <path d="M-34 52 Q0 42 34 52 L30 120 Q0 130 -30 120 Z"/>
+  <path d="M-36 54 Q-48 58 -48 76 L-52 132 Q-50 138 -44 136 L-38 82 Z"/>
+  <path d="M36 54 Q48 58 48 76 L52 132 Q50 138 44 136 L38 82 Z"/>
+  <path d="M-30 118 Q0 130 30 118 L28 140 Q0 148 -28 140 Z"/>
+  <path d="M-28 138 L-4 142 L-8 206 L-22 206 Z"/>
+  <path d="M28 138 L4 142 L8 206 L22 206 Z"/>
+  <path d="M-22 206 L-8 206 L-10 252 L-20 252 Z"/>
+  <path d="M22 206 L8 206 L10 252 L20 252 Z"/></g>
+    <g fill="#b34d25" stroke="#14251f" stroke-width="1" opacity="0.92"></g>
+  </g>
+  <line x1="120" y1="24" x2="120" y2="240" stroke="#14251f" stroke-opacity="0.15" stroke-dasharray="4 4"/>
+</svg>
