@@ -1,6 +1,6 @@
 # Lift Lab — Software Design Document
 
-**Status:** Workspace skeleton established; Hygraph integration not configured yet
+**Status (2026-11-10):** Schema migrations 001–005 applied; starter content published; NestJS read/write API and React browser for exercises, programmes, articles and workout requests working. Next: Hygraph MCP connection, assets/editorial workflow, Live Preview, 3D muscle map. See `CLAUDE.md` for the as-built summary.
 **Purpose:** A Hygraph-first learning project that turns strength-training knowledge into an interactive exercise library, workout planner, and 3D muscle explorer.
 
 ## 1. Product definition
@@ -77,54 +77,46 @@ Browser
 
 | Area | Technology | Why |
 | --- | --- | --- |
-| Frontend | React 19, Vite, TypeScript, React Router | A familiar, fast local SPA development workflow with explicit client routes. |
+| Frontend | React 19, Vite, TypeScript, hash-based routing | A familiar, fast local SPA workflow. *As built:* a small hash router replaced React Router so refresh/back work without hosting rewrites. |
 | Backend / BFF | NestJS, TypeScript, Node.js | Modular API, dependency injection, validation, configuration, and a clear boundary around Hygraph credentials. |
-| Styling | Tailwind CSS + CSS variables | Fast, consistent responsive UI with design tokens. |
+| Styling | Plain CSS + CSS variables | *As built:* per-area stylesheets in `apps/web/src/styles`; Tailwind not adopted. |
 | 3D | React Three Fiber, Three.js, `@react-three/drei` | Declarative React integration, loading helpers, accessible fallback design. |
 | CMS | Hygraph | Structured GraphQL content, assets, stages, locales, variants, and schema management. |
 | GraphQL | `graphql-request` plus generated TypeScript types | Small client surface and typed query/mutation contracts. |
 | Code generation | GraphQL Code Generator | Regenerates operations/types when Hygraph schema changes. |
-| Validation | Zod | Validates environment values and incoming mutation payloads. |
-| Testing | Vitest, React Testing Library, NestJS Jest tests, Playwright | Unit/component/API/browser coverage; 3D logic tested separately from rendering where practical. |
-| Quality | ESLint, Prettier, TypeScript strict mode | Consistent, safe learning project. |
+| Validation | class-validator / class-transformer | *As built:* NestJS `ValidationPipe` DTOs validate mutation payloads; Zod not adopted. |
+| Testing | Vitest + React Testing Library (web), `node:test` against the built API, compile-time type-contract checks | *As built.* Playwright end-to-end tests are still planned. |
+| Quality | ESLint (flat config, typescript-eslint, react-hooks), TypeScript strict mode | `npm run check` runs lint, typecheck, codegen freshness and tests. Prettier deliberately not adopted to avoid a whole-repo reformat. |
 | Local runtime | Node.js LTS, two local dev servers | Frontend and API run locally; a temporary HTTPS tunnel is only needed when testing Hygraph Live Preview. |
 
-## 5. Repository structure (planned)
+## 5. Repository structure (as built)
 
 ```text
 lift-lab/
-├── SDD.md
-├── package.json                     # workspace scripts
-├── package-lock.json                # npm workspace lockfile (created at install)
+├── SDD.md, CLAUDE.md
+├── package.json                     # workspace scripts (dev, build, check, codegen, hygraph:schema:*)
+├── eslint.config.mjs
 ├── apps/
 │   ├── web/                         # React/Vite SPA
-│   │   ├── .env.example             # public values only, e.g. VITE_API_URL
-│   │   ├── src/
-│   │   │   ├── pages/               # Home, Exercise, Programme, Article
-│   │   │   ├── components/
-│   │   │   │   ├── muscle-map/      # R3F canvas, mesh map, accessible fallback
-│   │   │   │   ├── exercises/
-│   │   │   │   ├── programmes/
-│   │   │   │   ├── rich-text/
-│   │   │   │   └── ui/
-│   │   │   ├── api/                 # typed calls to the Nest API
-│   │   │   └── routes/
-│   │   └── public/models/           # optimised GLB, if licensing permits
+│   │   ├── .env.example             # VITE_API_URL only
+│   │   └── src/
+│   │       ├── App.tsx              # hash router + nav + locale picker
+│   │       ├── ExercisesPage.tsx, EditorialPage.tsx, WorkoutIntentPage.tsx
+│   │       ├── api/client.ts        # typed calls to the Nest API
+│   │       ├── components/          # RichText, muscle-map (placeholder, not rendered)
+│   │       └── styles/
 │   └── api/                         # NestJS BFF
-│       ├── .env.example             # Hygraph tokens
+│       ├── .env.example             # server-only Hygraph tokens
+│       ├── codegen.mjs
+│       ├── test/                    # node:test suites + type-contracts.ts
 │       └── src/
-│           ├── hygraph/             # GraphQL client, operations, generated types
-│           ├── exercises/
-│           ├── programmes/
-│           ├── workout-intents/
-│           ├── common/              # guards, filters, DTOs, config
-│           └── app.module.ts
-├── packages/
-│   └── shared-types/                # safe DTOs shared by web and API
-├── content/                         # local fixtures only, never the content source of truth
-└── tests/
-    ├── e2e/
-    └── integration/
+│           ├── hygraph/             # HygraphService, operations/*.graphql, schema.graphql, generated/
+│           ├── exercises/, editorial/, workout-intents/, health/
+│           └── app.module.ts, main.ts
+├── packages/shared-types/           # REST DTOs shared by web and API
+├── hygraph/schema/NNN-*.mjs         # immutable schema migrations (Management SDK)
+├── scripts/hygraph/                 # plan/apply + schema refresh scripts
+└── docs/starter-content.md          # published content inventory and references
 ```
 
 ## 6. Hygraph content model
@@ -263,12 +255,13 @@ HYGRAPH_CONTENT_API_URL=
 HYGRAPH_CONTENT_API_TOKEN=
 HYGRAPH_MUTATION_API_URL=
 HYGRAPH_MUTATION_API_TOKEN=
-HYGRAPH_WEBHOOK_SECRET=
+HYGRAPH_MANAGEMENT_API_TOKEN=     # schema migrations only
+HYGRAPH_SCHEMA_API_ENDPOINT=      # optional, defaults to content URL
 HYGRAPH_MCP_ENDPOINT=
 HYGRAPH_MCP_PAT=
 ```
 
-`.env` remains local and ignored. The MCP PAT is only supplied to the Hygraph MCP connector; it must not be added to client code, screenshots, commits, or application logs.
+`PORT` and `WEB_ORIGIN` are also read by the API. The BFF does not handle webhooks, so no webhook secret is configured in the app. `.env` remains local and ignored. The MCP PAT is only supplied to the Hygraph MCP connector; it must not be added to client code, screenshots, commits, or application logs.
 
 ## 9. Live Preview, locales, and variants
 
@@ -291,29 +284,31 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 
 ### Phase 0 — Foundation and access
 
-- [ ] Create a Hygraph project and configure locales, stages, a development environment, and taxonomy.
-- [ ] Store credentials locally and connect the Hygraph MCP using the user’s PAT.
-- [ ] Scaffold an npm workspace with React/Vite frontend, NestJS API, TypeScript, styling, linting, formatting, testing, and `.env.example` files.
-- [ ] Confirm no secret is exposed to the browser.
+- [x] Create a Hygraph project and configure locales, stages, and taxonomy (migrations 001–003).
+- [ ] Create a separate development environment (currently only `master`).
+- [x] Store credentials locally (`apps/api/.env`, git-ignored).
+- [ ] Connect the Hygraph MCP to the Claude workspace using the user’s PAT.
+- [x] Scaffold an npm workspace with React/Vite frontend, NestJS API, TypeScript, styling, linting, testing, and `.env.example` files (see §4 for as-built deviations).
+- [x] Confirm no secret is exposed to the browser.
 
 ### Phase 1 — Model the content
 
-- [ ] Create the models, components, enumerations, conditional fields, relations, and taxonomy in this SDD.
-- [ ] Capture schema changes in a short `docs/schema-changelog.md`.
-- [ ] Generate GraphQL types and review operation contracts.
+- [x] Create the models, components, enumerations, conditional fields, relations, and taxonomy in this SDD.
+- [x] Capture schema changes — done as numbered migrations in `hygraph/schema/` documented in `hygraph/README.md` instead of a separate changelog.
+- [x] Generate GraphQL types and review operation contracts.
 
 ### Phase 2 — Editorial content and DAM
 
-- [ ] Create 8–12 exercises across body regions and modalities.
-- [ ] Add 2 programmes, 3 sessions per programme, 3 coaches, and 3 modular articles.
+- [x] Create 8–12 exercises across body regions and modalities (8 published, en + cs).
+- [x] Add 2 programmes, 3 sessions per programme, 3 coaches, and 3 modular articles (coaches are labelled demo editorial profiles).
 - [ ] Upload properly attributed assets with alt text; map at least six `meshId` values.
 - [ ] Exercise the stages, publication, scheduling, and version comparison workflow.
 
 ### Phase 3 — Frontend and backend connection
 
-- [ ] Build responsive React browse pages and NestJS Hygraph read endpoints.
+- [x] Build responsive React browse pages and NestJS Hygraph read endpoints.
 - [ ] Build the 3D muscle-map experience with non-WebGL fallback.
-- [ ] Implement typed queries and the validated workout-intent mutation.
+- [x] Implement typed queries and the validated workout-intent mutation.
 - [ ] Use the API Playground to test equivalent queries/mutations before coding them.
 
 ### Phase 4 — Production CMS features

@@ -2,6 +2,8 @@ import { Fragment, type ReactNode } from "react";
 import type { MediaAsset, RichContent, RichNode } from "@lift-lab/shared-types";
 
 export function safeUrl(value: string | null | undefined, image = false): string | undefined {
+  // Reject control characters, whitespace and backslashes before URL parsing.
+  // eslint-disable-next-line no-control-regex
   if (!value || /[\u0000-\u0020\u007f\\]/.test(value)) return undefined;
   if (value.startsWith("/") && !value.startsWith("//")) return value;
   if (!image && value.startsWith("#")) return value;
