@@ -82,7 +82,19 @@ migrations is enough here.
 
 | Date | Migration | development | master | Diff after promote |
 | --- | --- | --- | --- | --- |
-| 2026-11-10 | 006 Exercise.commonMistakes (optional, localized string list) | pending clone | pending | — |
+| 2026-11-10 | 006 Exercise.commonMistakes (optional, localized string list) | Applied 11:36 UTC; tested with en/cs sample data on `goblet-squat` and the 3–140 character rule | Replayed 11:37 UTC | Empty (7,394 schema entries in both) |
 
-006 was validated against master's schema with a dry run (Hygraph MCP,
-`VALIDATED`); nothing has been applied yet.
+The 2026-11-10 run used the Hygraph MCP (`submit_batch_migration`, dry run
+first) because `apps/api/.env` was not set up; the operations were the exact
+`npm run hygraph:migrate -- 006` plan. Before promoting, a comparison of both
+environments' introspection showed 14 additions in development (all from
+`commonMistakes`) and nothing master-only, so no deletion risk.
+
+Gotchas:
+- Introspection results can be cached briefly after a migration; change the
+  query text (e.g. add an operation name) to get a fresh result.
+- A schema snapshot taken with a token whose default stage is DRAFT prints
+  `stage: Stage! = DRAFT` defaults. Keep `apps/api/src/hygraph/schema.graphql`
+  generated from the app's read token (PUBLISHED) — `npm run hygraph:schema:refresh`.
+- `development` still holds the sample `goblet-squat` mistakes; they are test
+  data and were not added to master.

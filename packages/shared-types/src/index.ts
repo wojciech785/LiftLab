@@ -16,6 +16,8 @@ export type ExerciseDetail = ExerciseSummary & {
   durationMinutes: number | null;
   primaryMuscles: MuscleGroupSummary[];
   equipment: { name: string; slug: string }[];
+  /** Localized form faults to avoid; empty when the editor has not added any. */
+  commonMistakes: string[];
 };
 
 export type ContentLink = { title: string; slug: string };

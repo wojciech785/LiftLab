@@ -45,7 +45,7 @@ export class ExercisesService {
     if (!exercise) throw new NotFoundException("Exercise not found.");
     return { ...summary(exercise), summary: exercise.summary, instructions: exercise.instructions.text,
       modality: exercise.modality.toLowerCase(), durationMinutes: exercise.durationMinutes,
-      primaryMuscles: exercise.primaryMuscles, equipment: exercise.equipment };
+      primaryMuscles: exercise.primaryMuscles, equipment: exercise.equipment, commonMistakes: exercise.commonMistakes ?? [] };
   }
 }
 

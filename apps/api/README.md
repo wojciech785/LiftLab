@@ -15,7 +15,8 @@ token separate from the management/mutation tokens.
   primary muscle slug. Czech reads fall back to English. Maximum limit is 100;
   offset is bounded at 10000. Lists are sorted by slug.
 - `GET /api/exercises/:slug?locale=en` returns exercise detail, including plain
-  text instructions, all primary muscles, and equipment. Missing or draft-only
+  text instructions, all primary muscles, equipment, and `commonMistakes`
+  (localized list, empty when none). Missing or draft-only
   entries return 404.
 
 Only `en` and `cs` locales are accepted. Invalid locale/pagination returns 400,

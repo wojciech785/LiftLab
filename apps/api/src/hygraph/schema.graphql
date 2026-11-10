@@ -7867,6 +7867,9 @@ type Exercise implements Entity & Node {
     locales: [Locale!]
   ): Coach
 
+  """Short form faults to avoid, one per item (e.g. 'Knees cave inward')."""
+  commonMistakes: [String!]!
+
   """The time the document was created"""
   createdAt(
     """
@@ -8960,6 +8963,9 @@ input ExerciseCreateInput {
   """barbellSetup input for default locale (en)"""
   barbellSetup: String
   coach: CoachCreateOneInlineInput
+
+  """commonMistakes input for default locale (en)"""
+  commonMistakes: [String!]
   createdAt: DateTime
   difficulty: Difficulty!
   durationMinutes: Int
@@ -9016,6 +9022,7 @@ input ExerciseCreateInput {
 
 input ExerciseCreateLocalizationDataInput {
   barbellSetup: String
+  commonMistakes: [String!]
   createdAt: DateTime
   instructions: RichTextAST!
   machineAlternative: String
@@ -9353,6 +9360,8 @@ enum ExerciseModality {
 enum ExerciseOrderByInput {
   barbellSetup_ASC
   barbellSetup_DESC
+  commonMistakes_ASC
+  commonMistakes_DESC
   createdAt_ASC
   createdAt_DESC
   difficulty_ASC
@@ -10395,6 +10404,9 @@ input ExerciseUpdateInput {
   """barbellSetup input for default locale (en)"""
   barbellSetup: String
   coach: CoachUpdateOneInlineInput
+
+  """commonMistakes input for default locale (en)"""
+  commonMistakes: [String!]
   difficulty: Difficulty
   durationMinutes: Int
   equipment: EquipmentUpdateManyInlineInput
@@ -10447,6 +10459,7 @@ input ExerciseUpdateInput {
 
 input ExerciseUpdateLocalizationDataInput {
   barbellSetup: String
+  commonMistakes: [String!]
   instructions: RichTextAST
   machineAlternative: String
   machineSetup: String
@@ -10503,6 +10516,9 @@ input ExerciseUpdateManyInlineInput {
 input ExerciseUpdateManyInput {
   """barbellSetup input for default locale (en)"""
   barbellSetup: String
+
+  """commonMistakes input for default locale (en)"""
+  commonMistakes: [String!]
   difficulty: Difficulty
   durationMinutes: Int
 
@@ -10543,6 +10559,7 @@ input ExerciseUpdateManyInput {
 
 input ExerciseUpdateManyLocalizationDataInput {
   barbellSetup: String
+  commonMistakes: [String!]
   instructions: RichTextAST
   machineAlternative: String
   machineSetup: String
@@ -10674,6 +10691,29 @@ input ExerciseWhereInput {
   """All values starting with the given string."""
   barbellSetup_starts_with: String
   coach: CoachWhereInput
+
+  """
+  Matches if the field array contains *all* items provided to the filter and order does match
+  """
+  commonMistakes: [String!]
+
+  """Matches if the field array contains *all* items provided to the filter"""
+  commonMistakes_contains_all: [String!]
+
+  """
+  Matches if the field array does not contain any of the items provided to the filter
+  """
+  commonMistakes_contains_none: [String!]
+
+  """
+  Matches if the field array contains at least one item provided to the filter
+  """
+  commonMistakes_contains_some: [String!]
+
+  """
+  Matches if the field array does not contains *all* items provided to the filter or order does not match
+  """
+  commonMistakes_not: [String!]
   createdAt: DateTime
 
   """All values greater than the given value."""

@@ -117,5 +117,5 @@ the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` en
   env list is obsolete.
 - Deferred/dropped by decision (2026-11-10): Live Preview + click-to-edit; audience variants /
   second brand (Enterprise feature, not enabled).
-- Not started: exercise photos/video, environment promotion,
+- Not started: exercise photos/video,
   YouTube remote field, publish webhook, backup/audit docs, reflection/decision log.

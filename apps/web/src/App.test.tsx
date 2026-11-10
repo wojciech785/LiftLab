@@ -11,11 +11,19 @@ beforeEach(() => {
   window.history.replaceState(null, "", "/");
   vi.mocked(getExercises).mockResolvedValue([item]);
   vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps" }]);
-  vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: "Move with control.", modality: "bodyweight", durationMinutes: 5, primaryMuscles: [{ name: "Quadriceps", slug: "quadriceps" }], equipment: [] });
+  vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: "Move with control.", modality: "bodyweight", durationMinutes: 5, primaryMuscles: [{ name: "Quadriceps", slug: "quadriceps" }], equipment: [], commonMistakes: [] });
 });
 afterEach(() => { cleanup(); vi.resetAllMocks(); });
 
 describe("exercise browser", () => {
+  it("lists common mistakes only when the exercise has them", async () => {
+    const user = userEvent.setup();
+    vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: "Move with control.", modality: "bodyweight", durationMinutes: 5, primaryMuscles: [], equipment: [], commonMistakes: ["Knees cave inward", "Heels lift off the floor"] });
+    render(<App />);
+    await user.click(await screen.findByRole("button", { name: /View exercise: Squat/ }));
+    expect(await screen.findByRole("heading", { name: "Common mistakes", level: 3 })).toBeTruthy();
+    expect(screen.getAllByRole("listitem").map(li => li.textContent)).toEqual(expect.arrayContaining(["Knees cave inward", "Heels lift off the floor"]));
+  });
   it("filters the library from the body map and keeps the list control in sync", async () => {
     vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps", meshId: "quadriceps" }, { name: "Chest", slug: "chest", meshId: "chest" }]);
     const { container } = render(<App />);
