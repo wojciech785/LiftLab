@@ -16,7 +16,18 @@ mutation { createAsset(data:{
 }) { id } }
 ```
 
-Then connect the asset to its entry and publish both (`locales:[en, cs]`).
+**Assets are localized per file.** Creating the `cs` localization with only
+`altText` leaves that locale without a file (`ASSET_CREATE_PENDING`), and
+publishing fails with "You tried to publish a non complete asset". Give each
+locale its file — at create time, or afterwards with:
+
+```graphql
+mutation { updateAsset(where:{id:$id}, data:{ localizations:{ update:[{ locale: cs,
+  data:{ reUpload: true, uploadUrl:"https://raw.githubusercontent.com/…" } }] } }) { id } }
+```
+
+Then connect the asset to its entry and publish both (`locales:[en, cs]`,
+`publishBase:true`): assets first, then the entries that reference them.
 
 ## Muscle-group illustrations
 
@@ -26,7 +37,8 @@ one highlighted region). Original artwork created for Lift Lab with AI
 assistance, released under CC0 — no third-party rights. A simple abstract body
 diagram, as the SDD suggests before any 3D model; not anatomically precise.
 
-Linked to `MuscleGroup.illustration`; `GET /api/muscle-groups` returns it and
+Imported, linked and published on 2026-11-10 (en + cs) for all seven published
+muscle groups; `mcp-test-quadriceps` (draft fixture) has none. Linked to `MuscleGroup.illustration`; `GET /api/muscle-groups` returns it and
 the exercise library shows it when a muscle is selected.
 
 | Slug | Alt text (en) | Alt text (cs) |

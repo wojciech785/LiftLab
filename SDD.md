@@ -301,7 +301,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 
 - [x] Create 8–12 exercises across body regions and modalities (8 published, en + cs).
 - [x] Add 2 programmes, 3 sessions per programme, 3 coaches, and 3 modular articles (coaches are labelled demo editorial profiles).
-- [ ] Upload properly attributed assets with alt text; map at least six `meshId` values.
+- [~] Upload properly attributed assets with alt text; map at least six `meshId` values (7 original CC0 muscle-group illustrations published with en/cs alt text, see `docs/assets.md`; exercise photos/video and GLB `meshId` validation still open).
 - [~] Exercise the stages, publication, scheduling, and version comparison workflow (Draft → Review → scheduled release done on `glute-bridge`, see `docs/editorial-workflow.md`; Studio version diff still to try).
 
 ### Phase 3 — Frontend and backend connection
