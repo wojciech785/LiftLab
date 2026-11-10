@@ -112,6 +112,7 @@ the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` en
 - No `docs/schema-changelog.md` (migration files + `hygraph/README.md` serve this role).
 - Webhook handling was removed from the BFF on purpose; `HYGRAPH_WEBHOOK_SECRET` in the SDD
   env list is obsolete.
-- Deferred by decision: Live Preview + click-to-edit (2026-11-10).
-- Not started: exercise photos/video, variants / second brand, environment promotion,
+- Deferred/dropped by decision (2026-11-10): Live Preview + click-to-edit; audience variants /
+  second brand (Enterprise feature, not enabled).
+- Not started: exercise photos/video, environment promotion,
   YouTube remote field, publish webhook, backup/audit docs, reflection/decision log.
