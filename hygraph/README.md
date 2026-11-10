@@ -1,5 +1,10 @@
 # Hygraph schema as code
 
+> **From migration 006 on**, use the generic runner and the development →
+> master workflow in [`docs/environments.md`](../docs/environments.md):
+> `npm run hygraph:migrate -- NNN --env development --apply`. The per-migration
+> `apply-*.mjs` scripts below are kept for 001–005 history.
+
 Each numbered file in `schema/` is an immutable migration. Do not edit an
 applied migration; create the next number for any schema change. The initial
 foundation provisions a **blank** environment with Lift Lab's shared enums,

@@ -47,6 +47,9 @@ npm run hygraph:schema:<name>:plan | :apply   # foundation, workflow-localizatio
   Exercise / MuscleGroup / Equipment / Coach, conditional modality fields, Review stage +
   Czech localisation, WorkoutProgramme / WorkoutSession / ExerciseSet / Article,
   Training-attributes taxonomy, 7 Article block types + asset fields, WorkoutIntent.
+- **Environments:** schema changes go to `development` first, then are promoted by replaying the
+  migration on master (`npm run hygraph:migrate -- NNN --env <env> --apply`, `npm run hygraph:diff
+  -- --from development --to master`). Never change master's schema directly. See `docs/environments.md`.
 - **Migrations are immutable.** Never edit an applied file; add the next number plus an
   `apply-*` script and root `plan`/`apply` npm scripts. Always run `plan` and review before
   `--apply`. A failed submission reserves the migration name — retry with

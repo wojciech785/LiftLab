@@ -285,7 +285,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 ### Phase 0 — Foundation and access
 
 - [x] Create a Hygraph project and configure locales, stages, and taxonomy (migrations 001–003).
-- [ ] Create a separate development environment (currently only `master`).
+- [ ] Create a separate `development` environment (Studio clone of master; steps in `docs/environments.md`).
 - [x] Store credentials locally (`apps/api/.env`, git-ignored).
 - [x] Connect the Hygraph MCP to the Claude workspace (global connector, verified 2026-11-10).
 - [x] Scaffold an npm workspace with React/Vite frontend, NestJS API, TypeScript, styling, linting, testing, and `.env.example` files (see §4 for as-built deviations).
@@ -316,7 +316,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 - [ ] ~~Add Live Preview and click-to-edit~~ **Deferred (2026-11-10):** not needed for this prototype. A light option remains: a secret-protected DRAFT preview mode in the API plus Hygraph preview URLs, without click-to-edit.
 - [x] Localise selected content to Czech (all starter exercises, muscle groups, programmes, articles and asset alt text have `cs`).
 - [ ] ~~Add audience variants and demonstrate a Lift Lab Home second-brand view~~ **Dropped (2026-11-10):** Variants are an Enterprise feature not enabled on this project, and not needed for the prototype.
-- [ ] Make, diff, and promote a schema change across environments.
+- [~] Make, diff, and promote a schema change across environments (tooling + workflow in `docs/environments.md`; migration 006 ready; waiting for the `development` clone).
 
 ### Phase 5 — Advanced operations
 

@@ -5,3 +5,6 @@ dist
 .env.local
 coverage
 *.tsbuildinfo
+
+# Files the Claude desktop app drops into connected folders
+Claude outputs/
