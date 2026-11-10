@@ -42,11 +42,11 @@ test('detail maps the public DTO without exposing CMS internals', async () => {
   const service = new ExercisesService({ query: async (_query, variables) => {
     assert.deepEqual(variables, { slug: 'squat', locales: ['en'] });
     return { exercise: { id: 'internal', title: 'Squat', slug: 'squat', difficulty: 'BEGINNER',
-      primaryMuscles: [], summary: 'Overview', instructions: { text: 'Instructions' },
+      primaryMuscles: [], summary: 'Overview', instructions: { raw: { children: [{ type: 'paragraph', children: [{ text: 'Instructions' }] }] } },
       modality: 'BODYWEIGHT', durationMinutes: null, equipment: [], commonMistakes: ['Knees cave inward'] } };
   }});
   assert.deepEqual(await service.get('squat'), { title: 'Squat', slug: 'squat', difficulty: 'beginner',
-    primaryMuscle: '', primaryMuscles: [], summary: 'Overview', instructions: 'Instructions',
+    primaryMuscle: '', primaryMuscles: [], summary: 'Overview', instructions: { children: [{ type: 'paragraph', children: [{ text: 'Instructions' }] }] },
     modality: 'bodyweight', durationMinutes: null, equipment: [], commonMistakes: ['Knees cave inward'] });
 });
 test('unconfigured content access returns 503', async () => {

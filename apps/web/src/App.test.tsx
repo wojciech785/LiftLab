@@ -11,14 +11,28 @@ beforeEach(() => {
   window.history.replaceState(null, "", "/");
   vi.mocked(getExercises).mockResolvedValue([item]);
   vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps" }]);
-  vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: "Move with control.", modality: "bodyweight", durationMinutes: 5, primaryMuscles: [{ name: "Quadriceps", slug: "quadriceps" }], equipment: [], commonMistakes: [] });
+  vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: { children: [{ type: "paragraph", children: [{ text: "Move with control." }] }] }, modality: "bodyweight", durationMinutes: 5, primaryMuscles: [{ name: "Quadriceps", slug: "quadriceps" }], equipment: [], commonMistakes: [] });
 });
 afterEach(() => { cleanup(); vi.resetAllMocks(); });
 
 describe("exercise browser", () => {
+  it("renders exercise instructions as paragraphs with a safe source link", async () => {
+    const user = userEvent.setup();
+    vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", modality: "dumbbell", durationMinutes: null, primaryMuscles: [], equipment: [], commonMistakes: [],
+      instructions: { children: [
+        { type: "paragraph", children: [{ text: "Hold the dumbbell close." }] },
+        { type: "paragraph", children: [{ text: "Source: " }, { type: "link", href: "https://www.acefitness.org/example/", children: [{ text: "ACE" }] }] },
+      ] } });
+    const { container } = render(<App />);
+    await user.click(await screen.findByRole("button", { name: /View exercise: Squat/ }));
+    await screen.findByText("Hold the dumbbell close.");
+    expect(container.querySelectorAll(".instructions p")).toHaveLength(2);
+    expect(screen.getByRole("link", { name: "ACE" }).getAttribute("href")).toBe("https://www.acefitness.org/example/");
+    expect(container.querySelector(".instructions")?.textContent).not.toContain("\\n");
+  });
   it("lists common mistakes only when the exercise has them", async () => {
     const user = userEvent.setup();
-    vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: "Move with control.", modality: "bodyweight", durationMinutes: 5, primaryMuscles: [], equipment: [], commonMistakes: ["Knees cave inward", "Heels lift off the floor"] });
+    vi.mocked(getExercise).mockResolvedValue({ ...item, summary: "A test exercise", instructions: { children: [{ type: "paragraph", children: [{ text: "Move with control." }] }] }, modality: "bodyweight", durationMinutes: 5, primaryMuscles: [], equipment: [], commonMistakes: ["Knees cave inward", "Heels lift off the floor"] });
     render(<App />);
     await user.click(await screen.findByRole("button", { name: /View exercise: Squat/ }));
     expect(await screen.findByRole("heading", { name: "Common mistakes", level: 3 })).toBeTruthy();

@@ -43,7 +43,7 @@ export class ExercisesService {
   async get(slug: string, locale?: string): Promise<ExerciseDetail> {
     const { exercise } = await this.hygraph.query(GetExerciseDocument, { slug, locales: locales(locale) });
     if (!exercise) throw new NotFoundException("Exercise not found.");
-    return { ...summary(exercise), summary: exercise.summary, instructions: exercise.instructions.text,
+    return { ...summary(exercise), summary: exercise.summary, instructions: exercise.instructions.raw ?? null,
       modality: exercise.modality.toLowerCase(), durationMinutes: exercise.durationMinutes,
       primaryMuscles: exercise.primaryMuscles, equipment: exercise.equipment, commonMistakes: exercise.commonMistakes ?? [] };
   }

@@ -11,7 +11,8 @@ export type MuscleGroupOption = MuscleGroupSummary & { meshId?: string | null; i
 
 export type ExerciseDetail = ExerciseSummary & {
   summary: string;
-  instructions: string;
+  /** Structured rich text (paragraphs, formatting, links); render with the web RichText component. */
+  instructions: RichContent;
   modality: string;
   durationMinutes: number | null;
   primaryMuscles: MuscleGroupSummary[];
