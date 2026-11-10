@@ -84,8 +84,10 @@ npm run hygraph:schema:<name>:plan | :apply   # foundation, workflow-localizatio
 
 ## Hygraph MCP
 
-The Hygraph MCP connector uses `HYGRAPH_MCP_ENDPOINT` + `HYGRAPH_MCP_PAT` (see
-`apps/api/.env.example`). Use it for exploring schema/content and editorial tasks. Prefer
+Connected (verified 2026-11-10). Always pass `project: cmtbngj4605dn08w5ymytbfu8`,
+`environment: master` (region EU-CENTRAL-1-STAGING; Content API
+`https://eu-central-1-staging.cdn.hygraph.com/content/cmtbngj4605dn08w5ymytbfu8/master`).
+Use `dry_run` for mutations/migrations first. MCP cannot delete or unpublish. Use it for exploring schema/content and editorial tasks. Prefer
 schema changes as numbered migrations in this repo, not ad-hoc MCP edits, so the repo stays
 the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` entries.
 
