@@ -38,8 +38,13 @@ assistance, released under CC0 — no third-party rights. A simple abstract body
 diagram, as the SDD suggests before any 3D model; not anatomically precise.
 
 Imported, linked and published on 2026-11-10 (en + cs) for all seven published
-muscle groups; `mcp-test-quadriceps` (draft fixture) has none. Linked to `MuscleGroup.illustration`; `GET /api/muscle-groups` returns it and
-the exercise library shows it when a muscle is selected.
+muscle groups; `mcp-test-quadriceps` (draft fixture) has none. Geometry lives in `apps/web/src/components/body-map/geometry.json` and is shared
+with the interactive web body map. (Regenerating changed the SVG markup to
+paths only; the result is visually identical to the copies already in Hygraph.)
+
+Linked to `MuscleGroup.illustration`; `GET /api/muscle-groups` returns it and
+the exercise library shows it only as a fallback for a selected group the body
+map cannot draw (unknown `meshId`).
 
 | Slug | Alt text (en) | Alt text (cs) |
 | --- | --- | --- |

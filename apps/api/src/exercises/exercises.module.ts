@@ -36,7 +36,7 @@ export class ExercisesService {
     const selectedLocales = locales(locale);
     for (let skip = 0; ; skip += 100) {
       const data = await this.hygraph.query(ListMuscleGroupsDocument, { locales: selectedLocales, skip });
-      result.push(...data.muscleGroups.map(({ name, slug, illustration }) => ({ name, slug, illustration: illustration ?? null })));
+      result.push(...data.muscleGroups.map(({ name, slug, meshId, illustration }) => ({ name, slug, meshId, illustration: illustration ?? null })));
       if (data.muscleGroups.length < 100) return result;
     }
   }

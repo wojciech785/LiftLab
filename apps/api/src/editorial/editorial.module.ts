@@ -20,7 +20,7 @@ function block(b: CmsBlock): ArticleBlock {
   switch (b.__typename) {
     case "RichTextBlock": return {kind:"richText",body:rich(b.body)};
     case "ExerciseCarouselBlock": return {kind:"exercises",heading:b.heading ?? null,exercises:b.exercises ?? []};
-    case "MuscleMapBlock": return {kind:"muscles",heading:b.heading ?? null,body:rich(b.body),muscleGroups:b.muscleGroups ?? []};
+    case "MuscleMapBlock": return {kind:"muscles",heading:b.heading ?? null,body:rich(b.body),muscleGroups:(b.muscleGroups ?? []).map(g=>({name:g.name,slug:g.slug,meshId:g.meshId,illustration:g.illustration ?? null}))};
     case "ComparisonTableBlock": return {kind:"table",caption:b.caption ?? null,columnHeadings:b.columnHeadings ?? [],rows:(b.rows ?? []).map(r=>r.cells)};
     case "CoachQuoteBlock": return {kind:"quote",quote:b.quote ?? null,coach:b.coach ?? null};
     case "CalloutBlock": return b.callout ? {kind:"callout",tone:b.callout.tone.toLowerCase(),heading:b.callout.heading,body:rich(b.callout.body),destination:b.callout.destination} : {kind:"unsupported"};

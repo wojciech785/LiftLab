@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ExerciseDetail, ExerciseSummary, MuscleGroupOption } from "@lift-lab/shared-types";
 import { Media } from "./components/RichText";
+import { BodyMap, mapMuscleGroups } from "./components/body-map/BodyMap";
 import { getExercise, getExercises, getMuscleGroups, PAGE_SIZE, type ContentLocale } from "./api/client";
 
 export default function ExercisesPage({locale, initialSlug = ""}: {locale: ContentLocale; initialSlug?: string}) {
@@ -43,7 +44,8 @@ export default function ExercisesPage({locale, initialSlug = ""}: {locale: Conte
 
   return <>
     <section className="explore" id="library" aria-labelledby="library-title"><p className="eyebrow">EXERCISE LIBRARY</p><h2 id="library-title">Find your focus.</h2><label className="muscle-filter">Muscle group <select value={selected} onChange={event => { setSelected(event.target.value); setOffset(0); closeDetail(); }}><option value="">All muscles</option>{groups.map(group => <option key={group.slug} value={group.slug}>{group.name}</option>)}</select></label>
-      {selectedGroup?.illustration && <div className="muscle-illustration" aria-label={`${selectedGroup.name} illustration`} role="group"><Media asset={selectedGroup.illustration} /></div>}
+      {mapMuscleGroups(groups).mapped.length > 0 && <div className="body-map-picker"><BodyMap groups={groups} highlighted={selected ? [selected] : []} onSelect={slug => { setSelected(slug); setOffset(0); closeDetail(); }} /><p className="body-map-hint">Tap a highlighted area, or use the muscle group list.</p></div>}
+      {selectedGroup && !mapMuscleGroups([selectedGroup]).mapped.length && selectedGroup.illustration && <div className="muscle-illustration" role="group" aria-label={`${selectedGroup.name} illustration`}><Media asset={selectedGroup.illustration} /></div>}
       <div aria-live="polite" aria-busy={loading}>
         {loading ? <p className="notice">Loading exercises…</p> : error ? <div className="notice" role="alert"><p>{error}</p><button onClick={() => setRetry(value => value + 1)}>Try again</button></div> : !exercises.length ? <p className="notice">{selected ? "No exercises are available for this muscle group yet." : "The exercise library is getting ready. Check back soon."}</p> : <><div className="cards">{exercises.slice(0, PAGE_SIZE).map(exercise => <article key={exercise.slug}><p>{exercise.difficulty}</p><h3>{exercise.title}</h3><span>{groups.find(group => group.slug === exercise.primaryMuscle)?.name ?? exercise.primaryMuscle}</span><button className="detail-button" onClick={event => { opener.current = event.currentTarget; setDetail(null); setDetailError(""); setSlug(exercise.slug); }}>View exercise<span className="sr-only">: {exercise.title}</span> →</button></article>)}</div><nav className="pagination" aria-label="Exercise pages"><button disabled={offset === 0} onClick={() => { setOffset(Math.max(0, offset - PAGE_SIZE)); closeDetail(); }}>Previous</button><span>Page {offset / PAGE_SIZE + 1}</span><button disabled={exercises.length <= PAGE_SIZE || offset + PAGE_SIZE > 10000} onClick={() => { setOffset(offset + PAGE_SIZE); closeDetail(); }}>Next</button></nav></>}
       </div>

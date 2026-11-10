@@ -2,31 +2,11 @@
   <!-- Lift Lab muscle-group illustration: back. Original work, CC0. Left: front view. Right: back view. -->
   <rect width="240" height="264" rx="16" fill="#f6f0e3"/>
   <g transform="translate(64 0)">
-    <g fill="#dfd2b9" stroke="#14251f" stroke-width="1.5" stroke-linejoin="round">
-  <circle cx="0" cy="26" r="14"/>
-  <rect x="-6" y="38" width="12" height="10" rx="3"/>
-  <path d="M-34 52 Q0 42 34 52 L30 120 Q0 130 -30 120 Z"/>
-  <path d="M-36 54 Q-48 58 -48 76 L-52 132 Q-50 138 -44 136 L-38 82 Z"/>
-  <path d="M36 54 Q48 58 48 76 L52 132 Q50 138 44 136 L38 82 Z"/>
-  <path d="M-30 118 Q0 130 30 118 L28 140 Q0 148 -28 140 Z"/>
-  <path d="M-28 138 L-4 142 L-8 206 L-22 206 Z"/>
-  <path d="M28 138 L4 142 L8 206 L22 206 Z"/>
-  <path d="M-22 206 L-8 206 L-10 252 L-20 252 Z"/>
-  <path d="M22 206 L8 206 L10 252 L20 252 Z"/></g>
+    <g fill="#dfd2b9" stroke="#14251f" stroke-width="1.5" stroke-linejoin="round"><path d="M-14 26 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0 Z"/><path d="M-3 38 H3 Q6 38 6 41 V45 Q6 48 3 48 H-3 Q-6 48 -6 45 V41 Q-6 38 -3 38 Z"/><path d="M-34 52 Q0 42 34 52 L30 120 Q0 130 -30 120 Z"/><path d="M-36 54 Q-48 58 -48 76 L-52 132 Q-50 138 -44 136 L-38 82 Z"/><path d="M36 54 Q48 58 48 76 L52 132 Q50 138 44 136 L38 82 Z"/><path d="M-30 118 Q0 130 30 118 L28 140 Q0 148 -28 140 Z"/><path d="M-28 138 L-4 142 L-8 206 L-22 206 Z"/><path d="M28 138 L4 142 L8 206 L22 206 Z"/><path d="M-22 206 L-8 206 L-10 252 L-20 252 Z"/><path d="M22 206 L8 206 L10 252 L20 252 Z"/></g>
     <g fill="#b34d25" stroke="#14251f" stroke-width="1" opacity="0.92"></g>
   </g>
   <g transform="translate(176 0)">
-    <g fill="#dfd2b9" stroke="#14251f" stroke-width="1.5" stroke-linejoin="round">
-  <circle cx="0" cy="26" r="14"/>
-  <rect x="-6" y="38" width="12" height="10" rx="3"/>
-  <path d="M-34 52 Q0 42 34 52 L30 120 Q0 130 -30 120 Z"/>
-  <path d="M-36 54 Q-48 58 -48 76 L-52 132 Q-50 138 -44 136 L-38 82 Z"/>
-  <path d="M36 54 Q48 58 48 76 L52 132 Q50 138 44 136 L38 82 Z"/>
-  <path d="M-30 118 Q0 130 30 118 L28 140 Q0 148 -28 140 Z"/>
-  <path d="M-28 138 L-4 142 L-8 206 L-22 206 Z"/>
-  <path d="M28 138 L4 142 L8 206 L22 206 Z"/>
-  <path d="M-22 206 L-8 206 L-10 252 L-20 252 Z"/>
-  <path d="M22 206 L8 206 L10 252 L20 252 Z"/></g>
+    <g fill="#dfd2b9" stroke="#14251f" stroke-width="1.5" stroke-linejoin="round"><path d="M-14 26 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0 Z"/><path d="M-3 38 H3 Q6 38 6 41 V45 Q6 48 3 48 H-3 Q-6 48 -6 45 V41 Q-6 38 -3 38 Z"/><path d="M-34 52 Q0 42 34 52 L30 120 Q0 130 -30 120 Z"/><path d="M-36 54 Q-48 58 -48 76 L-52 132 Q-50 138 -44 136 L-38 82 Z"/><path d="M36 54 Q48 58 48 76 L52 132 Q50 138 44 136 L38 82 Z"/><path d="M-30 118 Q0 130 30 118 L28 140 Q0 148 -28 140 Z"/><path d="M-28 138 L-4 142 L-8 206 L-22 206 Z"/><path d="M28 138 L4 142 L8 206 L22 206 Z"/><path d="M-22 206 L-8 206 L-10 252 L-20 252 Z"/><path d="M22 206 L8 206 L10 252 L20 252 Z"/></g>
     <g fill="#b34d25" stroke="#14251f" stroke-width="1" opacity="0.92"><path d="M-28 54 Q0 48 28 54 L22 110 Q0 118 -22 110 Z"/></g>
   </g>
   <line x1="120" y1="24" x2="120" y2="240" stroke="#14251f" stroke-opacity="0.15" stroke-dasharray="4 4"/>

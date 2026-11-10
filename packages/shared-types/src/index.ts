@@ -7,7 +7,7 @@ export type ExerciseSummary = {
 
 export type MuscleGroupSummary = { name: string; slug: string };
 /** Muscle-group filter option; the illustration is a CMS asset (original Lift Lab artwork). */
-export type MuscleGroupOption = MuscleGroupSummary & { illustration?: MediaAsset | null };
+export type MuscleGroupOption = MuscleGroupSummary & { meshId?: string | null; illustration?: MediaAsset | null };
 
 export type ExerciseDetail = ExerciseSummary & {
   summary: string;
@@ -37,7 +37,7 @@ export type ArticleSummary = ContentLink & { excerpt: string };
 export type ArticleBlock =
   | { kind: "richText"; body: RichContent }
   | { kind: "exercises"; heading: string | null; exercises: ContentLink[] }
-  | { kind: "muscles"; heading: string | null; body: RichContent; muscleGroups: MuscleGroupSummary[] }
+  | { kind: "muscles"; heading: string | null; body: RichContent; muscleGroups: MuscleGroupOption[] }
   | { kind: "table"; caption: string | null; columnHeadings: string[]; rows: string[][] }
   | { kind: "quote"; quote: string | null; coach: EditorialProfile | null }
   | { kind: "callout"; tone: string; heading: string; body: RichContent; destination: string | null }

@@ -307,7 +307,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 ### Phase 3 — Frontend and backend connection
 
 - [x] Build responsive React browse pages and NestJS Hygraph read endpoints.
-- [ ] Build the 3D muscle-map experience with non-WebGL fallback.
+- [~] Build the 3D muscle-map experience with non-WebGL fallback (2D body-map picker keyed by `meshId` done and used in articles; 3D model still open — decision 2).
 - [x] Implement typed queries and the validated workout-intent mutation.
 - [ ] Use the API Playground to test equivalent queries/mutations before coding them.
 

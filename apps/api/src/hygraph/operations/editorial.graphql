@@ -20,7 +20,7 @@ query ArticleDetail($slug:String!, $locales:[Locale!]!) {
     contentBlocks(first:100) { __typename
       ... on RichTextBlock {body {raw}}
       ... on ExerciseCarouselBlock {heading exercises(first:100) {title slug}}
-      ... on MuscleMapBlock {heading body {raw} muscleGroups(first:100) {name slug}}
+      ... on MuscleMapBlock {heading body {raw} muscleGroups(first:100) {name slug meshId illustration {url altText rightsSource}}}
       ... on ComparisonTableBlock {caption columnHeadings rows(first:100) {cells}}
       ... on CoachQuoteBlock {quote coach {name role}}
       ... on CalloutBlock {callout {tone heading body {raw} destination}}

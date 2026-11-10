@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 import { getArticle, getArticles, getExercise, getExercises, getMuscleGroups } from "./api/client";
@@ -16,6 +16,16 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.resetAllMocks(); });
 
 describe("exercise browser", () => {
+  it("filters the library from the body map and keeps the list control in sync", async () => {
+    vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps", meshId: "quadriceps" }, { name: "Chest", slug: "chest", meshId: "chest" }]);
+    const { container } = render(<App />);
+    await screen.findByRole("button", { name: /View exercise: Squat/ });
+    fireEvent.click(container.querySelector('.body-map [data-mesh="chest"]')!);
+    await waitFor(() => expect(getExercises).toHaveBeenLastCalledWith("en", "chest", 0, expect.any(AbortSignal)));
+    expect((screen.getByRole("combobox", { name: "Muscle group" }) as HTMLSelectElement).value).toBe("chest");
+    fireEvent.click(container.querySelector('.body-map [data-mesh="chest"]')!);
+    await waitFor(() => expect(getExercises).toHaveBeenLastCalledWith("en", "", 0, expect.any(AbortSignal)));
+  });
   it("shows the selected muscle group's licensed illustration", async () => {
     const user = userEvent.setup();
     vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps", illustration: { url: "https://cdn.example.test/quads.svg", altText: "Front view with the thighs highlighted", rightsSource: "Original Lift Lab illustration, CC0" } }]);

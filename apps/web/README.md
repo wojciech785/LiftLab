@@ -15,6 +15,13 @@ The library distinguishes loading, request failure (with retry), and empty
 results. The original test fixtures remain drafts; the published starter library
 is documented in `docs/starter-content.md`. No publishing is triggered by browsing.
 
+A 2D body map (`components/body-map`) sits above the library: clicking a region
+selects that muscle group, and the select stays in sync. Regions are matched by
+`MuscleGroup.meshId` against `geometry.json`; groups with an unknown meshId are
+simply not drawn. The SVG is `aria-hidden` — the select is the accessible
+control — and article muscle-map blocks reuse it (non-interactive) with the
+group list beside it.
+
 The previous 3D placeholder is no longer rendered. The existing muscle-map
 component is retained for the later anatomy GLB integration; the browser works
 without WebGL or image assets.

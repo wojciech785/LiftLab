@@ -10,8 +10,9 @@ two disagree, trust the code and this file, then update the SDD.
 - npm workspaces, Node >= 22. No root `node_modules` committed — run `npm install` first.
 - `apps/web` — React 19 + Vite 7 + TypeScript (strict). Plain CSS (`src/styles/*.css`),
   **hash routing** (`#/exercises|programmes|articles|request[/slug]`), no React Router,
-  no Tailwind. R3F/drei installed; `components/muscle-map/MuscleMap.tsx` is a 3-sphere
-  placeholder and is **not rendered**. Tests: Vitest + Testing Library (jsdom).
+  no Tailwind. R3F/drei installed; `components/body-map/BodyMap.tsx` is the live 2D muscle
+  picker (regions keyed by `meshId`, geometry in `geometry.json`, shared with the illustration
+  generator); `components/muscle-map/MuscleMap.tsx` is an unused 3D placeholder. Tests: Vitest + Testing Library (jsdom).
 - `apps/api` — NestJS 11 BFF, global prefix `/api`, bound to `127.0.0.1:3001`.
   `class-validator` DTOs + global `ValidationPipe({ whitelist, transform })`,
   `@nestjs/throttler`. Tests: `node --test test/*.test.cjs` against the built `dist`.
@@ -54,7 +55,7 @@ npm run hygraph:schema:<name>:plan | :apply   # foundation, workflow-localizatio
 - Reserved field names: use `intentStatus`, not `status`.
 - Published starter content (2026-11-06): 8 exercises (en+cs), 7 muscle groups, 3 equipment,
   3 labelled demo editorial profiles (not real coaches), 2 programmes × 3 sessions,
-  3 articles. 7 muscle-group illustrations are the only assets (2026-11-10); `meshId`s are placeholders. `mcp-test-*` entries are
+  3 articles. 7 muscle-group illustrations are the only assets (2026-11-10); `meshId`s (= slugs) match the 2D body map; not yet validated against any GLB. `mcp-test-*` entries are
   drafts and must stay unpublished. Inventory + references: `docs/starter-content.md`.
 - Assets: import by public URL from this repo (direct S3 upload is blocked); see `docs/assets.md`.
 - Editorial workflow recipe, gotchas and practice log: `docs/editorial-workflow.md`.

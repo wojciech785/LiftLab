@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { ArticleBlock, ArticleDetail, ArticleSummary, ContentLink, ProgrammeDetail, ProgrammeSummary } from "@lift-lab/shared-types";
 import { getArticle, getArticles, getProgramme, getProgrammes, PAGE_SIZE, type ContentLocale } from "./api/client";
 import { Media, RichText, safeUrl } from "./components/RichText";
+import { BodyMap } from "./components/body-map/BodyMap";
 
 const href = (section: string, slug: string) => `#/${section}/${encodeURIComponent(slug)}`;
 function Links({items, section}: {items: ContentLink[]; section: string}) {
@@ -11,7 +12,7 @@ export function Block({block}: {block: ArticleBlock}) {
   switch (block.kind) {
     case "richText": return <RichText value={block.body} />;
     case "exercises": return <section className="article-block">{block.heading && <h2>{block.heading}</h2>}<Links items={block.exercises} section="exercises" /></section>;
-    case "muscles": return <section className="article-block">{block.heading && <h2>{block.heading}</h2>}<RichText value={block.body} /><ul>{block.muscleGroups.map(group=><li key={group.slug}>{group.name}</li>)}</ul></section>;
+    case "muscles": return <section className="article-block">{block.heading && <h2>{block.heading}</h2>}<RichText value={block.body} /><div className="muscle-block"><BodyMap groups={block.muscleGroups} highlighted={block.muscleGroups.map(group=>group.slug)} /><ul>{block.muscleGroups.map(group=><li key={group.slug}>{group.name}</li>)}</ul></div></section>;
     case "table": return <div className="table-scroll"><table>{block.caption && <caption>{block.caption}</caption>}<thead><tr>{block.columnHeadings.map((heading,i)=><th key={i} scope="col">{heading}</th>)}</tr></thead><tbody>{block.rows.map((row,i)=><tr key={i}>{block.columnHeadings.map((_,j)=><td key={j}>{row[j] ?? "—"}</td>)}</tr>)}</tbody></table></div>;
     case "quote": return <blockquote><p>{block.quote}</p>{block.coach && <footer>{block.coach.name} · {block.coach.role}</footer>}</blockquote>;
     case "callout": return <aside className="callout"><p className="eyebrow">{block.tone}</p><h2>{block.heading}</h2><RichText value={block.body} />{safeUrl(block.destination) && <a href={safeUrl(block.destination)}>Read more</a>}</aside>;

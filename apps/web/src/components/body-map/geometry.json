@@ -1,0 +1,66 @@
+{
+  "_comment": "Lift Lab body-map geometry (original, CC0). Shared by the web BodyMap and scripts/assets/build-muscle-illustrations.mjs. Each figure is centred on x=0; viewBox 0 0 240 264 with the front view at x=64 and back view at x=176. Region keys are MuscleGroup.meshId values.",
+  "viewBox": "0 0 240 264",
+  "views": {
+    "front": 64,
+    "back": 176
+  },
+  "figure": [
+    "M-14 26 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0 Z",
+    "M-3 38 H3 Q6 38 6 41 V45 Q6 48 3 48 H-3 Q-6 48 -6 45 V41 Q-6 38 -3 38 Z",
+    "M-34 52 Q0 42 34 52 L30 120 Q0 130 -30 120 Z",
+    "M-36 54 Q-48 58 -48 76 L-52 132 Q-50 138 -44 136 L-38 82 Z",
+    "M36 54 Q48 58 48 76 L52 132 Q50 138 44 136 L38 82 Z",
+    "M-30 118 Q0 130 30 118 L28 140 Q0 148 -28 140 Z",
+    "M-28 138 L-4 142 L-8 206 L-22 206 Z",
+    "M28 138 L4 142 L8 206 L22 206 Z",
+    "M-22 206 L-8 206 L-10 252 L-20 252 Z",
+    "M22 206 L8 206 L10 252 L20 252 Z"
+  ],
+  "regions": {
+    "chest": {
+      "front": [
+        "M-28 66 a14 9 0 1 0 28 0 a14 9 0 1 0 -28 0 Z",
+        "M0 66 a14 9 0 1 0 28 0 a14 9 0 1 0 -28 0 Z"
+      ]
+    },
+    "shoulders": {
+      "front": [
+        "M-45 58 a9 9 0 1 0 18 0 a9 9 0 1 0 -18 0 Z",
+        "M27 58 a9 9 0 1 0 18 0 a9 9 0 1 0 -18 0 Z"
+      ],
+      "back": [
+        "M-45 58 a9 9 0 1 0 18 0 a9 9 0 1 0 -18 0 Z",
+        "M27 58 a9 9 0 1 0 18 0 a9 9 0 1 0 -18 0 Z"
+      ]
+    },
+    "core": {
+      "front": [
+        "M-6 78 H6 Q14 78 14 86 V114 Q14 122 6 122 H-6 Q-14 122 -14 114 V86 Q-14 78 -6 78 Z"
+      ]
+    },
+    "back": {
+      "back": [
+        "M-28 54 Q0 48 28 54 L22 110 Q0 118 -22 110 Z"
+      ]
+    },
+    "glutes": {
+      "back": [
+        "M-27 132 a14 11 0 1 0 28 0 a14 11 0 1 0 -28 0 Z",
+        "M-1 132 a14 11 0 1 0 28 0 a14 11 0 1 0 -28 0 Z"
+      ]
+    },
+    "quadriceps": {
+      "front": [
+        "M-26 146 L-6 148 L-9 198 L-20 198 Z",
+        "M26 146 L6 148 L9 198 L20 198 Z"
+      ]
+    },
+    "calves": {
+      "back": [
+        "M-22 224 a7 17 0 1 0 14 0 a7 17 0 1 0 -14 0 Z",
+        "M8 224 a7 17 0 1 0 14 0 a7 17 0 1 0 -14 0 Z"
+      ]
+    }
+  }
+}
