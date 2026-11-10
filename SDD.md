@@ -307,7 +307,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 ### Phase 3 — Frontend and backend connection
 
 - [x] Build responsive React browse pages and NestJS Hygraph read endpoints.
-- [~] Build the 3D muscle-map experience with non-WebGL fallback (2D body-map picker keyed by `meshId` done and used in articles; 3D model still open — decision 2).
+- [x] Build the 3D muscle-map experience with non-WebGL fallback (prototype figure from R3F primitives, lazy-loaded; 2D body map as fallback and in articles).
 - [x] Implement typed queries and the validated workout-intent mutation.
 - [ ] Use the API Playground to test equivalent queries/mutations before coding them.
 
@@ -354,6 +354,6 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 ## 13. Open decisions before implementation
 
 1. Use a realistic but non-personal sample coaching brand, or an invented team of coaches?
-2. Which 3D direction is preferred: an anatomical muscle-map model, a stylised gym avatar, or a simple abstract body diagram before moving to 3D?
+2. ~~Which 3D direction is preferred?~~ **Decided 2026-11-10:** primitive shapes built in code (prototype project; no model file or licensing). Anatomical (Z-Anatomy, CC BY-SA 4.0) or stylised models remain possible later — the `meshId` contract makes the swap cheap.
 3. Should workout intents remain anonymous, or should the project later add a real authentication provider and saved plans?
 4. Is Czech the preferred second locale, or should the exercise use another language?

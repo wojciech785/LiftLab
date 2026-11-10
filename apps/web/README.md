@@ -15,7 +15,16 @@ The library distinguishes loading, request failure (with retry), and empty
 results. The original test fixtures remain drafts; the published starter library
 is documented in `docs/starter-content.md`. No publishing is triggered by browsing.
 
-A 2D body map (`components/body-map`) sits above the library: clicking a region
+A prototype 3D muscle explorer (`components/muscle-map`) sits above the
+library when WebGL is available: a figure built from primitive shapes
+(`figure.ts`), regions named by `MuscleGroup.meshId`, drag to rotate, Front/Back
+buttons, click a region to filter. three.js is lazy-loaded in its own chunk.
+A 3D/2D toggle switches to the 2D body map, which is also the automatic
+fallback without WebGL. Both maps are `aria-hidden`; the select is the
+accessible control. `figure.ts` and the 2D `geometry.json` must define the same
+region keys (tested).
+
+A 2D body map (`components/body-map`) is the fallback: clicking a region
 selects that muscle group, and the select stays in sync. Regions are matched by
 `MuscleGroup.meshId` against `geometry.json`; groups with an unknown meshId are
 simply not drawn. The SVG is `aria-hidden` — the select is the accessible

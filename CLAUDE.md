@@ -10,9 +10,10 @@ two disagree, trust the code and this file, then update the SDD.
 - npm workspaces, Node >= 22. No root `node_modules` committed — run `npm install` first.
 - `apps/web` — React 19 + Vite 7 + TypeScript (strict). Plain CSS (`src/styles/*.css`),
   **hash routing** (`#/exercises|programmes|articles|request[/slug]`), no React Router,
-  no Tailwind. R3F/drei installed; `components/body-map/BodyMap.tsx` is the live 2D muscle
-  picker (regions keyed by `meshId`, geometry in `geometry.json`, shared with the illustration
-  generator); `components/muscle-map/MuscleMap.tsx` is an unused 3D placeholder. Tests: Vitest + Testing Library (jsdom).
+  no Tailwind. R3F/drei installed; `components/muscle-map/` is the 3D muscle explorer
+  (primitive shapes in `figure.ts`, lazy-loaded three.js chunk, chosen over real models —
+  SDD decision 2); `components/body-map/` is the 2D fallback/article map (`geometry.json`, also
+  used by the illustration generator). Both key regions by `meshId` and must stay in sync. Tests: Vitest + Testing Library (jsdom).
 - `apps/api` — NestJS 11 BFF, global prefix `/api`, bound to `127.0.0.1:3001`.
   `class-validator` DTOs + global `ValidationPipe({ whitelist, transform })`,
   `@nestjs/throttler`. Tests: `node --test test/*.test.cjs` against the built `dist`.
@@ -111,6 +112,6 @@ the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` en
 - No `docs/schema-changelog.md` (migration files + `hygraph/README.md` serve this role).
 - Webhook handling was removed from the BFF on purpose; `HYGRAPH_WEBHOOK_SECRET` in the SDD
   env list is obsolete.
-- Not started: 3D muscle map (GLB + meshId validation), assets/DAM, Live Preview +
+- Not started: exercise photos/video, Live Preview +
   click-to-edit, variants / second brand, environment promotion, YouTube remote field,
   publish webhook, backup/audit docs, reflection/decision log.
