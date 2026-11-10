@@ -323,7 +323,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 - [x] Configure roles and permissions (already practised).
 - [ ] Configure a signed Hygraph publish webhook for the external endpoint.
 - [ ] Create a YouTube Data API remote field that searches/selects exercise tutorials, with a video-ID fallback and approved-channel policy.
-- [ ] Document backup/export, recovery drill, and audit-log review.
+- [x] Document backup/export, recovery drill, and audit-log review (`docs/operations.md`; drill passed 2026-11-10; Enterprise backup/audit logs not enabled).
 
 ### Phase 6 — Reflection
 
