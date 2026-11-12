@@ -1,0 +1,3137 @@
+{
+ "_meta": {
+  "source": "Hygraph project cmtbngj4605dn08w5ymytbfu8 / master, stage PUBLISHED, locales en+cs",
+  "exportedAt": "2026-11-12",
+  "excludes": "WorkoutIntent (personal data); asset files (re-import from assets/ by URL)"
+ },
+ "articles": [
+  {
+   "author": {
+    "slug": "lift-lab-training-notes"
+   },
+   "contentBlocks": [
+    {
+     "__typename": "RichTextBlock",
+     "body": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Choose exercises that fit the equipment and space you actually have. A bodyweight option removes the need to handle an external load; a dumbbell option adds a load you must select and control. The library includes both. These are different movement setups, not interchangeable prescriptions for every person."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    },
+    {
+     "__typename": "ComparisonTableBlock",
+     "caption": "Practical setup comparison",
+     "columnHeadings": [
+      "Option",
+      "What to check",
+      "Library example"
+     ],
+     "rows": [
+      {
+       "cells": [
+        "Bodyweight",
+        "Clear floor space and a comfortable movement range",
+        "Bodyweight Squat"
+       ]
+      },
+      {
+       "cells": [
+        "Single dumbbell",
+        "A manageable weight and secure grip",
+        "Goblet Squat"
+       ]
+      },
+      {
+       "cells": [
+        "Dumbbell plus bench",
+        "A stable bench, clear space, and a controllable load",
+        "Single-Arm Dumbbell Row"
+       ]
+      }
+     ]
+    },
+    {
+     "__typename": "ExerciseCarouselBlock",
+     "exercises": [
+      {
+       "slug": "bodyweight-squat"
+      },
+      {
+       "slug": "goblet-squat"
+      },
+      {
+       "slug": "single-arm-dumbbell-row"
+      }
+     ],
+     "heading": "Compare the exercise instructions"
+    }
+   ],
+   "excerpt": "Compare practical equipment needs without treating one modality as universally better.",
+   "id": "cmw4xigk005k606w2n22yvzfr",
+   "localizations": [],
+   "relatedExercises": [
+    {
+     "slug": "bodyweight-squat"
+    },
+    {
+     "slug": "goblet-squat"
+    },
+    {
+     "slug": "single-arm-dumbbell-row"
+    }
+   ],
+   "relatedProgrammes": [
+    {
+     "slug": "bodyweight-movement-practice"
+    },
+    {
+     "slug": "dumbbell-movement-practice"
+    }
+   ],
+   "seo": {
+    "description": "Compare practical equipment needs without treating one modality as universally better.",
+    "noIndex": true,
+    "title": "Bodyweight or Dumbbells: Choosing a Starting Point"
+   },
+   "slug": "bodyweight-or-dumbbells",
+   "title": "Bodyweight or Dumbbells: Choosing a Starting Point",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    }
+   ]
+  },
+  {
+   "author": {
+    "slug": "lift-lab-training-notes"
+   },
+   "contentBlocks": [
+    {
+     "__typename": "RichTextBlock",
+     "body": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Use the muscle filter to narrow the library, then open an exercise to read its instructions and equipment list. Difficulty is a broad editorial label, not a readiness test. Start with a movement and range you can control. The language selector changes content between English and Czech; missing translations can fall back to English."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    },
+    {
+     "__typename": "ExerciseCarouselBlock",
+     "exercises": [
+      {
+       "slug": "bodyweight-squat"
+      },
+      {
+       "slug": "bent-knee-push-up"
+      },
+      {
+       "slug": "bird-dog"
+      }
+     ],
+     "heading": "Explore three movement patterns"
+    },
+    {
+     "__typename": "CalloutBlock",
+     "callout": {
+      "body": {
+       "raw": {
+        "children": [
+         {
+          "children": [
+           {
+            "text": "These source-linked starter notes were prepared with AI assistance. They do not assess your individual technique. Stop movements that cause pain and seek qualified guidance when you are unsure."
+           }
+          ],
+          "type": "paragraph"
+         }
+        ]
+       }
+      },
+      "destination": null,
+      "heading": "Use the instructions as a starting point",
+      "tone": "CAUTION"
+     }
+    }
+   ],
+   "excerpt": "Find a movement, check its equipment, and read the instructions before trying it.",
+   "id": "cmw4xiebg05jm06w28s1wt3ou",
+   "localizations": [],
+   "relatedExercises": [
+    {
+     "slug": "bodyweight-squat"
+    },
+    {
+     "slug": "bent-knee-push-up"
+    },
+    {
+     "slug": "bird-dog"
+    }
+   ],
+   "relatedProgrammes": [
+    {
+     "slug": "bodyweight-movement-practice"
+    }
+   ],
+   "seo": {
+    "description": "Find a movement, check its equipment, and read the instructions before trying it.",
+    "noIndex": true,
+    "title": "How to Use the Exercise Library"
+   },
+   "slug": "how-to-use-the-exercise-library",
+   "title": "How to Use the Exercise Library",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    }
+   ]
+  },
+  {
+   "author": {
+    "slug": "lift-lab-training-notes"
+   },
+   "contentBlocks": [
+    {
+     "__typename": "RichTextBlock",
+     "body": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "A programme contains ordered sessions. Each session contains exercise prescriptions with its own order, set count, repetition range, rest period, and coaching note. Open the linked exercise for movement instructions. A range such as 6–8 describes repetitions within one set; “per side” means each side has its own repetitions. These starter prescriptions are examples, not targets that must be completed."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    },
+    {
+     "__typename": "MuscleMapBlock",
+     "body": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "The sample sessions connect lower-body movements to the Glutes and Calves categories. The anatomy map will use these same content relationships once its 3D asset is integrated."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "heading": "Follow the content relationships",
+     "muscleGroups": [
+      {
+       "slug": "glutes"
+      },
+      {
+       "slug": "calves"
+      }
+     ]
+    },
+    {
+     "__typename": "CalloutBlock",
+     "callout": {
+      "body": {
+       "raw": {
+        "children": [
+         {
+          "children": [
+           {
+            "text": "The sample programmes suggest nonconsecutive practice days. Extend rests, reduce repetitions, or stop a session when needed. Do not treat completing the sample schedule as more important than comfortable, controlled movement."
+           }
+          ],
+          "type": "paragraph"
+         }
+        ]
+       }
+      },
+      "destination": null,
+      "heading": "Rest and adapt",
+      "tone": "RECOVERY"
+     }
+    }
+   ],
+   "excerpt": "Understand session order, sets, repetition ranges, rest, and the notes attached to each exercise.",
+   "id": "cmw4xij3i05kw06w2bmbvl4lw",
+   "localizations": [],
+   "relatedExercises": [
+    {
+     "slug": "glute-bridge"
+    },
+    {
+     "slug": "standing-calf-raise"
+    }
+   ],
+   "relatedProgrammes": [
+    {
+     "slug": "bodyweight-movement-practice"
+    }
+   ],
+   "seo": {
+    "description": "Understand session order, sets, repetition ranges, rest, and the notes attached to each exercise.",
+    "noIndex": true,
+    "title": "Reading a Practice Session"
+   },
+   "slug": "reading-a-practice-session",
+   "title": "Reading a Practice Session",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    }
+   ]
+  }
+ ],
+ "assets": [
+  {
+   "altText": "Front and back body outline with the upper back highlighted on the back view.",
+   "fileName": "back.svg",
+   "id": "cmwaioo6g066806umyu1f2mcq",
+   "localizations": [
+    {
+     "altText": "Obrys těla zepředu a zezadu se zvýrazněnou horní částí zad na pohledu zezadu.",
+     "locale": "cs"
+    }
+   ],
+   "mimeType": "image/svg+xml",
+   "muscleGroupIllustrationUses": "cmwaioo6g066806umyu1f2mcq",
+   "rightsSource": "Original illustration created for Lift Lab (AI-assisted; scripts/assets/build-muscle-illustrations.mjs). Released under CC0.",
+   "url": "https://eu-central-1-staging.graphassets.com/cmtbvyun6b77p07w1hr219nyo/cmwaioo6h066b06umwbis6q98"
+  },
+  {
+   "altText": "Front and back body outline with the calves highlighted on the back view.",
+   "fileName": "calves.svg",
+   "id": "cmwaioo7d066e06umuv3ntl4w",
+   "localizations": [
+    {
+     "altText": "Obrys těla zepředu a zezadu se zvýrazněnými lýtky na pohledu zezadu.",
+     "locale": "cs"
+    }
+   ],
+   "mimeType": "image/svg+xml",
+   "muscleGroupIllustrationUses": "cmwaioo7d066e06umuv3ntl4w",
+   "rightsSource": "Original illustration created for Lift Lab (AI-assisted; scripts/assets/build-muscle-illustrations.mjs). Released under CC0.",
+   "url": "https://eu-central-1-staging.graphassets.com/cmtbvyun6b77p07w1hr219nyo/cmwaioo7e066h06umlbp5glo7"
+  },
+  {
+   "altText": "Front and back body outline with the chest highlighted on the front view.",
+   "fileName": "chest.svg",
+   "id": "cmwaioo87066k06umn5h06muu",
+   "localizations": [
+    {
+     "altText": "Obrys těla zepředu a zezadu se zvýrazněným hrudníkem na pohledu zepředu.",
+     "locale": "cs"
+    }
+   ],
+   "mimeType": "image/svg+xml",
+   "muscleGroupIllustrationUses": "cmwaioo87066k06umn5h06muu",
+   "rightsSource": "Original illustration created for Lift Lab (AI-assisted; scripts/assets/build-muscle-illustrations.mjs). Released under CC0.",
+   "url": "https://eu-central-1-staging.graphassets.com/cmtbvyun6b77p07w1hr219nyo/cmwaioo87066n06umopn89osc"
+  },
+  {
+   "altText": "Front and back body outline with the abdominal area highlighted on the front view.",
+   "fileName": "core.svg",
+   "id": "cmwaioo8y066q06umf8zq9ruu",
+   "localizations": [
+    {
+     "altText": "Obrys těla zepředu a zezadu se zvýrazněnou oblastí břicha na pohledu zepředu.",
+     "locale": "cs"
+    }
+   ],
+   "mimeType": "image/svg+xml",
+   "muscleGroupIllustrationUses": "cmwaioo8y066q06umf8zq9ruu",
+   "rightsSource": "Original illustration created for Lift Lab (AI-assisted; scripts/assets/build-muscle-illustrations.mjs). Released under CC0.",
+   "url": "https://eu-central-1-staging.graphassets.com/cmtbvyun6b77p07w1hr219nyo/cmwaioo8y066t06um3t4l1bqf"
+  },
+  {
+   "altText": "Front and back body outline with the glutes highlighted on the back view.",
+   "fileName": "glutes.svg",
+   "id": "cmwaioo9x066y06umfw6236dz",
+   "localizations": [
+    {
+     "altText": "Obrys těla zepředu a zezadu se zvýrazněnými hýžďovými svaly na pohledu zezadu.",
+     "locale": "cs"
+    }
+   ],
+   "mimeType": "image/svg+xml",
+   "muscleGroupIllustrationUses": "cmwaioo9x066y06umfw6236dz",
+   "rightsSource": "Original illustration created for Lift Lab (AI-assisted; scripts/assets/build-muscle-illustrations.mjs). Released under CC0.",
+   "url": "https://eu-central-1-staging.graphassets.com/cmtbvyun6b77p07w1hr219nyo/cmwaioo9y067106um9vj686te"
+  },
+  {
+   "altText": "Front and back body outline with the front of the thighs highlighted on the front view.",
+   "fileName": "quadriceps.svg",
+   "id": "cmwaiooat067w06um38njdy5f",
+   "localizations": [
+    {
+     "altText": "Obrys těla zepředu a zezadu se zvýrazněnou přední stranou stehen na pohledu zepředu.",
+     "locale": "cs"
+    }
+   ],
+   "mimeType": "image/svg+xml",
+   "muscleGroupIllustrationUses": "cmwaiooat067w06um38njdy5f",
+   "rightsSource": "Original illustration created for Lift Lab (AI-assisted; scripts/assets/build-muscle-illustrations.mjs). Released under CC0.",
+   "url": "https://eu-central-1-staging.graphassets.com/cmtbvyun6b77p07w1hr219nyo/cmwaiooau067z06umoek6z9yb"
+  },
+  {
+   "altText": "Front and back body outline with the shoulders highlighted on both views.",
+   "fileName": "shoulders.svg",
+   "id": "cmwaioobs068206uma667ky2y",
+   "localizations": [
+    {
+     "altText": "Obrys těla zepředu a zezadu se zvýrazněnými rameny na obou pohledech.",
+     "locale": "cs"
+    }
+   ],
+   "mimeType": "image/svg+xml",
+   "muscleGroupIllustrationUses": "cmwaioobs068206uma667ky2y",
+   "rightsSource": "Original illustration created for Lift Lab (AI-assisted; scripts/assets/build-muscle-illustrations.mjs). Released under CC0.",
+   "url": "https://eu-central-1-staging.graphassets.com/cmtbvyun6b77p07w1hr219nyo/cmwaioobs068506umf6xp0sf5"
+  }
+ ],
+ "coaches": [
+  {
+   "biography": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "AI-assisted editorial attribution for the Lift Lab learning project. This is not a real coach or a professional endorsement. No certifications are claimed."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "credentials": [],
+   "id": "cmw4xei0b059c06w2qk0vsxxk",
+   "localizations": [],
+   "name": "Lift Lab — Movement Basics",
+   "photo": null,
+   "role": "Editorial demo profile",
+   "slug": "lift-lab-movement-basics",
+   "socialLinks": null
+  },
+  {
+   "biography": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Sample authorship profile for equipment-based exercise content. This is not a real coach. Exercise notes are educational and source-linked."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "credentials": [],
+   "id": "cmw4xek9s059h06w2yloqh5u6",
+   "localizations": [],
+   "name": "Lift Lab — Strength Practice",
+   "photo": null,
+   "role": "Editorial demo profile",
+   "slug": "lift-lab-strength-practice",
+   "socialLinks": null
+  },
+  {
+   "biography": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Editorial attribution for articles and illustrative programmes. AI-assisted content, not a qualified professional review or individualized training service."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "credentials": [],
+   "id": "cmw4xemu6059p06w2jat0qv9j",
+   "localizations": [],
+   "name": "Lift Lab — Training Notes",
+   "photo": null,
+   "role": "Editorial demo profile",
+   "slug": "lift-lab-training-notes",
+   "socialLinks": null
+  }
+ ],
+ "equipmentItems": [
+  {
+   "alternatives": [],
+   "category": "BODYWEIGHT",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "No external resistance required. Use a clear, stable surface."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xf22k05b106w2lf2g7ltg",
+   "image": null,
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Vlastní váha / bez vybavení"
+    }
+   ],
+   "name": "Bodyweight / no equipment",
+   "slug": "bodyweight"
+  },
+  {
+   "alternatives": [],
+   "category": "FREE_WEIGHTS",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Choose a manageable load that allows controlled repetitions."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xf4fq05b706w2586i8pcb",
+   "image": null,
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Jednoruční činky"
+    }
+   ],
+   "name": "Dumbbells",
+   "slug": "dumbbells"
+  },
+  {
+   "alternatives": [],
+   "category": "ACCESSORY",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Use a stable exercise bench; the seated press uses a supported backrest."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xf6m605bd06w26y5sylqg",
+   "image": null,
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Posilovací lavice"
+    }
+   ],
+   "name": "Weight bench",
+   "slug": "weight-bench"
+  }
+ ],
+ "exerciseSets": [
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "bodyweight-squat"
+   },
+   "id": "cmw4xhisg05f206w2g8ztw609",
+   "localizations": [],
+   "order": 1,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhisc05f106w2pa9668gl"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "bent-knee-push-up"
+   },
+   "id": "cmw4xhisl05f806w2q5c19a5o",
+   "localizations": [],
+   "order": 2,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhisc05f106w2pa9668gl"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "glute-bridge"
+   },
+   "id": "cmw4xhisp05fe06w2qxfvrvxo",
+   "localizations": [],
+   "order": 3,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhisc05f106w2pa9668gl"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "glute-bridge"
+   },
+   "id": "cmw4xhit105fp06w25wl0kgdu",
+   "localizations": [],
+   "order": 1,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhisy05fo06w230rt98v4"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "standing-calf-raise"
+   },
+   "id": "cmw4xhit605fv06w2vq7opbvl",
+   "localizations": [],
+   "order": 2,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhisy05fo06w230rt98v4"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "bodyweight-squat"
+   },
+   "id": "cmw4xhit905g106w26nke08ba",
+   "localizations": [],
+   "order": 3,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhisy05fo06w230rt98v4"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "bent-knee-push-up"
+   },
+   "id": "cmw4xhitp05gc06w2mlwcvh8i",
+   "localizations": [],
+   "order": 1,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhitj05gb06w2sdpq0zhh"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "bodyweight-squat"
+   },
+   "id": "cmw4xhitt05gi06w2fo9zbxz3",
+   "localizations": [],
+   "order": 2,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhitj05gb06w2sdpq0zhh"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "standing-calf-raise"
+   },
+   "id": "cmw4xhivi05go06w2two32ikr",
+   "localizations": [],
+   "order": 3,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhitj05gb06w2sdpq0zhh"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "goblet-squat"
+   },
+   "id": "cmw4xhlfd05h906w2ny8l73wn",
+   "localizations": [],
+   "order": 1,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlfa05h806w2anv7rgyu"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "single-arm-dumbbell-row"
+   },
+   "id": "cmw4xhlfn05hf06w26gh7jchi",
+   "localizations": [],
+   "order": 2,
+   "repRange": "6–8 per side",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlfa05h806w2anv7rgyu"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "glute-bridge"
+   },
+   "id": "cmw4xhlfw05hl06w2vnjqqlh3",
+   "localizations": [],
+   "order": 3,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlfa05h806w2anv7rgyu"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "seated-dumbbell-overhead-press"
+   },
+   "id": "cmw4xhlgn05hw06w2ujxkg570",
+   "localizations": [],
+   "order": 1,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlgg05hv06w2dbtw0m3v"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "bird-dog"
+   },
+   "id": "cmw4xhlgt05i206w2jsrsl6ad",
+   "localizations": [],
+   "order": 2,
+   "repRange": "4–6 per side",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlgg05hv06w2dbtw0m3v"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "standing-calf-raise"
+   },
+   "id": "cmw4xhlh405i806w2ts4c9y2g",
+   "localizations": [],
+   "order": 3,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlgg05hv06w2dbtw0m3v"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "goblet-squat"
+   },
+   "id": "cmw4xhlhx05ij06w2hwdcf44p",
+   "localizations": [],
+   "order": 1,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlhs05ii06w2s2l8u7m9"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "single-arm-dumbbell-row"
+   },
+   "id": "cmw4xhli105ip06w2v3lquh42",
+   "localizations": [],
+   "order": 2,
+   "repRange": "6–8 per side",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlhs05ii06w2s2l8u7m9"
+   },
+   "sets": 2,
+   "tempo": null
+  },
+  {
+   "coachNote": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Illustrative starting prescription, not a required target. Use an easy load, leave repetitions in reserve, and rest longer if needed. Stop before technique deteriorates."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "exercise": {
+    "slug": "seated-dumbbell-overhead-press"
+   },
+   "id": "cmw4xhli405iv06w2v5fo4mvp",
+   "localizations": [],
+   "order": 3,
+   "repRange": "6–8",
+   "restSeconds": 90,
+   "session": {
+    "id": "cmw4xhlhs05ii06w2s2l8u7m9"
+   },
+   "sets": 2,
+   "tempo": null
+  }
+ ],
+ "exercises": [
+  {
+   "barbellSetup": null,
+   "coach": {
+    "slug": "lift-lab-movement-basics"
+   },
+   "commonMistakes": [
+    "Hips sag toward the floor",
+    "Elbows flare straight out to the sides",
+    "Head drops before the chest"
+   ],
+   "difficulty": "BEGINNER",
+   "durationMinutes": 5,
+   "equipment": [
+    {
+     "slug": "bodyweight"
+    }
+   ],
+   "id": "cmw4xgkn505cj06w2qdg2jps2",
+   "instructions": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Start with hands beneath your shoulders and knees supported. Keep your body aligned from knees to head. Bend your elbows to lower your chest under control, then press up. Avoid sagging at your hips. Use a comfortable depth and stop if your wrists hurt."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "AI-assisted educational content checked against the source, not an individual assessment or professional coaching review. Stop movements that cause pain."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "Source: "
+        },
+        {
+         "children": [
+          {
+           "text": "https://www.acefitness.org/resources/everyone/exercise-library/13/bent-knee-push-up/"
+          }
+         ],
+         "href": "https://www.acefitness.org/resources/everyone/exercise-library/13/bent-knee-push-up/",
+         "type": "link"
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "localizations": [
+    {
+     "barbellSetup": null,
+     "commonMistakes": [
+      "Boky klesají k podlaze",
+      "Lokty se rozjíždějí přímo do stran",
+      "Hlava klesá dřív než hrudník"
+     ],
+     "instructions": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Začněte s rukama pod rameny a koleny na podložce. Držte tělo v jedné linii od kolen k hlavě. Pokrčením loktů kontrolovaně spusťte hrudník a vytlačte se zpět. Neprohýbejte boky. Zvolte příjemnou hloubku a při bolesti zápěstí přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Vzdělávací obsah s pomocí AI, nikoli osobní posouzení nebo odborná trenérská kontrola. Při bolesti přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Source: "
+          },
+          {
+           "children": [
+            {
+             "text": "https://www.acefitness.org/resources/everyone/exercise-library/13/bent-knee-push-up/"
+            }
+           ],
+           "href": "https://www.acefitness.org/resources/everyone/exercise-library/13/bent-knee-push-up/",
+           "type": "link"
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "machineAlternative": null,
+     "machineSetup": null,
+     "progressionLevel": "Začněte v příjemném rozsahu; obtížnost zvyšujte pouze při zachování kontroly.",
+     "rackHeight": null,
+     "seatPosition": null,
+     "seo": {
+      "description": "A knee-supported push-up for practising a pressing pattern.",
+      "title": "Bent-Knee Push-Up"
+     },
+     "summary": "Klik s oporou kolen pro nácvik tlakového pohybu.",
+     "title": "Klik na kolenou",
+     "videoTranscript": null
+    }
+   ],
+   "machineAlternative": null,
+   "machineSetup": null,
+   "modality": "BODYWEIGHT",
+   "primaryMuscles": [
+    {
+     "slug": "chest"
+    }
+   ],
+   "progressionLevel": "Start with a comfortable range; increase difficulty only while keeping control.",
+   "rackHeight": null,
+   "safetyPinsRequired": null,
+   "seatPosition": null,
+   "secondaryMuscles": [
+    {
+     "slug": "shoulders"
+    },
+    {
+     "slug": "core"
+    }
+   ],
+   "seo": {
+    "description": "A knee-supported push-up for practising a pressing pattern.",
+    "noIndex": true,
+    "title": "Bent-Knee Push-Up"
+   },
+   "slug": "bent-knee-push-up",
+   "substitutions": [],
+   "summary": "A knee-supported push-up for practising a pressing pattern.",
+   "title": "Bent-Knee Push-Up",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    },
+    {
+     "value": "HomeGym"
+    }
+   ],
+   "videoTranscript": null,
+   "youtubeVideoId": null
+  },
+  {
+   "barbellSetup": null,
+   "coach": {
+    "slug": "lift-lab-movement-basics"
+   },
+   "commonMistakes": [
+    "Lower back arches as the leg lifts",
+    "Hips rotate toward the lifted leg",
+    "Moving too fast to stay balanced"
+   ],
+   "difficulty": "INTERMEDIATE",
+   "durationMinutes": 5,
+   "equipment": [
+    {
+     "slug": "bodyweight"
+    }
+   ],
+   "id": "cmw4xgmo405cx06w2fnve3ks6",
+   "instructions": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Begin on hands and knees. Brace gently and reach one arm and the opposite leg away from you. Keep hips level and avoid arching your back. Return slowly and alternate. Start with one limb at a time if the combined movement is difficult."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "AI-assisted educational content checked against the source, not an individual assessment or professional coaching review. Stop movements that cause pain."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "Source: "
+        },
+        {
+         "children": [
+          {
+           "text": "https://www.acefitness.org/resources/everyone/exercise-library/14/bird-dog/"
+          }
+         ],
+         "href": "https://www.acefitness.org/resources/everyone/exercise-library/14/bird-dog/",
+         "type": "link"
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "localizations": [
+    {
+     "barbellSetup": null,
+     "commonMistakes": [
+      "Bedra se prohýbají při zvedání nohy",
+      "Pánev se natáčí ke zvednuté noze",
+      "Pohyb je příliš rychlý na udržení rovnováhy"
+     ],
+     "instructions": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Začněte na čtyřech. Lehce zpevněte trup a natáhněte jednu ruku a protilehlou nohu. Pánev držte rovně a neprohýbejte záda. Pomalu se vraťte a vystřídejte strany. Pokud je pohyb obtížný, začněte jen jednou končetinou."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Vzdělávací obsah s pomocí AI, nikoli osobní posouzení nebo odborná trenérská kontrola. Při bolesti přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Source: "
+          },
+          {
+           "children": [
+            {
+             "text": "https://www.acefitness.org/resources/everyone/exercise-library/14/bird-dog/"
+            }
+           ],
+           "href": "https://www.acefitness.org/resources/everyone/exercise-library/14/bird-dog/",
+           "type": "link"
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "machineAlternative": null,
+     "machineSetup": null,
+     "progressionLevel": "Začněte v příjemném rozsahu; obtížnost zvyšujte pouze při zachování kontroly.",
+     "rackHeight": null,
+     "seatPosition": null,
+     "seo": {
+      "description": "Coordinate opposite limbs while keeping the trunk steady.",
+      "title": "Bird Dog"
+     },
+     "summary": "Koordinujte protilehlé končetiny při stabilním trupu.",
+     "title": "Bird dog – protilehlá ruka a noha",
+     "videoTranscript": null
+    }
+   ],
+   "machineAlternative": null,
+   "machineSetup": null,
+   "modality": "BODYWEIGHT",
+   "primaryMuscles": [
+    {
+     "slug": "core"
+    }
+   ],
+   "progressionLevel": "Start with a comfortable range; increase difficulty only while keeping control.",
+   "rackHeight": null,
+   "safetyPinsRequired": null,
+   "seatPosition": null,
+   "secondaryMuscles": [
+    {
+     "slug": "glutes"
+    },
+    {
+     "slug": "back"
+    }
+   ],
+   "seo": {
+    "description": "Coordinate opposite limbs while keeping the trunk steady.",
+    "noIndex": true,
+    "title": "Bird Dog"
+   },
+   "slug": "bird-dog",
+   "substitutions": [],
+   "summary": "Coordinate opposite limbs while keeping the trunk steady.",
+   "title": "Bird Dog",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    },
+    {
+     "value": "HomeGym"
+    }
+   ],
+   "videoTranscript": null,
+   "youtubeVideoId": null
+  },
+  {
+   "barbellSetup": null,
+   "coach": {
+    "slug": "lift-lab-movement-basics"
+   },
+   "commonMistakes": [
+    "Knees cave inward",
+    "Heels lift off the floor",
+    "Lower back rounds at the bottom"
+   ],
+   "difficulty": "BEGINNER",
+   "durationMinutes": 5,
+   "equipment": [
+    {
+     "slug": "bodyweight"
+    }
+   ],
+   "id": "cmw4xggm005bq06w2xsurh0qr",
+   "instructions": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Stand with feet around hip-to-shoulder width. Brace your trunk, bend your hips and knees, and descend within a comfortable range. Keep feet grounded and knees following your toes. Stand smoothly. Shorten the movement if control is lost."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "AI-assisted educational content checked against the source, not an individual assessment or professional coaching review. Stop movements that cause pain."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "Source: "
+        },
+        {
+         "children": [
+          {
+           "text": "https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/"
+          }
+         ],
+         "href": "https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/",
+         "type": "link"
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "localizations": [
+    {
+     "barbellSetup": null,
+     "commonMistakes": [
+      "Kolena se stáčejí dovnitř",
+      "Paty se zvedají od podlahy",
+      "Dolní část zad se ve spodní poloze kulatí"
+     ],
+     "instructions": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Postavte se přibližně na šířku boků až ramen. Zpevněte trup, pokrčte kyčle a kolena a klesejte do příjemného rozsahu. Chodidla nechte na zemi, kolena směřují za špičkami. Plynule se narovnejte. Při ztrátě kontroly rozsah zmenšete."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Vzdělávací obsah s pomocí AI, nikoli osobní posouzení nebo odborná trenérská kontrola. Při bolesti přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Source: "
+          },
+          {
+           "children": [
+            {
+             "text": "https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/"
+            }
+           ],
+           "href": "https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/",
+           "type": "link"
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "machineAlternative": null,
+     "machineSetup": null,
+     "progressionLevel": "Začněte v příjemném rozsahu; obtížnost zvyšujte pouze při zachování kontroly.",
+     "rackHeight": null,
+     "seatPosition": null,
+     "seo": {
+      "description": "Practice a controlled squat without external load.",
+      "title": "Bodyweight Squat"
+     },
+     "summary": "Procvičte kontrolovaný dřep bez vnější zátěže.",
+     "title": "Dřep s vlastní vahou",
+     "videoTranscript": null
+    }
+   ],
+   "machineAlternative": null,
+   "machineSetup": null,
+   "modality": "BODYWEIGHT",
+   "primaryMuscles": [
+    {
+     "slug": "quadriceps"
+    }
+   ],
+   "progressionLevel": "Start with a comfortable range; increase difficulty only while keeping control.",
+   "rackHeight": null,
+   "safetyPinsRequired": null,
+   "seatPosition": null,
+   "secondaryMuscles": [
+    {
+     "slug": "glutes"
+    }
+   ],
+   "seo": {
+    "description": "Practice a controlled squat without external load.",
+    "noIndex": true,
+    "title": "Bodyweight Squat"
+   },
+   "slug": "bodyweight-squat",
+   "substitutions": [],
+   "summary": "Practice a controlled squat without external load.",
+   "title": "Bodyweight Squat",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    },
+    {
+     "value": "HomeGym"
+    }
+   ],
+   "videoTranscript": null,
+   "youtubeVideoId": null
+  },
+  {
+   "barbellSetup": null,
+   "coach": {
+    "slug": "lift-lab-movement-basics"
+   },
+   "commonMistakes": [
+    "Lower back arches at the top",
+    "Pushing through the toes instead of the heels",
+    "Knees fall inward or outward"
+   ],
+   "difficulty": "BEGINNER",
+   "durationMinutes": 5,
+   "equipment": [
+    {
+     "slug": "bodyweight"
+    }
+   ],
+   "id": "cmw4xgiom05c306w2j3boy5cr",
+   "instructions": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Lie on your back with bent knees and feet planted. Gently brace, press through your feet, and lift your hips without over-arching your back. Pause comfortably, then lower slowly. Keep the movement controlled rather than chasing maximum height."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "AI-assisted educational content checked against the source, not an individual assessment or professional coaching review. Stop movements that cause pain."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "Source: "
+        },
+        {
+         "children": [
+          {
+           "text": "https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/"
+          }
+         ],
+         "href": "https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/",
+         "type": "link"
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "localizations": [
+    {
+     "barbellSetup": null,
+     "commonMistakes": [
+      "Bedra se v horní poloze prohýbají",
+      "Tlak přes špičky místo přes paty",
+      "Kolena padají dovnitř nebo ven"
+     ],
+     "instructions": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Lehněte si na záda, pokrčte kolena a opřete chodidla. Lehce zpevněte trup, zatlačte chodidly a zvedněte pánev bez prohýbání beder. Krátce zastavte a pomalu klesněte. Upřednostněte kontrolu před maximální výškou."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Vzdělávací obsah s pomocí AI, nikoli osobní posouzení nebo odborná trenérská kontrola. Při bolesti přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Source: "
+          },
+          {
+           "children": [
+            {
+             "text": "https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/"
+            }
+           ],
+           "href": "https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/",
+           "type": "link"
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "machineAlternative": null,
+     "machineSetup": null,
+     "progressionLevel": "Začněte v příjemném rozsahu; obtížnost zvyšujte pouze při zachování kontroly.",
+     "rackHeight": null,
+     "seatPosition": null,
+     "seo": {
+      "description": "Explore hip extension with a floor-based bridge.",
+      "title": "Glute Bridge"
+     },
+     "summary": "Most na zemi, při kterém hýžďové svaly provádějí extenzi kyčlí a páteř zůstává v neutrální poloze.",
+     "title": "Hýžďový most",
+     "videoTranscript": null
+    }
+   ],
+   "machineAlternative": null,
+   "machineSetup": null,
+   "modality": "BODYWEIGHT",
+   "primaryMuscles": [
+    {
+     "slug": "glutes"
+    }
+   ],
+   "progressionLevel": "Start with a comfortable range; increase difficulty only while keeping control.",
+   "rackHeight": null,
+   "safetyPinsRequired": null,
+   "seatPosition": null,
+   "secondaryMuscles": [
+    {
+     "slug": "core"
+    }
+   ],
+   "seo": {
+    "description": "Explore hip extension with a floor-based bridge.",
+    "noIndex": true,
+    "title": "Glute Bridge"
+   },
+   "slug": "glute-bridge",
+   "substitutions": [],
+   "summary": "A floor-based bridge where the glutes drive hip extension while the spine stays neutral.",
+   "title": "Glute Bridge",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    },
+    {
+     "value": "HomeGym"
+    }
+   ],
+   "videoTranscript": null,
+   "youtubeVideoId": null
+  },
+  {
+   "barbellSetup": null,
+   "coach": {
+    "slug": "lift-lab-strength-practice"
+   },
+   "commonMistakes": [
+    "Knees cave inward",
+    "Heels lift off the floor",
+    "Chest drops forward at the bottom"
+   ],
+   "difficulty": "INTERMEDIATE",
+   "durationMinutes": 5,
+   "equipment": [
+    {
+     "slug": "dumbbells"
+    }
+   ],
+   "id": "cmw4xgovb05db06w2tylvh73j",
+   "instructions": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Hold a light dumbbell close to your chest with both hands. Stand around shoulder width and squat to a range you can control. Keep the load close and the trunk steady. Push through your feet to stand. Practise without weight before adding resistance."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "AI-assisted educational content checked against the source, not an individual assessment or professional coaching review. Stop movements that cause pain."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "Source: "
+        },
+        {
+         "children": [
+          {
+           "text": "https://www.acefitness.org/resources/everyone/exercise-library/362/goblet-squat/"
+          }
+         ],
+         "href": "https://www.acefitness.org/resources/everyone/exercise-library/362/goblet-squat/",
+         "type": "link"
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "localizations": [
+    {
+     "barbellSetup": null,
+     "commonMistakes": [
+      "Kolena se stáčejí dovnitř",
+      "Paty se zvedají od podlahy",
+      "Hrudník padá dopředu ve spodní poloze"
+     ],
+     "instructions": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Lehkou jednoruční činku držte oběma rukama u hrudníku. Postavte se přibližně na šířku ramen a dřepněte do kontrolovaného rozsahu. Zátěž držte blízko těla a trup stabilní. Tlakem chodidel se narovnejte. Nejprve nacvičte pohyb bez závaží."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Vzdělávací obsah s pomocí AI, nikoli osobní posouzení nebo odborná trenérská kontrola. Při bolesti přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Source: "
+          },
+          {
+           "children": [
+            {
+             "text": "https://www.acefitness.org/resources/everyone/exercise-library/362/goblet-squat/"
+            }
+           ],
+           "href": "https://www.acefitness.org/resources/everyone/exercise-library/362/goblet-squat/",
+           "type": "link"
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "machineAlternative": null,
+     "machineSetup": null,
+     "progressionLevel": null,
+     "rackHeight": null,
+     "seatPosition": null,
+     "seo": {
+      "description": "A squat with a dumbbell held close to the chest.",
+      "title": "Goblet Squat"
+     },
+     "summary": "Dřep s jednoruční činkou drženou u hrudníku.",
+     "title": "Goblet dřep",
+     "videoTranscript": null
+    }
+   ],
+   "machineAlternative": null,
+   "machineSetup": null,
+   "modality": "DUMBBELL",
+   "primaryMuscles": [
+    {
+     "slug": "quadriceps"
+    }
+   ],
+   "progressionLevel": null,
+   "rackHeight": null,
+   "safetyPinsRequired": null,
+   "seatPosition": null,
+   "secondaryMuscles": [
+    {
+     "slug": "glutes"
+    },
+    {
+     "slug": "core"
+    }
+   ],
+   "seo": {
+    "description": "A squat with a dumbbell held close to the chest.",
+    "noIndex": true,
+    "title": "Goblet Squat"
+   },
+   "slug": "goblet-squat",
+   "substitutions": [],
+   "summary": "A squat with a dumbbell held close to the chest.",
+   "title": "Goblet Squat",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    },
+    {
+     "value": "CommercialGym"
+    }
+   ],
+   "videoTranscript": null,
+   "youtubeVideoId": null
+  },
+  {
+   "barbellSetup": null,
+   "coach": {
+    "slug": "lift-lab-strength-practice"
+   },
+   "commonMistakes": [
+    "Arching away from the backrest",
+    "Pressing the dumbbells forward instead of overhead",
+    "Shrugging the shoulders toward the ears"
+   ],
+   "difficulty": "INTERMEDIATE",
+   "durationMinutes": 5,
+   "equipment": [
+    {
+     "slug": "dumbbells"
+    },
+    {
+     "slug": "weight-bench"
+    }
+   ],
+   "id": "cmw4xgt8u05e406w21khtp5sh",
+   "instructions": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Sit on a stable bench with a backrest and feet grounded. Hold light dumbbells near shoulder level with wrists straight. Press upward without arching your lower back, then lower under control. Use a comfortable range and appropriate assistance when handling the weights."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "AI-assisted educational content checked against the source, not an individual assessment or professional coaching review. Stop movements that cause pain."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "Source: "
+        },
+        {
+         "children": [
+          {
+           "text": "https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/"
+          }
+         ],
+         "href": "https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/",
+         "type": "link"
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "localizations": [
+    {
+     "barbellSetup": null,
+     "commonMistakes": [
+      "Záda se odlepují od opěradla a prohýbají",
+      "Činky jdou dopředu místo nad hlavu",
+      "Ramena se zvedají k uším"
+     ],
+     "instructions": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Sedněte si na stabilní lavici s opěrkou, chodidla opřete o zem. Lehké činky držte u ramen a zápěstí rovně. Tlačte vzhůru bez prohýbání beder, pak kontrolovaně spusťte. Použijte příjemný rozsah a při manipulaci se závažím vhodnou dopomoc."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Vzdělávací obsah s pomocí AI, nikoli osobní posouzení nebo odborná trenérská kontrola. Při bolesti přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Source: "
+          },
+          {
+           "children": [
+            {
+             "text": "https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/"
+            }
+           ],
+           "href": "https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/",
+           "type": "link"
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "machineAlternative": null,
+     "machineSetup": null,
+     "progressionLevel": null,
+     "rackHeight": null,
+     "seatPosition": null,
+     "seo": {
+      "description": "A seated overhead press with back support.",
+      "title": "Seated Dumbbell Overhead Press"
+     },
+     "summary": "Tlak nad hlavu vsedě s oporou zad.",
+     "title": "Tlaky jednoruček vsedě nad hlavu",
+     "videoTranscript": null
+    }
+   ],
+   "machineAlternative": null,
+   "machineSetup": null,
+   "modality": "DUMBBELL",
+   "primaryMuscles": [
+    {
+     "slug": "shoulders"
+    }
+   ],
+   "progressionLevel": null,
+   "rackHeight": null,
+   "safetyPinsRequired": null,
+   "seatPosition": null,
+   "secondaryMuscles": [
+    {
+     "slug": "core"
+    }
+   ],
+   "seo": {
+    "description": "A seated overhead press with back support.",
+    "noIndex": true,
+    "title": "Seated Dumbbell Overhead Press"
+   },
+   "slug": "seated-dumbbell-overhead-press",
+   "substitutions": [],
+   "summary": "A seated overhead press with back support.",
+   "title": "Seated Dumbbell Overhead Press",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    },
+    {
+     "value": "CommercialGym"
+    }
+   ],
+   "videoTranscript": null,
+   "youtubeVideoId": null
+  },
+  {
+   "barbellSetup": null,
+   "coach": {
+    "slug": "lift-lab-strength-practice"
+   },
+   "commonMistakes": [
+    "Twisting the torso to lift the weight",
+    "Pulling with the hand instead of leading with the elbow",
+    "Back rounds during the pull"
+   ],
+   "difficulty": "INTERMEDIATE",
+   "durationMinutes": 5,
+   "equipment": [
+    {
+     "slug": "dumbbells"
+    },
+    {
+     "slug": "weight-bench"
+    }
+   ],
+   "id": "cmw4xgr2e05dq06w2zouk4wt4",
+   "instructions": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Support one hand and knee on a stable bench. Keep your back steady and let the other hand hold a light dumbbell below your shoulder. Pull your elbow toward your hip without twisting. Lower slowly, then repeat on the other side."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "AI-assisted educational content checked against the source, not an individual assessment or professional coaching review. Stop movements that cause pain."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "Source: "
+        },
+        {
+         "children": [
+          {
+           "text": "https://www.acefitness.org/resources/everyone/exercise-library/126/single-arm-row/"
+          }
+         ],
+         "href": "https://www.acefitness.org/resources/everyone/exercise-library/126/single-arm-row/",
+         "type": "link"
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "localizations": [
+    {
+     "barbellSetup": null,
+     "commonMistakes": [
+      "Trup se při zvedání činky stáčí",
+      "Tah rukou místo vedení loktem",
+      "Záda se během tahu kulatí"
+     ],
+     "instructions": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Jednu ruku a koleno opřete o stabilní lavici. Držte záda stabilní a druhou rukou lehkou činku pod ramenem. Přitahujte loket směrem k boku bez otáčení trupu. Pomalu spusťte a zopakujte na druhé straně."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Vzdělávací obsah s pomocí AI, nikoli osobní posouzení nebo odborná trenérská kontrola. Při bolesti přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Source: "
+          },
+          {
+           "children": [
+            {
+             "text": "https://www.acefitness.org/resources/everyone/exercise-library/126/single-arm-row/"
+            }
+           ],
+           "href": "https://www.acefitness.org/resources/everyone/exercise-library/126/single-arm-row/",
+           "type": "link"
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "machineAlternative": null,
+     "machineSetup": null,
+     "progressionLevel": null,
+     "rackHeight": null,
+     "seatPosition": null,
+     "seo": {
+      "description": "A bench-supported row using one dumbbell.",
+      "title": "Single-Arm Dumbbell Row"
+     },
+     "summary": "Přítah jedné činky s oporou o lavici.",
+     "title": "Přítah jednoruční činky",
+     "videoTranscript": null
+    }
+   ],
+   "machineAlternative": null,
+   "machineSetup": null,
+   "modality": "DUMBBELL",
+   "primaryMuscles": [
+    {
+     "slug": "back"
+    }
+   ],
+   "progressionLevel": null,
+   "rackHeight": null,
+   "safetyPinsRequired": null,
+   "seatPosition": null,
+   "secondaryMuscles": [
+    {
+     "slug": "core"
+    }
+   ],
+   "seo": {
+    "description": "A bench-supported row using one dumbbell.",
+    "noIndex": true,
+    "title": "Single-Arm Dumbbell Row"
+   },
+   "slug": "single-arm-dumbbell-row",
+   "substitutions": [],
+   "summary": "A bench-supported row using one dumbbell.",
+   "title": "Single-Arm Dumbbell Row",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    },
+    {
+     "value": "CommercialGym"
+    }
+   ],
+   "videoTranscript": null,
+   "youtubeVideoId": null
+  },
+  {
+   "barbellSetup": null,
+   "coach": {
+    "slug": "lift-lab-movement-basics"
+   },
+   "commonMistakes": [
+    "Bouncing out of the bottom position",
+    "Rolling onto the outer edge of the foot",
+    "Cutting the range of motion short"
+   ],
+   "difficulty": "BEGINNER",
+   "durationMinutes": 5,
+   "equipment": [
+    {
+     "slug": "bodyweight"
+    }
+   ],
+   "id": "cmw4xgvra05ei06w2497dgbk3",
+   "instructions": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Stand facing a wall with feet hip-width apart and hands lightly supported. Raise your heels slowly while keeping your feet facing forward. Pause briefly and lower with control. Use both feet and avoid bouncing."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "AI-assisted educational content checked against the source, not an individual assessment or professional coaching review. Stop movements that cause pain."
+        }
+       ],
+       "type": "paragraph"
+      },
+      {
+       "children": [
+        {
+         "text": "Source: "
+        },
+        {
+         "children": [
+          {
+           "text": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+          }
+         ],
+         "href": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/",
+         "type": "link"
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "localizations": [
+    {
+     "barbellSetup": null,
+     "commonMistakes": [
+      "Odrážení ze spodní polohy",
+      "Přenášení váhy na vnější hranu chodidla",
+      "Zkrácený rozsah pohybu"
+     ],
+     "instructions": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Postavte se čelem ke zdi, chodidla na šířku boků, ruce lehce opřete. Pomalu zvedněte paty a držte chodidla vpřed. Krátce zastavte a kontrolovaně spusťte. Použijte obě nohy a neodrážejte se."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Vzdělávací obsah s pomocí AI, nikoli osobní posouzení nebo odborná trenérská kontrola. Při bolesti přestaňte."
+          }
+         ],
+         "type": "paragraph"
+        },
+        {
+         "children": [
+          {
+           "text": "Source: "
+          },
+          {
+           "children": [
+            {
+             "text": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+            }
+           ],
+           "href": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/",
+           "type": "link"
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "machineAlternative": null,
+     "machineSetup": null,
+     "progressionLevel": "Začněte v příjemném rozsahu; obtížnost zvyšujte pouze při zachování kontroly.",
+     "rackHeight": null,
+     "seatPosition": null,
+     "seo": {
+      "description": "A supported heel raise from a level surface.",
+      "title": "Standing Calf Raise"
+     },
+     "summary": "Výpon na špičky s oporou na rovné ploše.",
+     "title": "Výpony lýtek ve stoje",
+     "videoTranscript": null
+    }
+   ],
+   "machineAlternative": null,
+   "machineSetup": null,
+   "modality": "BODYWEIGHT",
+   "primaryMuscles": [
+    {
+     "slug": "calves"
+    }
+   ],
+   "progressionLevel": "Start with a comfortable range; increase difficulty only while keeping control.",
+   "rackHeight": null,
+   "safetyPinsRequired": null,
+   "seatPosition": null,
+   "secondaryMuscles": [],
+   "seo": {
+    "description": "A supported heel raise from a level surface.",
+    "noIndex": true,
+    "title": "Standing Calf Raise"
+   },
+   "slug": "standing-calf-raise",
+   "substitutions": [],
+   "summary": "A supported heel raise from a level surface.",
+   "title": "Standing Calf Raise",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    },
+    {
+     "value": "HomeGym"
+    }
+   ],
+   "videoTranscript": null,
+   "youtubeVideoId": null
+  }
+ ],
+ "muscleGroups": [
+  {
+   "bodyRegion": "Upper body",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Discovery category for the starter library. The mesh identifier is reserved for a future anatomy asset and is not yet validated against a GLB."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xet8w05ad06w2lcyk6eb0",
+   "illustration": {
+    "fileName": "back.svg",
+    "id": "cmwaioo6g066806umyu1f2mcq"
+   },
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Záda"
+    }
+   ],
+   "meshId": "back",
+   "name": "Back",
+   "slug": "back"
+  },
+  {
+   "bodyRegion": "Lower body",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Discovery category for the starter library. The mesh identifier is reserved for a future anatomy asset and is not yet validated against a GLB."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xezrv05av06w28500f32o",
+   "illustration": {
+    "fileName": "calves.svg",
+    "id": "cmwaioo7d066e06umuv3ntl4w"
+   },
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Lýtka"
+    }
+   ],
+   "meshId": "calves",
+   "name": "Calves",
+   "slug": "calves"
+  },
+  {
+   "bodyRegion": "Upper body",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Discovery category for the starter library. The mesh identifier is reserved for a future anatomy asset and is not yet validated against a GLB."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xer4405a706w27ih80njb",
+   "illustration": {
+    "fileName": "chest.svg",
+    "id": "cmwaioo87066k06umn5h06muu"
+   },
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Hrudník"
+    }
+   ],
+   "meshId": "chest",
+   "name": "Chest",
+   "slug": "chest"
+  },
+  {
+   "bodyRegion": "Torso",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Discovery category for the starter library. The mesh identifier is reserved for a future anatomy asset and is not yet validated against a GLB."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xexr205ap06w2i6x7uyqr",
+   "illustration": {
+    "fileName": "core.svg",
+    "id": "cmwaioo8y066q06umf8zq9ruu"
+   },
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Střed těla"
+    }
+   ],
+   "meshId": "core",
+   "name": "Core",
+   "slug": "core"
+  },
+  {
+   "bodyRegion": "Lower body",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Discovery category for the starter library. The mesh identifier is reserved for a future anatomy asset and is not yet validated against a GLB."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xep3j05a106w2oqqz4xw3",
+   "illustration": {
+    "fileName": "glutes.svg",
+    "id": "cmwaioo9x066y06umfw6236dz"
+   },
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Hýžďové svaly"
+    }
+   ],
+   "meshId": "glutes",
+   "name": "Glutes",
+   "slug": "glutes"
+  },
+  {
+   "bodyRegion": "Lower body",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Discovery category for the starter library. The mesh identifier is reserved for a future anatomy asset and is not yet validated against a GLB."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xen7j059u06w2jkwz6efo",
+   "illustration": {
+    "fileName": "quadriceps.svg",
+    "id": "cmwaiooat067w06um38njdy5f"
+   },
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Čtyřhlavý sval stehenní"
+    }
+   ],
+   "meshId": "quadriceps",
+   "name": "Quadriceps",
+   "slug": "quadriceps"
+  },
+  {
+   "bodyRegion": "Upper body",
+   "description": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Discovery category for the starter library. The mesh identifier is reserved for a future anatomy asset and is not yet validated against a GLB."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "id": "cmw4xevjq05aj06w23aspsaxc",
+   "illustration": {
+    "fileName": "shoulders.svg",
+    "id": "cmwaioobs068206uma667ky2y"
+   },
+   "localizations": [
+    {
+     "description": null,
+     "locale": "cs",
+     "name": "Ramena"
+    }
+   ],
+   "meshId": "shoulders",
+   "name": "Shoulders",
+   "slug": "shoulders"
+  }
+ ],
+ "workoutProgrammes": [
+  {
+   "coach": {
+    "slug": "lift-lab-movement-basics"
+   },
+   "durationWeeks": 2,
+   "goal": "GENERAL_FITNESS",
+   "id": "cmw4xhis605ey06w2nfliu4h1",
+   "level": "BEGINNER",
+   "localizations": [
+    {
+     "locale": "cs",
+     "overview": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Ukázkový dvoutýdenní plán se třemi tréninky týdně v nesousedících dnech. Ve druhém týdnu opakujte pouze při dobrém pocitu; zvyšování zátěže není nutné. Jde o redakční obsah s pomocí AI, nikoli o individuální program nebo odborně zkontrolovaný kompletní plán."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "seo": {
+      "description": "An illustrative movement-practice plan with linked exercise instructions.",
+      "title": "Bodyweight Movement Practice"
+     },
+     "title": "Nácvik pohybu s vlastní vahou"
+    }
+   ],
+   "overview": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "An illustrative two-week practice plan with three nonconsecutive sessions per week. Repeat the three sessions in week two only if comfortable; no load increase is required. These sample prescriptions are AI-assisted editorial content, not personalized programming or a professionally reviewed complete fitness plan."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "seo": {
+    "description": "An illustrative movement-practice plan with linked exercise instructions.",
+    "noIndex": true,
+    "title": "Bodyweight Movement Practice"
+   },
+   "sessionsPerWeek": 3,
+   "slug": "bodyweight-movement-practice",
+   "title": "Bodyweight Movement Practice",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    }
+   ]
+  },
+  {
+   "coach": {
+    "slug": "lift-lab-strength-practice"
+   },
+   "durationWeeks": 2,
+   "goal": "GENERAL_FITNESS",
+   "id": "cmw4xhlf605h506w2f0h0je4i",
+   "level": "INTERMEDIATE",
+   "localizations": [
+    {
+     "locale": "cs",
+     "overview": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Ukázkový dvoutýdenní plán se třemi tréninky týdně v nesousedících dnech. Ve druhém týdnu opakujte pouze při dobrém pocitu; zvyšování zátěže není nutné. Jde o redakční obsah s pomocí AI, nikoli o individuální program nebo odborně zkontrolovaný kompletní plán."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "seo": {
+      "description": "An illustrative movement-practice plan with linked exercise instructions.",
+      "title": "Dumbbell Movement Practice"
+     },
+     "title": "Nácvik pohybu s jednoručkami"
+    }
+   ],
+   "overview": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "An illustrative two-week practice plan with three nonconsecutive sessions per week. Repeat the three sessions in week two only if comfortable; no load increase is required. These sample prescriptions are AI-assisted editorial content, not personalized programming or a professionally reviewed complete fitness plan."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "seo": {
+    "description": "An illustrative movement-practice plan with linked exercise instructions.",
+    "noIndex": true,
+    "title": "Dumbbell Movement Practice"
+   },
+   "sessionsPerWeek": 3,
+   "slug": "dumbbell-movement-practice",
+   "title": "Dumbbell Movement Practice",
+   "trainingAttributes": [
+    {
+     "value": "TechniqueFirst"
+    }
+   ]
+  }
+ ],
+ "workoutSessions": [
+  {
+   "cooldown": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Finish with easy movement and note which exercises felt controlled. Adapt or skip movements that do not feel comfortable."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "estimatedMinutes": 25,
+   "id": "cmw4xhisc05f106w2pa9668gl",
+   "localizations": [
+    {
+     "cooldown": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Na závěr se lehce rozhýbejte a poznamenejte si, které cviky byly kontrolované. Nepříjemné pohyby upravte nebo vynechte."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "title": "Dřep a tlak",
+     "warmup": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Začněte několika minutami lehkého pohybu a každý cvik nacvičte bez zátěže nebo s velmi lehkým odporem."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    }
+   ],
+   "order": 1,
+   "programme": {
+    "slug": "bodyweight-movement-practice"
+   },
+   "title": "Squat and press",
+   "warmup": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Begin with a few minutes of easy movement and rehearse each exercise without added weight or with very light resistance."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "cooldown": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Finish with easy movement and note which exercises felt controlled. Adapt or skip movements that do not feel comfortable."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "estimatedMinutes": 25,
+   "id": "cmw4xhisy05fo06w230rt98v4",
+   "localizations": [
+    {
+     "cooldown": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Na závěr se lehce rozhýbejte a poznamenejte si, které cviky byly kontrolované. Nepříjemné pohyby upravte nebo vynechte."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "title": "Kyčle a lýtka",
+     "warmup": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Začněte několika minutami lehkého pohybu a každý cvik nacvičte bez zátěže nebo s velmi lehkým odporem."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    }
+   ],
+   "order": 2,
+   "programme": {
+    "slug": "bodyweight-movement-practice"
+   },
+   "title": "Hips and calves",
+   "warmup": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Begin with a few minutes of easy movement and rehearse each exercise without added weight or with very light resistance."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "cooldown": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Finish with easy movement and note which exercises felt controlled. Adapt or skip movements that do not feel comfortable."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "estimatedMinutes": 25,
+   "id": "cmw4xhitj05gb06w2sdpq0zhh",
+   "localizations": [
+    {
+     "cooldown": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Na závěr se lehce rozhýbejte a poznamenejte si, které cviky byly kontrolované. Nepříjemné pohyby upravte nebo vynechte."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "title": "Opakování a kontrola",
+     "warmup": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Začněte několika minutami lehkého pohybu a každý cvik nacvičte bez zátěže nebo s velmi lehkým odporem."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    }
+   ],
+   "order": 3,
+   "programme": {
+    "slug": "bodyweight-movement-practice"
+   },
+   "title": "Repeat and refine",
+   "warmup": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Begin with a few minutes of easy movement and rehearse each exercise without added weight or with very light resistance."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "cooldown": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Finish with easy movement and note which exercises felt controlled. Adapt or skip movements that do not feel comfortable."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "estimatedMinutes": 25,
+   "id": "cmw4xhlfa05h806w2anv7rgyu",
+   "localizations": [
+    {
+     "cooldown": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Na závěr se lehce rozhýbejte a poznamenejte si, které cviky byly kontrolované. Nepříjemné pohyby upravte nebo vynechte."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "title": "Dřep, přítah a most",
+     "warmup": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Začněte několika minutami lehkého pohybu a každý cvik nacvičte bez zátěže nebo s velmi lehkým odporem."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    }
+   ],
+   "order": 1,
+   "programme": {
+    "slug": "dumbbell-movement-practice"
+   },
+   "title": "Squat, row, and bridge",
+   "warmup": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Begin with a few minutes of easy movement and rehearse each exercise without added weight or with very light resistance."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "cooldown": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Finish with easy movement and note which exercises felt controlled. Adapt or skip movements that do not feel comfortable."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "estimatedMinutes": 25,
+   "id": "cmw4xhlgg05hv06w2dbtw0m3v",
+   "localizations": [
+    {
+     "cooldown": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Na závěr se lehce rozhýbejte a poznamenejte si, které cviky byly kontrolované. Nepříjemné pohyby upravte nebo vynechte."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "title": "Tlak a kontrola trupu",
+     "warmup": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Začněte několika minutami lehkého pohybu a každý cvik nacvičte bez zátěže nebo s velmi lehkým odporem."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    }
+   ],
+   "order": 2,
+   "programme": {
+    "slug": "dumbbell-movement-practice"
+   },
+   "title": "Press and trunk control",
+   "warmup": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Begin with a few minutes of easy movement and rehearse each exercise without added weight or with very light resistance."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "cooldown": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Finish with easy movement and note which exercises felt controlled. Adapt or skip movements that do not feel comfortable."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   },
+   "estimatedMinutes": 25,
+   "id": "cmw4xhlhs05ii06w2s2l8u7m9",
+   "localizations": [
+    {
+     "cooldown": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Na závěr se lehce rozhýbejte a poznamenejte si, které cviky byly kontrolované. Nepříjemné pohyby upravte nebo vynechte."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     },
+     "locale": "cs",
+     "title": "Procvičení celého těla",
+     "warmup": {
+      "raw": {
+       "children": [
+        {
+         "children": [
+          {
+           "text": "Začněte několika minutami lehkého pohybu a každý cvik nacvičte bez zátěže nebo s velmi lehkým odporem."
+          }
+         ],
+         "type": "paragraph"
+        }
+       ]
+      }
+     }
+    }
+   ],
+   "order": 3,
+   "programme": {
+    "slug": "dumbbell-movement-practice"
+   },
+   "title": "Full-body rehearsal",
+   "warmup": {
+    "raw": {
+     "children": [
+      {
+       "children": [
+        {
+         "text": "Begin with a few minutes of easy movement and rehearse each exercise without added weight or with very light resistance."
+        }
+       ],
+       "type": "paragraph"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
