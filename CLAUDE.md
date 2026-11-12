@@ -123,7 +123,8 @@ the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` en
 - No `docs/schema-changelog.md` (migration files + `hygraph/README.md` serve this role).
 - Webhook handling was removed from the BFF on purpose; `HYGRAPH_WEBHOOK_SECRET` in the SDD
   env list is obsolete.
-- Deferred/dropped by decision (2026-11-10): Live Preview + click-to-edit; audience variants /
-  second brand (Enterprise feature, not enabled).
+- **Planned, waiting for an Enterprise dev account (2026-11-12):** App Framework, Backup & Recovery,
+  Audit Logs, Variants, Live Preview + Click to Edit — plan in SDD §14 / Phase 7. Don't start until
+  the user confirms the account; then begin with §14.0 prerequisites.
 - Not started: exercise photos/video,
   YouTube remote field, publish webhook, backup/audit docs, reflection/decision log.

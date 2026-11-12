@@ -1,6 +1,6 @@
 # Lift Lab — Software Design Document
 
-**Status (2026-11-10):** Schema migrations 001–005 applied; starter content published; NestJS read/write API and React browser for exercises, programmes, articles and workout requests working. Next: Hygraph MCP connection, assets/editorial workflow, Live Preview, 3D muscle map. See `CLAUDE.md` for the as-built summary.
+**Status (2026-11-12):** First milestone built and running against the new Hygraph dev project (`cmw8okmtc003y07w272tdlgtw`): migrations 001–006, published en + cs content and illustrations, NestJS BFF, React app with 3D/2D muscle explorer. **Next: Enterprise features (App Framework, recovery tools, audit logs, variants, Live Preview) — waiting for an Enterprise dev account; plan in §14.** See `CLAUDE.md` for the as-built summary.
 **Purpose:** A Hygraph-first learning project that turns strength-training knowledge into an interactive exercise library, workout planner, and 3D muscle explorer.
 
 ## 1. Product definition
@@ -313,17 +313,27 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 
 ### Phase 4 — Production CMS features
 
-- [ ] ~~Add Live Preview and click-to-edit~~ **Deferred (2026-11-10):** not needed for this prototype. A light option remains: a secret-protected DRAFT preview mode in the API plus Hygraph preview URLs, without click-to-edit.
+- [ ] Add Live Preview and click-to-edit — **back in scope (2026-11-12)**, moved to Phase 7 / §14.4 (needs Enterprise dev account).
 - [x] Localise selected content to Czech (all starter exercises, muscle groups, programmes, articles and asset alt text have `cs`).
-- [ ] ~~Add audience variants and demonstrate a Lift Lab Home second-brand view~~ **Dropped (2026-11-10):** Variants are an Enterprise feature not enabled on this project, and not needed for the prototype.
+- [ ] Add audience variants and demonstrate a Lift Lab Home second-brand view — **back in scope (2026-11-12)**, moved to Phase 7 / §14.3 (Enterprise feature).
 - [x] Make, diff, and promote a schema change across environments (migration 006 `Exercise.commonMistakes`: development → diff → master, diff empty afterwards; API/web show it).
 
 ### Phase 5 — Advanced operations
 
 - [x] Configure roles and permissions (already practised).
 - [ ] Configure a signed Hygraph publish webhook for the external endpoint.
-- [ ] Create a YouTube Data API remote field that searches/selects exercise tutorials, with a video-ID fallback and approved-channel policy.
-- [x] Document backup/export, recovery drill, and audit-log review (`docs/operations.md`; drill passed 2026-11-10; Enterprise backup/audit logs not enabled).
+- [ ] Create a YouTube tutorial picker for exercises, with a video-ID fallback and approved-channel policy — now planned as an App Framework field element (Phase 7 / §14.5) instead of a remote field.
+- [x] Document backup/export, recovery drill, and audit-log review (`docs/operations.md`; drill passed 2026-11-10 without Enterprise tools). Repeat with Hygraph's built-in Backup & Recovery and Audit Logs in Phase 7 / §14.1–14.2.
+
+### Phase 7 — Enterprise features (blocked: waiting for Enterprise dev account)
+
+Detailed plan in §14. Order chosen so the cheapest, configuration-only items prove the account first.
+
+- [ ] 7.1 Recovery tools: enable Backup & Recovery, run a restore drill with the built-in backups (§14.1).
+- [ ] 7.2 Audit logs: enable, set up an auditor role, review and record evidence (§14.2).
+- [ ] 7.3 Variants: segments, variant-enabled fields, beginner/experienced copy, Lift Lab Home view (§14.3).
+- [ ] 7.4 Live Preview and click-to-edit for exercises, programmes and articles (§14.4).
+- [ ] 7.5 App Framework: Lift Lab editor app with a YouTube tutorial field and a muscle-map/publish-check sidebar (§14.5).
 
 ### Phase 6 — Reflection
 
@@ -338,7 +348,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 - One programme renders structured sessions, sets, and linked exercises.
 - At least one article demonstrates modular content blocks and Rich Text.
 - One protected, validated mutation creates a `WorkoutIntent`; no mutation credential is exposed client-side.
-- The project has sample English content, an initial Czech localisation, and an editor can preview unpublished changes *(preview deferred — see Phase 4)*.
+- The project has sample English content, an initial Czech localisation, and an editor can preview unpublished changes *(Live Preview planned in Phase 7 / §14.4)*.
 - Mobile, keyboard, and reduced-motion behaviour are tested before considering the 3D experience complete.
 
 ## 12. Risks and mitigations
@@ -357,3 +367,94 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 2. ~~Which 3D direction is preferred?~~ **Decided 2026-11-10:** primitive shapes built in code (prototype project; no model file or licensing). Anatomical (Z-Anatomy, CC BY-SA 4.0) or stylised models remain possible later — the `meshId` contract makes the swap cheap.
 3. Should workout intents remain anonymous, or should the project later add a real authentication provider and saved plans?
 4. Is Czech the preferred second locale, or should the exercise use another language?
+
+## 14. Enterprise features plan
+
+Status: **planned, blocked on an Enterprise dev account** (requested 2026-11-12). Everything below targets the dev project `cmw8okmtc003y07w272tdlgtw`; schema changes still go through numbered migrations and the development → master workflow (`docs/environments.md`). Before starting, confirm in Studio which features the account actually enables and re-check the docs for anything that changed.
+
+### 14.0 Prerequisites (day 1 on the new account)
+
+- Confirm feature flags: Backup & Recovery, Audit Logs, Variants, Live Preview/Click to Edit, App Framework.
+- Re-clone `development` from `master` with content (the current clone was taken while master was empty).
+- Tokens: keep separate tokens per purpose. New: a **preview token** (DRAFT read, server-only) for §14.4.
+- Update `hygraph-dev` MCP PAT if the account/project changes; MCP still cannot delete — deletions stay manual in Studio.
+
+### 14.1 Recovery tools (Backup & Recovery)
+
+What it gives us: daily automatic backups of `master` (content, assets, schema), up to 7 days, restore as a new environment or restore-and-promote to `master`.
+
+1. Enable and confirm the first backup appears (Project backups list; note next scheduled backup and retention).
+2. **Drill A — restore to a new environment:** pick yesterday's backup → "Recover backup only" → new environment. Run the export/compare used for the 2026-11-12 rebuild against it vs. `master` and record the result.
+3. **Drill B — accidental change rollback:** in `master`, change one exercise (logged), then "Recover backup & promote to master" on a quiet day; verify the change is gone and the old master is kept under a new name. Note: restored environments change asset URLs — check the app and anything storing asset URLs.
+4. Update `docs/operations.md`: recovery toolkit gets option 0 (built-in backups), RTO/RPO observed, runbook with screenshots.
+
+Done when: both drills logged with timestamps and comparison output; runbook updated.
+
+### 14.2 Audit logs
+
+What it gives us: create/update/delete/publish/unpublish events for content, models, fields, environments, webhooks, roles, members and PATs, with who/how (USER, PAT, …), filters and detail payloads.
+
+1. Enable; create a custom role "Auditor" with *Can view Audit Logs* (least privilege) and test it with a second member if available.
+2. Generate known events: one migration via the migrate script (PAT), one Studio edit (user), one app workout request (Mutation Token PAT), one publish/unpublish, one webhook or token change.
+3. Review each in the Audit Logs Explorer; record filters used and what each event shows (note: content events carry no full payload).
+4. Check whether logs can be exported or queried via API and how long they are retained; if an API exists, add `npm run hygraph:audit` to pull recent events into a dated JSON (not committed if it contains personal data).
+5. Update `docs/operations.md` audit section: Enterprise audit log as primary source, our system-field queries as backup; weekly review checklist.
+
+Done when: every generated event is found in the log and the checklist is in the docs.
+
+### 14.3 Variants (audiences + second brand)
+
+Model:
+- Segments (system model): `beginner`, `experienced`, `lift-lab-home`.
+- Migration 007: enable variants on `Exercise.summary`, `Exercise.commonMistakes`, `Exercise.progressionLevel`, `WorkoutProgramme.overview`, `CTA.label` (start small; slugs/unique fields cannot be variant-enabled).
+
+Content:
+- Beginner/experienced variants for 3–4 exercises (e.g. glute bridge, goblet squat, bent-knee push-up), en + cs.
+- `lift-lab-home` variants emphasising home-gym equipment for the bodyweight exercises.
+- Publishing: publish segments, base entry, then each variant (variants are not published with the base).
+
+API/web:
+- `GET /api/exercises/:slug?audience=beginner|experienced` and `?brand=home` → query `variants(where: {segments_some: {slug: …}})`, merge variant fields over the base, fall back to base when absent. Audience is validated server-side like `locale`.
+- Web: audience switch (default from the workout-request experience level, remembered per browser); "Lift Lab Home" view = brand segment + home-gym taxonomy filter + light theme change.
+- Tests: merge/fallback logic, invalid audience 400, UI switch.
+
+Done when: the same exercise shows different summary/mistakes per audience in both locales, and the Home view works without duplicated entries.
+
+### 14.4 Live Preview and Click to Edit
+
+API:
+- Preview mode: `GET /api/...?preview=1` with a signed short-lived preview cookie/header issued by `GET /api/preview?secret=…&path=…` (secret from `.env`, compared in constant time). In preview, read `stage: DRAFT` with the separate preview token; responses `Cache-Control: no-store`. Published mode unchanged.
+- Queries add `id` on entries and components (needed for click-to-edit component chains).
+
+Web:
+- `@hygraph/preview-sdk` initialised only in preview mode (`endpoint`, `studioUrl` for the dev deployment, `allowedOrigins`); `subscribe('save')` refetches the current view.
+- Annotate editable regions with `data-hygraph-entry-id` + `data-hygraph-field-api-id` (exercise title/summary/instructions/common mistakes; programme title/overview; article title/excerpt; article blocks via `data-hygraph-component-chain`; rich text with `data-hygraph-rich-text-format`).
+- Hash routes keep working: preview URL templates per model, e.g. `<base>/api/preview?secret=…&path=/%23/exercises/{slug}`.
+
+Studio:
+- Configure preview URLs for Exercise, WorkoutProgramme, Article. First try `http://localhost:5173` (Chrome treats localhost as secure); if the iframe is blocked, use a temporary HTTPS tunnel (Cloudflare Tunnel/ngrok) and add it to `allowedOrigins` and `WEB_ORIGIN`.
+
+Done when: an editor changes a draft exercise, sees it in Live Preview without publishing, and clicking the title/instructions jumps to the field in Studio. Public pages still show only published content.
+
+### 14.5 App Framework — "Lift Lab editor tools" app
+
+New workspace `apps/hygraph-app` (React + `@hygraph/app-sdk-react`, Vite), registered in the project and installed in `development` first.
+
+- **Field element — YouTube tutorial picker** (replaces the remote-field idea): search approved channels via a small server endpoint that holds the YouTube Data API key (never in the browser); store `videoId`, `title`, `channelTitle`, `thumbnailUrl`, `publishedAt` in a JSON field (migration 008: `Exercise.youtubeTutorial` JSON, keep `youtubeVideoId` fallback). Web renders it with `youtube-nocookie.com` after user interaction.
+- **Sidebar element — muscle map & publish check:** renders the shared `BodyMap` for the entry's primary/secondary muscles and flags unknown `meshId`s; checklist before publishing (cs localization present, alt text + rights on linked assets, common mistakes 3–140 chars, SEO noIndex for starter content).
+- Hosting: localhost during development if Studio allows it, otherwise the same HTTPS tunnel; document app registration, permissions it requests, and installation in `docs/app-framework.md`.
+
+Done when: an editor can pick a tutorial in the entry form and sees the sidebar checks; app permissions are least-privilege.
+
+### 14.6 Sequence and effort (rough)
+
+| Step | Depends on | Effort |
+| --- | --- | --- |
+| 14.0 prerequisites | account | 0.5 session |
+| 14.1 recovery drills | backups running ≥ 1 day | 1 session |
+| 14.2 audit logs | — | 0.5–1 session |
+| 14.3 variants | migration 007 | 2 sessions |
+| 14.4 live preview + click to edit | preview token, maybe tunnel | 2 sessions |
+| 14.5 app framework | YouTube API key, app registration | 2–3 sessions |
+
+Risks: features or APIs differ on the dev deployment (verify first); variants multiply editorial work across locales (keep the field set small); preview/app iframes may need HTTPS (tunnel); YouTube API quota (cache + video-ID fallback).
