@@ -41,7 +41,10 @@ npm run hygraph:schema:<name>:plan | :apply   # foundation, workflow-localizatio
 
 ## Hygraph
 
-- Project `cmtbngj4605dn08w5ymytbfu8`, environment `master`. Locales `en` (default), `cs`.
+- **Current project (since 2026-11-12):** `cmw8okmtc003y07w272tdlgtw` on Hygraph's **dev** deployment
+  (`eu-central-1-dev-1`, `*.hygraph.dev`), environment `master`. `apps/api/.env` points here.
+  Previous project `cmtbngj4605dn08w5ymytbfu8` (hygraph.com staging region) is the legacy source;
+  older docs refer to it. Locales `en` (default), `cs`.
   Stages DRAFT → REVIEW → PUBLISHED.
 - Migrations 001–005 applied: enums, components (SEO, Callout, MediaWithCaption, CTA),
   Exercise / MuscleGroup / Equipment / Coach, conditional modality fields, Review stage +
@@ -92,9 +95,14 @@ npm run hygraph:schema:<name>:plan | :apply   # foundation, workflow-localizatio
 
 ## Hygraph MCP
 
-Connected (verified 2026-11-10). Always pass `project: cmtbngj4605dn08w5ymytbfu8`,
-`environment: master` (region EU-CENTRAL-1-STAGING; Content API
-`https://eu-central-1-staging.cdn.hygraph.com/content/cmtbngj4605dn08w5ymytbfu8/master`).
+Two connections:
+- **`hygraph-dev`** (current project): a local MCP server in the Claude desktop app config, added
+  by `Claude outputs/add-hygraph-dev-mcp.mjs` from `HYGRAPH_MCP_ENDPOINT`/`HYGRAPH_MCP_PAT` in
+  `apps/api/.env`. Bound to project `cmw8okmtc003y07w272tdlgtw`, environment `master`; tools appear
+  as `mcp__remote-devices__hygraph-dev__*` (run RefreshMcpTools if missing).
+- **`Hygraph MCP`** claude.ai connector: hygraph.com account only, sees the legacy project
+  `cmtbngj4605dn08w5ymytbfu8` (pass `project` + `environment: master`).
+Claude's sandboxes cannot reach `*.hygraph.com`/`*.hygraph.dev` directly; the MCP is the only route.
 Use `dry_run` for mutations/migrations first. MCP cannot delete or unpublish. Use it for exploring schema/content and editorial tasks. Prefer
 schema changes as numbered migrations in this repo, not ad-hoc MCP edits, so the repo stays
 the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` entries.
