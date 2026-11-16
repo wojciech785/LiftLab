@@ -329,11 +329,11 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 
 Detailed plan in §14. Order chosen so the cheapest, configuration-only items prove the account first.
 
-- [ ] 7.1 Recovery tools: enable Backup & Recovery, run a restore drill with the built-in backups (§14.1).
-- [~] 7.2 Audit logs: enabled 2026-11-16; known events generated and documented in `docs/operations.md`; user verification + Auditor role pending (§14.2).
+- [ ] 7.1 Recovery tools: Backup & Recovery needs per-project enablement by Hygraph (requested 2026-11-16) (§14.1).
+- [ ] 7.2 Audit logs: menu visible but **not recording** (2026-11-16); enablement requested from Hygraph. Procedure + known events ready in `docs/operations.md` (§14.2).
 - [ ] 7.3 Variants: segments, variant-enabled fields, beginner/experienced copy, Lift Lab Home view (§14.3).
 - [ ] 7.4 Live Preview and click-to-edit for exercises, programmes and articles (§14.4).
-- [ ] 7.5 App Framework: Lift Lab editor app with a YouTube tutorial field and a muscle-map/publish-check sidebar (§14.5).
+- [ ] 7.5 App Framework: not visible on the account yet (requested 2026-11-16); Lift Lab editor app with a YouTube tutorial field and a muscle-map/publish-check sidebar (§14.5).
 
 ### Phase 6 — Reflection
 

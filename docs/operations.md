@@ -4,7 +4,7 @@ Current project `cmw8okmtc003y07w272tdlgtw` (Hygraph dev deployment, **Enterpris
 
 | Enterprise feature | Status (2026-11-16) |
 | --- | --- |
-| Audit Logs | **Enabled** — primary audit source, see "Enterprise audit log" below |
+| Audit Logs | **Menu visible but not recording** (2026-11-16): explorer empty in `master` and `development` after known events at 08:46–08:52 UTC; enablement requested from Hygraph. Until then the system-field audit trail below is the source. |
 | Backup & Recovery | Not yet enabled (needs custom per-project setup by Hygraph); the recovery toolkit below remains in force |
 
 ## Recovery toolkit
@@ -37,6 +37,7 @@ Time to recover: ~7 seconds once the source was identified. Lesson: keep a fresh
 
 | # | When (UTC) | Event | Trigger | How | Expected in log | Verified |
 | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 2026-11-16 08:52:41 | Publish Muscle Group `core` (unchanged) | PAT "MCP General Token" | MCP `publishMuscleGroup` | Type Content, Publish | ☐ |
 | 1 | 2026-11-12 10:53–10:57 | ~180 schema operations (models, fields, locale `cs`, stage `REVIEW`, taxonomy) | PAT (MCP token) | Project rebuild, 21 batches | Type Model/Field/Locale/Stage, Create/Update, with payload | ☐ (were pre-upgrade events kept?) |
 | 2 | 2026-11-16 08:46:47 | Update Coach `lift-lab-training-notes` (value unchanged) | PAT "MCP General Token" | MCP `updateCoach` | Type Content, Update | ☐ |
 | 3 | 2026-11-16 08:46:47 | Publish same Coach (en, cs) | PAT "MCP General Token" | MCP `publishCoach` | Type Content, Publish | ☐ |
@@ -53,6 +54,10 @@ Time to recover: ~7 seconds once the source was identified. Lesson: keep a fresh
 5. Record findings and the date at the bottom of this file.
 
 Open questions: retention period and export/API access (not documented; check in Studio and with Hygraph).
+
+### Verification log
+
+- **2026-11-16:** Studio project `34088f24-24ad-4017-a3cc-8b9675ed70e9` (content id `cmw8okmtc003y07w272tdlgtw`), environments `master` (`3fba3c8953434e0c99a862b46b461007`) and `development` (`2c59c7e4b24449ce8157475800129d62`): Audit Logs explorer **empty** in both after events #0, #2, #3 were confirmed via entry system fields (`publishedBy` = PAT "MCP General Token"). Conclusion: feature visible but recording not enabled for the project. Requested enablement (plus Backup & Recovery, App Framework, retention/export answers) from Hygraph. Re-run the table above once enabled.
 
 ## Audit trail without Enterprise audit logs (backup source)
 
