@@ -1,7 +1,11 @@
 # Recovery and audit — Lift Lab (Hygraph)
 
-Project `cmtbngj4605dn08w5ymytbfu8`. Environments: `master` (live), `development` (clone of master with content, 2026-11-10).
-Hygraph's built-in **Backup & Recovery** (daily master backups, 7-day retention, one-click restore) and **Audit Logs** (Audit Logs Explorer) are Enterprise features and are not enabled on this project. The options below work without them.
+Current project `cmw8okmtc003y07w272tdlgtw` (Hygraph dev deployment, **Enterprise since 2026-11-16**); the 2026-11-10 drill below ran on the legacy project `cmtbngj4605dn08w5ymytbfu8`.
+
+| Enterprise feature | Status (2026-11-16) |
+| --- | --- |
+| Audit Logs | **Enabled** — primary audit source, see "Enterprise audit log" below |
+| Backup & Recovery | Not yet enabled (needs custom per-project setup by Hygraph); the recovery toolkit below remains in force |
 
 ## Recovery toolkit
 
@@ -24,7 +28,33 @@ Scenario: accidental overwrite of a published exercise's copy. Run in `developme
 
 Time to recover: ~7 seconds once the source was identified. Lesson: keep a fresh content snapshot (option 2) — recovery is only as current as the last clone.
 
-## Audit trail without Enterprise audit logs
+## Enterprise audit log (SDD §14.2, step 1)
+
+**Where:** Studio → Project Settings → Audit logs. **Who:** Owner/Admin, or a custom role with only *Can view Audit Logs* ("Auditor").
+**What is logged:** create / update / delete / publish / unpublish on content, models, fields, enumerations, locales, stages, environments, webhooks, roles, members, PATs, views. Each event: entity id, timestamp (UTC), type, action, environment, trigger type (USER, PAT, …), triggered by, payload (full for schema; **no before/after payload for content**).
+
+### Known events generated for verification
+
+| # | When (UTC) | Event | Trigger | How | Expected in log | Verified |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 2026-11-12 10:53–10:57 | ~180 schema operations (models, fields, locale `cs`, stage `REVIEW`, taxonomy) | PAT (MCP token) | Project rebuild, 21 batches | Type Model/Field/Locale/Stage, Create/Update, with payload | ☐ (were pre-upgrade events kept?) |
+| 2 | 2026-11-16 08:46:47 | Update Coach `lift-lab-training-notes` (value unchanged) | PAT "MCP General Token" | MCP `updateCoach` | Type Content, Update | ☐ |
+| 3 | 2026-11-16 08:46:47 | Publish same Coach (en, cs) | PAT "MCP General Token" | MCP `publishCoach` | Type Content, Publish | ☐ |
+| 4 | _fill in_ | Studio edit + publish of an exercise | USER (Wojciech) | Studio | Content Update + Publish, triggered by user email | ☐ |
+| 5 | _fill in_ | Workout request from the app | PAT "Mutation Token" | `POST /api/workout-intents` | Content Create on WorkoutIntent, no personal data in log | ☐ |
+| 6 | _fill in_ | Role "Auditor" created | USER | Studio → Roles | Type Role, Create | ☐ |
+
+### Review checklist (weekly, or before/after risky work)
+
+1. Filter **Trigger type = PAT**: every token event should map to a known job (app writes = Mutation Token; schema = migration/MCP token). Unknown token → investigate and rotate.
+2. Filter **Action = Delete / Unpublish**: confirm each was intended.
+3. Filter **Type = Role / PAT / Member / Webhook**: access changes must match a ticket or decision.
+4. Filter **Type = Model / Field** on `master`: schema changes must correspond to a numbered migration (never ad-hoc in master).
+5. Record findings and the date at the bottom of this file.
+
+Open questions: retention period and export/API access (not documented; check in Studio and with Hygraph).
+
+## Audit trail without Enterprise audit logs (backup source)
 
 What we can pull today (Content API / Hygraph MCP, verified 2026-11-10):
 

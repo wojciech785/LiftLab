@@ -330,7 +330,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 Detailed plan in §14. Order chosen so the cheapest, configuration-only items prove the account first.
 
 - [ ] 7.1 Recovery tools: enable Backup & Recovery, run a restore drill with the built-in backups (§14.1).
-- [ ] 7.2 Audit logs: enable, set up an auditor role, review and record evidence (§14.2).
+- [~] 7.2 Audit logs: enabled 2026-11-16; known events generated and documented in `docs/operations.md`; user verification + Auditor role pending (§14.2).
 - [ ] 7.3 Variants: segments, variant-enabled fields, beginner/experienced copy, Lift Lab Home view (§14.3).
 - [ ] 7.4 Live Preview and click-to-edit for exercises, programmes and articles (§14.4).
 - [ ] 7.5 App Framework: Lift Lab editor app with a YouTube tutorial field and a muscle-map/publish-check sidebar (§14.5).
