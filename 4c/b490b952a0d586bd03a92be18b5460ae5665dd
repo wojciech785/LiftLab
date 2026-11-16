@@ -1,0 +1,21 @@
+docs/environments.md
+  s_9c553152169ed7::t_d634a27fb64065 86,95-104
+hygraph/schema/007-exercise-variants.mjs
+  s_9c553152169ed7::t_435790d66c8bc5 1-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "4cb490b952a0d586bd03a92be18b5460ae5665dd",
+  "prompts": {},
+  "sessions": {
+    "s_9c553152169ed7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_9c553152169ed7",
+        "model": "unknown"
+      },
+      "human_author": "wojciech785 <wojciech.zaorski@hygraph.com>"
+    }
+  }
+}
