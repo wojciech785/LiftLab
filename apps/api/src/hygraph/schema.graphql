@@ -159,7 +159,7 @@ type Article implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [Article!]!
 
   """The time the document was published. Null on documents in draft stage."""
@@ -1327,7 +1327,7 @@ type Asset implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [Asset!]!
 
   """The mime type of the file"""
@@ -2455,7 +2455,7 @@ type CTA implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [CTA!]!
 
   """System stage field"""
@@ -2972,7 +2972,7 @@ type Callout implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [Callout!]!
 
   """System stage field"""
@@ -4134,7 +4134,7 @@ type Coach implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [Coach!]!
   name: String!
   photo(
@@ -4641,7 +4641,7 @@ type CoachQuoteBlock implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [CoachQuoteBlock!]!
   quote: String
 
@@ -5638,7 +5638,7 @@ type ComparisonTableBlock implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [ComparisonTableBlock!]!
   rows(
     after: String
@@ -6242,7 +6242,7 @@ type ComparisonTableRow implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [ComparisonTableRow!]!
 
   """System stage field"""
@@ -6838,6 +6838,9 @@ enum EntityTypeName {
 
   """A structured exercise prescription within a session."""
   ExerciseSet
+
+  """Canonical unit of strength-training knowledge."""
+  ExerciseVariant
   ImageGalleryBlock
 
   """Caption and accessibility metadata for editorial media."""
@@ -6853,6 +6856,11 @@ enum EntityTypeName {
 
   """Scheduled Release system model"""
   ScheduledRelease
+
+  """
+  This is a system model. Segments are used together with variants to enable personalisation use cases.
+  """
+  Segment
 
   """Reusable metadata for search and sharing."""
   SeoMetadata
@@ -7079,7 +7087,7 @@ type Equipment implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [Equipment!]!
   name: String!
 
@@ -8044,7 +8052,7 @@ type Exercise implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [Exercise!]!
 
   """Used for machine exercises."""
@@ -8340,6 +8348,37 @@ type Exercise implements Entity & Node {
     """
     locales: [Locale!]
   ): User
+
+  "\n          This field links the variant model to the main model. It is used to fetch the variants of a model.\n          "
+  variants(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+
+    Note that `variants` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `variants` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: ExerciseVariantOrderByInput
+    skip: Int
+    where: ExerciseVariantWhereInput
+  ): [ExerciseVariant!]!
   videoPoster(
     """
     Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
@@ -8424,7 +8463,7 @@ type ExerciseCarouselBlock implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [ExerciseCarouselBlock!]!
 
   """System stage field"""
@@ -9013,6 +9052,7 @@ input ExerciseCreateInput {
   title: String!
   trainingAttributes: [TaxonomyNodeInput!]
   updatedAt: DateTime
+  variants: ExerciseVariantCreateManyInlineInput
   videoPoster: AssetCreateOneInlineInput
 
   """videoTranscript input for default locale (en)"""
@@ -9316,6 +9356,9 @@ input ExerciseManyWhereInput {
   """All values that are not contained in given list."""
   updatedAt_not_in: [DateTime]
   updatedBy: UserWhereInput
+  variants_every: ExerciseVariantWhereInput
+  variants_none: ExerciseVariantWhereInput
+  variants_some: ExerciseVariantWhereInput
   videoPoster: AssetWhereInput
   youtubeVideoId: String
 
@@ -9503,7 +9546,7 @@ type ExerciseSet implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [ExerciseSet!]!
   order: Int!
 
@@ -10450,6 +10493,7 @@ input ExerciseUpdateInput {
   """title input for default locale (en)"""
   title: String
   trainingAttributes: [TaxonomyNodeInput!]
+  variants: ExerciseVariantUpdateManyInlineInput
   videoPoster: AssetUpdateOneInlineInput
 
   """videoTranscript input for default locale (en)"""
@@ -10637,6 +10681,767 @@ input ExerciseUpsertWithNestedWhereUniqueInput {
 
   """Unique document search"""
   where: ExerciseWhereUniqueInput!
+}
+
+"""Canonical unit of strength-training knowledge."""
+type ExerciseVariant implements Entity & Node {
+  """Short form faults to avoid, one per item (e.g. 'Knees cave inward')."""
+  commonMistakes: [String!]!
+
+  """The time the document was created"""
+  createdAt(
+    """
+    Variation of DateTime field to return, allows value from base document, current localization, or combined by returning the newer value of both
+    """
+    variation: SystemDateTimeFieldVariation! = COMBINED
+  ): DateTime!
+
+  """User that created this document"""
+  createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [REVIEW, DRAFT, PUBLISHED]
+  ): [ExerciseVariant!]!
+
+  """List of ExerciseVariant versions"""
+  history(
+    limit: Int! = 10
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+
+  """The unique identifier"""
+  id: ID!
+
+  """System Locale field"""
+  locale: Locale!
+
+  """Get the other localizations for this document"""
+  localizations(
+    """Decides if the current locale should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Potential locales that should be returned.
+
+    The order of locales will also override locale fall-backing behaviour in the query's subtree.
+
+    Note any related model with localized fields in the query's subtree will be affected.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+
+    Consider using this in conjunction with forceParentLocale on the children relation fields.
+    """
+    locales: [Locale!]! = [en, cs]
+  ): [ExerciseVariant!]!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt(
+    """
+    Variation of DateTime field to return, allows value from base document, current localization, or combined by returning the newer value of both
+    """
+    variation: SystemDateTimeFieldVariation! = COMBINED
+  ): DateTime
+
+  """User that last published this document"""
+  publishedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+  scheduledIn(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    skip: Int
+    where: ScheduledOperationWhereInput
+  ): [ScheduledOperation!]!
+
+  "\n          This field links the variant model to the segment model. It is used to fetch the segments of a variant.\n          "
+  segments(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `segments` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `segments` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: SegmentOrderByInput
+    skip: Int
+    where: SegmentWhereInput
+  ): [Segment!]!
+
+  """System stage field"""
+  stage: Stage!
+
+  """Short training-focused overview."""
+  summary: String!
+
+  """The time the document was updated"""
+  updatedAt(
+    """
+    Variation of DateTime field to return, allows value from base document, current localization, or combined by returning the newer value of both
+    """
+    variation: SystemDateTimeFieldVariation! = COMBINED
+  ): DateTime!
+
+  """User that last updated this document"""
+  updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+}
+
+input ExerciseVariantConnectInput {
+  """
+  Allow to specify document position in list of connected documents, will default to appending at end of list
+  """
+  position: ConnectPositionInput
+
+  """Document to connect"""
+  where: ExerciseVariantWhereUniqueInput!
+}
+
+"""A connection to a list of items."""
+type ExerciseVariantConnection {
+  aggregate: Aggregate!
+
+  """A list of edges."""
+  edges: [ExerciseVariantEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+input ExerciseVariantCreateInput {
+  """commonMistakes input for default locale (en)"""
+  commonMistakes: [String!]
+  createdAt: DateTime
+
+  """
+  Inline mutations for managing document localizations excluding the default locale
+  """
+  localizations: ExerciseVariantCreateLocalizationsInput
+  main: ExerciseCreateOneInlineInput
+  segments: SegmentCreateManyInlineInput
+
+  """summary input for default locale (en)"""
+  summary: String!
+  updatedAt: DateTime
+}
+
+input ExerciseVariantCreateLocalizationDataInput {
+  commonMistakes: [String!]
+  createdAt: DateTime
+  summary: String!
+  updatedAt: DateTime
+}
+
+input ExerciseVariantCreateLocalizationInput {
+  """Localization input"""
+  data: ExerciseVariantCreateLocalizationDataInput!
+  locale: Locale!
+}
+
+input ExerciseVariantCreateLocalizationsInput {
+  """Create localizations for the newly-created document"""
+  create: [ExerciseVariantCreateLocalizationInput!]
+}
+
+input ExerciseVariantCreateManyInlineInput {
+  """Create and connect multiple existing ExerciseVariant documents"""
+  create: [ExerciseVariantCreateInput!]
+}
+
+input ExerciseVariantCreateOneInlineInput {
+  """Create and connect one ExerciseVariant document"""
+  create: ExerciseVariantCreateInput
+}
+
+"""An edge in a connection."""
+type ExerciseVariantEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: ExerciseVariant!
+}
+
+"""Identifies documents"""
+input ExerciseVariantManyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExerciseVariantWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExerciseVariantWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExerciseVariantWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: ExerciseVariantWhereStageInput
+  documentInStages_none: ExerciseVariantWhereStageInput
+  documentInStages_some: ExerciseVariantWhereStageInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  segments_every: SegmentWhereInput
+  segments_none: SegmentWhereInput
+  segments_some: SegmentWhereInput
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+enum ExerciseVariantOrderByInput {
+  commonMistakes_ASC
+  commonMistakes_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  publishedAt_ASC
+  publishedAt_DESC
+  summary_ASC
+  summary_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input ExerciseVariantUpdateInput {
+  """commonMistakes input for default locale (en)"""
+  commonMistakes: [String!]
+
+  """Manage document localizations"""
+  localizations: ExerciseVariantUpdateLocalizationsInput
+  main: ExerciseUpdateOneInlineInput
+  segments: SegmentUpdateManyInlineInput
+
+  """summary input for default locale (en)"""
+  summary: String
+}
+
+input ExerciseVariantUpdateLocalizationDataInput {
+  commonMistakes: [String!]
+  summary: String
+}
+
+input ExerciseVariantUpdateLocalizationInput {
+  data: ExerciseVariantUpdateLocalizationDataInput!
+  locale: Locale!
+}
+
+input ExerciseVariantUpdateLocalizationsInput {
+  """Localizations to create"""
+  create: [ExerciseVariantCreateLocalizationInput!]
+
+  """Localizations to delete"""
+  delete: [Locale!]
+
+  """Localizations to update"""
+  update: [ExerciseVariantUpdateLocalizationInput!]
+  upsert: [ExerciseVariantUpsertLocalizationInput!]
+}
+
+input ExerciseVariantUpdateManyInlineInput {
+  """Create and connect multiple ExerciseVariant documents"""
+  create: [ExerciseVariantCreateInput!]
+
+  """Delete multiple ExerciseVariant documents"""
+  delete: [ExerciseVariantWhereUniqueInput!]
+
+  """Update multiple ExerciseVariant documents"""
+  update: [ExerciseVariantUpdateWithNestedWhereUniqueInput!]
+
+  """Upsert multiple ExerciseVariant documents"""
+  upsert: [ExerciseVariantUpsertWithNestedWhereUniqueInput!]
+}
+
+input ExerciseVariantUpdateManyInput {
+  """commonMistakes input for default locale (en)"""
+  commonMistakes: [String!]
+
+  """Optional updates to localizations"""
+  localizations: ExerciseVariantUpdateManyLocalizationsInput
+
+  """summary input for default locale (en)"""
+  summary: String
+}
+
+input ExerciseVariantUpdateManyLocalizationDataInput {
+  commonMistakes: [String!]
+  summary: String
+}
+
+input ExerciseVariantUpdateManyLocalizationInput {
+  data: ExerciseVariantUpdateManyLocalizationDataInput!
+  locale: Locale!
+}
+
+input ExerciseVariantUpdateManyLocalizationsInput {
+  """Localizations to update"""
+  update: [ExerciseVariantUpdateManyLocalizationInput!]
+}
+
+input ExerciseVariantUpdateManyWithNestedWhereInput {
+  """Update many input"""
+  data: ExerciseVariantUpdateManyInput!
+
+  """Document search"""
+  where: ExerciseVariantWhereInput!
+}
+
+input ExerciseVariantUpdateOneInlineInput {
+  """Create and connect one ExerciseVariant document"""
+  create: ExerciseVariantCreateInput
+
+  """Delete currently connected ExerciseVariant document"""
+  delete: Boolean
+
+  """Update single ExerciseVariant document"""
+  update: ExerciseVariantUpdateWithNestedWhereUniqueInput
+
+  """Upsert single ExerciseVariant document"""
+  upsert: ExerciseVariantUpsertWithNestedWhereUniqueInput
+}
+
+input ExerciseVariantUpdateWithNestedWhereUniqueInput {
+  """Document to update"""
+  data: ExerciseVariantUpdateInput!
+
+  """Unique document search"""
+  where: ExerciseVariantWhereUniqueInput!
+}
+
+input ExerciseVariantUpsertInput {
+  """Create document if it didn't exist"""
+  create: ExerciseVariantCreateInput!
+
+  """Update document if it exists"""
+  update: ExerciseVariantUpdateInput!
+}
+
+input ExerciseVariantUpsertLocalizationInput {
+  create: ExerciseVariantCreateLocalizationDataInput!
+  locale: Locale!
+  update: ExerciseVariantUpdateLocalizationDataInput!
+}
+
+input ExerciseVariantUpsertWithNestedWhereUniqueInput {
+  """Upsert data"""
+  data: ExerciseVariantUpsertInput!
+
+  """Unique document search"""
+  where: ExerciseVariantWhereUniqueInput!
+}
+
+"""
+This contains a set of filters that can be used to compare values internally
+"""
+input ExerciseVariantWhereComparatorInput {
+  """
+  This field can be used to request to check if the entry is outdated by internal comparison
+  """
+  outdated_to: Boolean
+}
+
+"""Identifies documents"""
+input ExerciseVariantWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExerciseVariantWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExerciseVariantWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExerciseVariantWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """
+  Matches if the field array contains *all* items provided to the filter and order does match
+  """
+  commonMistakes: [String!]
+
+  """Matches if the field array contains *all* items provided to the filter"""
+  commonMistakes_contains_all: [String!]
+
+  """
+  Matches if the field array does not contain any of the items provided to the filter
+  """
+  commonMistakes_contains_none: [String!]
+
+  """
+  Matches if the field array contains at least one item provided to the filter
+  """
+  commonMistakes_contains_some: [String!]
+
+  """
+  Matches if the field array does not contains *all* items provided to the filter or order does not match
+  """
+  commonMistakes_not: [String!]
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: ExerciseVariantWhereStageInput
+  documentInStages_none: ExerciseVariantWhereStageInput
+  documentInStages_some: ExerciseVariantWhereStageInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  segments_every: SegmentWhereInput
+  segments_none: SegmentWhereInput
+  segments_some: SegmentWhereInput
+  summary: String
+
+  """All values containing the given string."""
+  summary_contains: String
+
+  """All values ending with the given string."""
+  summary_ends_with: String
+
+  """All values that are contained in given list."""
+  summary_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  summary_not: String
+
+  """All values not containing the given string."""
+  summary_not_contains: String
+
+  """All values not ending with the given string"""
+  summary_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  summary_not_in: [String]
+
+  """All values not starting with the given string."""
+  summary_not_starts_with: String
+
+  """All values starting with the given string."""
+  summary_starts_with: String
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+"""
+The document in stages filter allows specifying a stage entry to cross compare the same document between different stages
+"""
+input ExerciseVariantWhereStageInput {
+  """Logical AND on all given filters."""
+  AND: [ExerciseVariantWhereStageInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExerciseVariantWhereStageInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExerciseVariantWhereStageInput!]
+
+  """
+  This field contains fields which can be set as true or false to specify an internal comparison
+  """
+  compareWithParent: ExerciseVariantWhereComparatorInput
+
+  """Specify the stage to compare with"""
+  stage: Stage
+}
+
+"""References ExerciseVariant record uniquely"""
+input ExerciseVariantWhereUniqueInput {
+  id: ID
 }
 
 """
@@ -11140,6 +11945,9 @@ input ExerciseWhereInput {
   """All values that are not contained in given list."""
   updatedAt_not_in: [DateTime]
   updatedBy: UserWhereInput
+  variants_every: ExerciseVariantWhereInput
+  variants_none: ExerciseVariantWhereInput
+  variants_some: ExerciseVariantWhereInput
   videoPoster: AssetWhereInput
   youtubeVideoId: String
 
@@ -11200,6 +12008,48 @@ input ExerciseWhereUniqueInput {
 }
 
 scalar Hex
+
+type HygraphSearchResult {
+  id: ID!
+  locale: Locale!
+  matchContext: HygraphSearchResultMatchContext!
+  model: HygraphSearchResultModel!
+  resultId: String!
+  stage: Stage!
+  titleFields: [HygraphSearchResultTitleField!]!
+}
+
+"""A connection to a list of search results."""
+type HygraphSearchResultConnection {
+  """A list of edges."""
+  edges: [HygraphSearchResultEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a search result connection."""
+type HygraphSearchResultEdge {
+  """The search result at the end of the edge."""
+  node: HygraphSearchResult!
+}
+
+type HygraphSearchResultMatchContext {
+  highlight: String!
+}
+
+type HygraphSearchResultModel {
+  apiId: String!
+}
+
+type HygraphSearchResultTitleField {
+  apiId: String!
+  value: String!
+}
+
+input HygraphSearchWhereInput {
+  term: String!
+}
 
 input ImageBlurInput {
   """
@@ -11335,7 +12185,7 @@ type ImageGalleryBlock implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [ImageGalleryBlock!]!
 
   """System stage field"""
@@ -11984,7 +12834,7 @@ type MediaWithCaption implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [MediaWithCaption!]!
 
   """System stage field"""
@@ -12690,7 +13540,7 @@ type MuscleGroup implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [MuscleGroup!]!
 
   """Stable mesh or group identifier validated by the application."""
@@ -13621,7 +14471,7 @@ type MuscleMapBlock implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [MuscleMapBlock!]!
   muscleGroups(
     after: String
@@ -14199,6 +15049,9 @@ type Mutation {
   """Create one scheduledRelease"""
   createScheduledRelease(data: ScheduledReleaseCreateInput!): ScheduledRelease
 
+  """Create one segment"""
+  createSegment(data: SegmentCreateInput!): Segment
+
   """Create one workoutIntent"""
   createWorkoutIntent(data: WorkoutIntentCreateInput!): WorkoutIntent
 
@@ -14378,6 +15231,24 @@ type Mutation {
     where: MuscleGroupManyWhereInput
   ): MuscleGroupConnection!
 
+  """Delete many Segment documents"""
+  deleteManySegments(
+    """Documents to delete"""
+    where: SegmentManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManySegmentsConnection)")
+
+  """Delete many Segment documents, return deleted documents"""
+  deleteManySegmentsConnection(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to delete"""
+    where: SegmentManyWhereInput
+  ): SegmentConnection!
+
   """Delete many WorkoutIntent documents"""
   deleteManyWorkoutIntents(
     """Documents to delete"""
@@ -14453,6 +15324,14 @@ type Mutation {
     """Document to delete"""
     where: ScheduledReleaseWhereUniqueInput!
   ): ScheduledRelease
+
+  """
+  Delete one segment from _all_ existing stages. Returns deleted document.
+  """
+  deleteSegment(
+    """Document to delete"""
+    where: SegmentWhereUniqueInput!
+  ): Segment
 
   """
   Delete one workoutIntent from _all_ existing stages. Returns deleted document.
@@ -14585,6 +15464,24 @@ type Mutation {
     """Whether to include the default locale when publishBase is set"""
     withDefaultLocale: Boolean = true
   ): ExerciseSet
+
+  """Publish one exerciseVariant"""
+  publishExerciseVariant(
+    """Optional localizations to publish"""
+    locales: [Locale!]
+
+    """Whether to publish the base document"""
+    publishBase: Boolean = true
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: ExerciseVariantWhereUniqueInput!
+
+    """Whether to include the default locale when publishBase is set"""
+    withDefaultLocale: Boolean = true
+  ): ExerciseVariant
 
   """Publish many Article documents"""
   publishManyArticles(
@@ -14811,6 +15708,33 @@ type Mutation {
     withDefaultLocale: Boolean = true
   ): ExerciseSetConnection!
 
+  """Publish many ExerciseVariant documents"""
+  publishManyExerciseVariantsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+    last: Int
+
+    """Document localizations to publish"""
+    locales: [Locale!]
+
+    """Whether to publish the base document"""
+    publishBase: Boolean = true
+    skip: Int
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: ExerciseVariantManyWhereInput
+
+    """Whether to include the default locale when publishBase is true"""
+    withDefaultLocale: Boolean = true
+  ): ExerciseVariantConnection!
+
   """Publish many Exercise documents"""
   publishManyExercises(
     """Document localizations to publish"""
@@ -14900,6 +15824,33 @@ type Mutation {
     """Whether to include the default locale when publishBase is true"""
     withDefaultLocale: Boolean = true
   ): MuscleGroupConnection!
+
+  """Publish many Segment documents"""
+  publishManySegments(
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: SegmentManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManySegmentsConnection)")
+
+  """Publish many Segment documents"""
+  publishManySegmentsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+    last: Int
+    skip: Int
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: SegmentManyWhereInput
+  ): SegmentConnection!
 
   """Publish many WorkoutIntent documents"""
   publishManyWorkoutIntents(
@@ -15035,6 +15986,15 @@ type Mutation {
     """Whether to include the default locale when publishBase is set"""
     withDefaultLocale: Boolean = true
   ): MuscleGroup
+
+  """Publish one segment"""
+  publishSegment(
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: SegmentWhereUniqueInput!
+  ): Segment
 
   """Publish one workoutIntent"""
   publishWorkoutIntent(
@@ -15237,6 +16197,32 @@ type Mutation {
     withDefaultLocale: Boolean = true
   ): ExerciseSet
 
+  """Schedule to publish one exerciseVariant"""
+  schedulePublishExerciseVariant(
+    """Optional localizations to publish"""
+    locales: [Locale!]
+
+    """Whether to publish the base document"""
+    publishBase: Boolean = true
+
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: ExerciseVariantWhereUniqueInput!
+
+    """Whether to include the default locale when publishBase is set"""
+    withDefaultLocale: Boolean = true
+  ): ExerciseVariant
+
   """Schedule to publish one muscleGroup"""
   schedulePublishMuscleGroup(
     """Optional localizations to publish"""
@@ -15262,6 +16248,23 @@ type Mutation {
     """Whether to include the default locale when publishBase is set"""
     withDefaultLocale: Boolean = true
   ): MuscleGroup
+
+  """Schedule to publish one segment"""
+  schedulePublishSegment(
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: SegmentWhereUniqueInput!
+  ): Segment
 
   """Schedule to publish one workoutIntent"""
   schedulePublishWorkoutIntent(
@@ -15507,6 +16510,35 @@ type Mutation {
   ): ExerciseSet
 
   """
+  Unpublish one exerciseVariant from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  scheduleUnpublishExerciseVariant(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """
+    Optional locales to unpublish. Unpublishing the default locale will completely remove the document from the selected stages
+    """
+    locales: [Locale!]
+
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """
+    Unpublish complete document including default localization and relations from stages. Can be disabled.
+    """
+    unpublishBase: Boolean = true
+
+    """Document to unpublish"""
+    where: ExerciseVariantWhereUniqueInput!
+  ): ExerciseVariant
+
+  """
   Unpublish one muscleGroup from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
   """
   scheduleUnpublishMuscleGroup(
@@ -15534,6 +16566,25 @@ type Mutation {
     """Document to unpublish"""
     where: MuscleGroupWhereUniqueInput!
   ): MuscleGroup
+
+  """
+  Unpublish one segment from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  scheduleUnpublishSegment(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Document to unpublish"""
+    where: SegmentWhereUniqueInput!
+  ): Segment
 
   """
   Unpublish one workoutIntent from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
@@ -15737,6 +16788,27 @@ type Mutation {
     """Document to unpublish"""
     where: ExerciseSetWhereUniqueInput!
   ): ExerciseSet
+
+  """
+  Unpublish one exerciseVariant from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishExerciseVariant(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """
+    Optional locales to unpublish. Unpublishing the default locale will completely remove the document from the selected stages
+    """
+    locales: [Locale!]
+
+    """
+    Unpublish complete document including default localization and relations from stages. Can be disabled.
+    """
+    unpublishBase: Boolean = true
+
+    """Document to unpublish"""
+    where: ExerciseVariantWhereUniqueInput!
+  ): ExerciseVariant
 
   """Unpublish many Article documents"""
   unpublishManyArticles(
@@ -15943,6 +17015,32 @@ type Mutation {
     where: ExerciseSetManyWhereInput
   ): ExerciseSetConnection!
 
+  """
+  Find many ExerciseVariant documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManyExerciseVariantsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+    last: Int
+
+    """Locales to unpublish"""
+    locales: [Locale!]
+    skip: Int
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Whether to unpublish the base document and default localization"""
+    unpublishBase: Boolean = true
+
+    """Identifies documents in draft stage"""
+    where: ExerciseVariantManyWhereInput
+  ): ExerciseVariantConnection!
+
   """Unpublish many Exercise documents"""
   unpublishManyExercises(
     """Stages to unpublish documents from"""
@@ -16024,6 +17122,35 @@ type Mutation {
     """Identifies documents in draft stage"""
     where: MuscleGroupManyWhereInput
   ): MuscleGroupConnection!
+
+  """Unpublish many Segment documents"""
+  unpublishManySegments(
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage"""
+    where: SegmentManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManySegmentsConnection)")
+
+  """
+  Find many Segment documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManySegmentsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+    last: Int
+    skip: Int
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Identifies documents in draft stage"""
+    where: SegmentManyWhereInput
+  ): SegmentConnection!
 
   """Unpublish many WorkoutIntent documents"""
   unpublishManyWorkoutIntents(
@@ -16156,6 +17283,17 @@ type Mutation {
     """Document to unpublish"""
     where: MuscleGroupWhereUniqueInput!
   ): MuscleGroup
+
+  """
+  Unpublish one segment from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishSegment(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Document to unpublish"""
+    where: SegmentWhereUniqueInput!
+  ): Segment
 
   """
   Unpublish one workoutIntent from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
@@ -16396,6 +17534,30 @@ type Mutation {
     where: MuscleGroupManyWhereInput
   ): MuscleGroupConnection!
 
+  """Update many segments"""
+  updateManySegments(
+    """Updates to document content"""
+    data: SegmentUpdateManyInput!
+
+    """Documents to apply update on"""
+    where: SegmentManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManySegmentsConnection)")
+
+  """Update many Segment documents"""
+  updateManySegmentsConnection(
+    after: ID
+    before: ID
+
+    """Updates to document content"""
+    data: SegmentUpdateManyInput!
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to apply update on"""
+    where: SegmentManyWhereInput
+  ): SegmentConnection!
+
   """Update many workoutIntents"""
   updateManyWorkoutIntents(
     """Updates to document content"""
@@ -16474,6 +17636,9 @@ type Mutation {
   """Update one scheduledRelease"""
   updateScheduledRelease(data: ScheduledReleaseUpdateInput!, where: ScheduledReleaseWhereUniqueInput!): ScheduledRelease
 
+  """Update one segment"""
+  updateSegment(data: SegmentUpdateInput!, where: SegmentWhereUniqueInput!): Segment
+
   """Update one workoutIntent"""
   updateWorkoutIntent(data: WorkoutIntentUpdateInput!, where: WorkoutIntentWhereUniqueInput!): WorkoutIntent
 
@@ -16503,6 +17668,9 @@ type Mutation {
 
   """Upsert one muscleGroup"""
   upsertMuscleGroup(upsert: MuscleGroupUpsertInput!, where: MuscleGroupWhereUniqueInput!): MuscleGroup
+
+  """Upsert one segment"""
+  upsertSegment(upsert: SegmentUpsertInput!, where: SegmentWhereUniqueInput!): Segment
 
   """Upsert one workoutIntent"""
   upsertWorkoutIntent(upsert: WorkoutIntentUpsertInput!, where: WorkoutIntentWhereUniqueInput!): WorkoutIntent
@@ -16931,6 +18099,15 @@ type Query {
     where: ExerciseWhereInput
   ): ExerciseConnection!
 
+  """Search for content entries with pagination"""
+  hygraphSearchEntriesConnection(
+    first: Int
+    skip: Int
+
+    """The where parameters to search for entries"""
+    where: HygraphSearchWhereInput!
+  ): HygraphSearchResultConnection!
+
   """Retrieve a single muscleGroup"""
   muscleGroup(
     """
@@ -17131,6 +18308,68 @@ type Query {
     stage: Stage! = PUBLISHED
     where: ScheduledReleaseWhereInput
   ): ScheduledReleaseConnection!
+
+  """Retrieve a single segment"""
+  segment(
+    """
+    Defines which locales should be returned.
+
+    Note that `Segment` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    stage: Stage! = PUBLISHED
+    where: SegmentWhereUniqueInput!
+  ): Segment
+
+  """Retrieve document version"""
+  segmentVersion(where: VersionWhereInput!): DocumentVersion
+
+  """Retrieve multiple segments"""
+  segments(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+
+    Note that `Segment` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: SegmentOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: SegmentWhereInput
+  ): [Segment!]!
+
+  """Retrieve multiple segments using the Relay connection interface"""
+  segmentsConnection(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+
+    Note that `Segment` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: SegmentOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: SegmentWhereInput
+  ): SegmentConnection!
 
   """Retrieve a single user"""
   user(
@@ -17449,7 +18688,7 @@ type RichTextBlock implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [RichTextBlock!]!
 
   """System stage field"""
@@ -18087,7 +19326,7 @@ type ScheduledOperation implements Entity & Node {
   ): User
 }
 
-union ScheduledOperationAffectedDocument = Article | Asset | Coach | Equipment | Exercise | ExerciseSet | MuscleGroup | WorkoutIntent | WorkoutProgramme | WorkoutSession
+union ScheduledOperationAffectedDocument = Article | Asset | Coach | Equipment | Exercise | ExerciseSet | ExerciseVariant | MuscleGroup | Segment | WorkoutIntent | WorkoutProgramme | WorkoutSession
 
 input ScheduledOperationConnectInput {
   """
@@ -19379,6 +20618,696 @@ input ScheduledReleaseWhereUniqueInput {
   id: ID
 }
 
+"""
+This is a system model. Segments are used together with variants to enable personalisation use cases.
+"""
+type Segment implements Entity & Node {
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """User that created this document"""
+  createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+
+  """Describes the segment"""
+  description: String
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [REVIEW, DRAFT, PUBLISHED]
+  ): [Segment!]!
+
+  """List of Segment versions"""
+  history(
+    limit: Int! = 10
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+
+  """The unique identifier"""
+  id: ID!
+
+  """The name of the segment"""
+  name: String!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """User that last published this document"""
+  publishedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+  scheduledIn(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    skip: Int
+    where: ScheduledOperationWhereInput
+  ): [ScheduledOperation!]!
+
+  """System stage field"""
+  stage: Stage!
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """User that last updated this document"""
+  updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+}
+
+input SegmentConnectInput {
+  """
+  Allow to specify document position in list of connected documents, will default to appending at end of list
+  """
+  position: ConnectPositionInput
+
+  """Document to connect"""
+  where: SegmentWhereUniqueInput!
+}
+
+"""A connection to a list of items."""
+type SegmentConnection {
+  aggregate: Aggregate!
+
+  """A list of edges."""
+  edges: [SegmentEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+input SegmentCreateInput {
+  createdAt: DateTime
+  description: String
+  name: String!
+  updatedAt: DateTime
+  variantsExercise: ExerciseVariantCreateManyInlineInput
+}
+
+input SegmentCreateManyInlineInput {
+  """Connect multiple existing Segment documents"""
+  connect: [SegmentWhereUniqueInput!]
+
+  """Create and connect multiple existing Segment documents"""
+  create: [SegmentCreateInput!]
+}
+
+input SegmentCreateOneInlineInput {
+  """Connect one existing Segment document"""
+  connect: SegmentWhereUniqueInput
+
+  """Create and connect one Segment document"""
+  create: SegmentCreateInput
+}
+
+"""An edge in a connection."""
+type SegmentEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Segment!
+}
+
+"""Identifies documents"""
+input SegmentManyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SegmentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SegmentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SegmentWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  description: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values that are contained in given list."""
+  description_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  description_not: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values not ending with the given string"""
+  description_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  description_not_in: [String]
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+  documentInStages_every: SegmentWhereStageInput
+  documentInStages_none: SegmentWhereStageInput
+  documentInStages_some: SegmentWhereStageInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  name: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values that are contained in given list."""
+  name_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  name_not: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values not ending with the given string"""
+  name_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  name_not_in: [String]
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+enum SegmentOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  description_ASC
+  description_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  publishedAt_ASC
+  publishedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input SegmentUpdateInput {
+  description: String
+  name: String
+  variantsExercise: ExerciseVariantUpdateManyInlineInput
+}
+
+input SegmentUpdateManyInlineInput {
+  """Connect multiple existing Segment documents"""
+  connect: [SegmentConnectInput!]
+
+  """Create and connect multiple Segment documents"""
+  create: [SegmentCreateInput!]
+
+  """Delete multiple Segment documents"""
+  delete: [SegmentWhereUniqueInput!]
+
+  """Disconnect multiple Segment documents"""
+  disconnect: [SegmentWhereUniqueInput!]
+
+  """
+  Override currently-connected documents with multiple existing Segment documents
+  """
+  set: [SegmentWhereUniqueInput!]
+
+  """Update multiple Segment documents"""
+  update: [SegmentUpdateWithNestedWhereUniqueInput!]
+
+  """Upsert multiple Segment documents"""
+  upsert: [SegmentUpsertWithNestedWhereUniqueInput!]
+}
+
+input SegmentUpdateManyInput {
+  description: String
+}
+
+input SegmentUpdateManyWithNestedWhereInput {
+  """Update many input"""
+  data: SegmentUpdateManyInput!
+
+  """Document search"""
+  where: SegmentWhereInput!
+}
+
+input SegmentUpdateOneInlineInput {
+  """Connect existing Segment document"""
+  connect: SegmentWhereUniqueInput
+
+  """Create and connect one Segment document"""
+  create: SegmentCreateInput
+
+  """Delete currently connected Segment document"""
+  delete: Boolean
+
+  """Disconnect currently connected Segment document"""
+  disconnect: Boolean
+
+  """Update single Segment document"""
+  update: SegmentUpdateWithNestedWhereUniqueInput
+
+  """Upsert single Segment document"""
+  upsert: SegmentUpsertWithNestedWhereUniqueInput
+}
+
+input SegmentUpdateWithNestedWhereUniqueInput {
+  """Document to update"""
+  data: SegmentUpdateInput!
+
+  """Unique document search"""
+  where: SegmentWhereUniqueInput!
+}
+
+input SegmentUpsertInput {
+  """Create document if it didn't exist"""
+  create: SegmentCreateInput!
+
+  """Update document if it exists"""
+  update: SegmentUpdateInput!
+}
+
+input SegmentUpsertWithNestedWhereUniqueInput {
+  """Upsert data"""
+  data: SegmentUpsertInput!
+
+  """Unique document search"""
+  where: SegmentWhereUniqueInput!
+}
+
+"""
+This contains a set of filters that can be used to compare values internally
+"""
+input SegmentWhereComparatorInput {
+  """
+  This field can be used to request to check if the entry is outdated by internal comparison
+  """
+  outdated_to: Boolean
+}
+
+"""Identifies documents"""
+input SegmentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SegmentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SegmentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SegmentWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  description: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values that are contained in given list."""
+  description_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  description_not: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values not ending with the given string"""
+  description_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  description_not_in: [String]
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+  documentInStages_every: SegmentWhereStageInput
+  documentInStages_none: SegmentWhereStageInput
+  documentInStages_some: SegmentWhereStageInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  name: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values that are contained in given list."""
+  name_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  name_not: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values not ending with the given string"""
+  name_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  name_not_in: [String]
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+"""
+The document in stages filter allows specifying a stage entry to cross compare the same document between different stages
+"""
+input SegmentWhereStageInput {
+  """Logical AND on all given filters."""
+  AND: [SegmentWhereStageInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SegmentWhereStageInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SegmentWhereStageInput!]
+
+  """
+  This field contains fields which can be set as true or false to specify an internal comparison
+  """
+  compareWithParent: SegmentWhereComparatorInput
+
+  """Specify the stage to compare with"""
+  stage: Stage
+}
+
+"""References Segment record uniquely"""
+input SegmentWhereUniqueInput {
+  id: ID
+  name: String
+}
+
 """Reusable metadata for search and sharing."""
 type SeoMetadata implements Entity {
   """Search-result description."""
@@ -19406,7 +21335,7 @@ type SeoMetadata implements Entity {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [SeoMetadata!]!
 
   """Prevent search-engine indexing."""
@@ -21547,7 +23476,7 @@ type WorkoutProgramme implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [WorkoutProgramme!]!
   overview: RichText
 
@@ -22682,7 +24611,7 @@ type WorkoutSession implements Entity & Node {
 
     Consider using this in conjunction with forceParentLocale on the children relation fields.
     """
-    locales: [Locale!]! = [cs, en]
+    locales: [Locale!]! = [en, cs]
   ): [WorkoutSession!]!
   order: Int!
   programme(

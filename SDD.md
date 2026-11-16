@@ -331,7 +331,7 @@ Detailed plan in §14. Order chosen so the cheapest, configuration-only items pr
 
 - [ ] 7.1 Recovery tools: Backup & Recovery needs per-project enablement by Hygraph (requested 2026-11-16) (§14.1).
 - [ ] 7.2 Audit logs: menu visible but **not recording** (2026-11-16); enablement requested from Hygraph. Procedure + known events ready in `docs/operations.md` (§14.2).
-- [ ] 7.3 Variants: segments, variant-enabled fields, beginner/experienced copy, Lift Lab Home view (§14.3).
+- [x] 7.3 Variants (2026-11-16): segments Beginner/Advanced, migration 007 (`summary`, `commonMistakes`), Standing Calf Raise variants en + cs, `?audience=` API and audience switch. Second brand dropped (§14.3 as built).
 - [ ] 7.4 Live Preview and click-to-edit for exercises, programmes and articles (§14.4).
 - [ ] 7.5 App Framework: not visible on the account yet (requested 2026-11-16); Lift Lab editor app with a YouTube tutorial field and a muscle-map/publish-check sidebar (§14.5).
 
@@ -417,6 +417,13 @@ API/web:
 - `GET /api/exercises/:slug?audience=beginner|experienced` and `?brand=home` → query `variants(where: {segments_some: {slug: …}})`, merge variant fields over the base, fall back to base when absent. Audience is validated server-side like `locale`.
 - Web: audience switch (default from the workout-request experience level, remembered per browser); "Lift Lab Home" view = brand segment + home-gym taxonomy filter + light theme change.
 - Tests: merge/fallback logic, invalid audience 400, UI switch.
+
+**As built (2026-11-16)** — deliberately smaller than the plan above:
+- Segments `Beginner` and `Advanced` (Segment has only name + description, no slug; the API keys audiences by lowercased name). No second brand.
+- Migration 007 enables variants on `Exercise.summary` and `Exercise.commonMistakes` only. `progressionLevel` is excluded: Hygraph allows variants on a conditional field only if its controlling field (`modality`) is variant-enabled too. `instructions` stays shared by choice.
+- Content: Beginner + Advanced variants on Standing Calf Raise (en + cs). A variant is a child entry (`ExerciseVariant`) created via `updateExercise(data: {variants: {create: …}})` and published with `publishExerciseVariant(locales: [en, cs], publishBase: true)`.
+- API: `GET /api/exercises/:slug?audience=<key>` fetches `variants(first: 30) { summary commonMistakes segments { name } }`, overrides summary (and mistakes when the variant has any), returns `audience` (applied or null) and `audiences` (available). Unknown audience → base entry; malformed → 400.
+- Web: "Everyone / Beginner / Advanced" switch on the exercise detail, shown only when the exercise has variants.
 
 Done when: the same exercise shows different summary/mistakes per audience in both locales, and the Home view works without duplicated entries.
 

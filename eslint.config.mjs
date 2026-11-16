@@ -4,7 +4,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 
 export default tseslint.config(
-  { ignores: ["**/dist/**", "**/node_modules/**", "apps/api/src/hygraph/generated/**", "**/coverage/**"] },
+  { ignores: ["**/dist/**", "**/node_modules/**", "apps/api/src/hygraph/generated/**", "**/coverage/**", "Claude outputs/**"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

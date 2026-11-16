@@ -19,6 +19,10 @@ export type ExerciseDetail = ExerciseSummary & {
   equipment: { name: string; slug: string }[];
   /** Localized form faults to avoid; empty when the editor has not added any. */
   commonMistakes: string[];
+  /** Audience whose variant was applied (lowercase segment name), or null for the base entry. */
+  audience: string | null;
+  /** Audiences with a published variant for this exercise, for the audience switch. */
+  audiences: string[];
 };
 
 export type ContentLink = { title: string; slug: string };

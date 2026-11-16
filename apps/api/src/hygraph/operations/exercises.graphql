@@ -7,6 +7,7 @@ query GetExercise($slug: String!, $locales: [Locale!]!) {
   exercise(where: {slug: $slug}, stage: PUBLISHED, locales: $locales) {
     title slug difficulty primaryMuscles { name slug }
     summary instructions { raw } modality durationMinutes equipment { name slug } commonMistakes
+    variants(first: 30) { summary commonMistakes segments { name } }
   }
 }
 query ListMuscleGroups($locales: [Locale!]!, $skip: Int!) {

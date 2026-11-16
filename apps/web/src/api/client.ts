@@ -19,8 +19,10 @@ export async function getMuscleGroups(locale: ContentLocale, signal: AbortSignal
   return response.json() as Promise<MuscleGroupOption[]>;
 }
 
-export async function getExercise(slug: string, locale: ContentLocale, signal: AbortSignal): Promise<ExerciseDetail> {
-  const response = await fetch(`${apiUrl}/exercises/${encodeURIComponent(slug)}?locale=${locale}`, { signal });
+export async function getExercise(slug: string, locale: ContentLocale, signal: AbortSignal, audience = ""): Promise<ExerciseDetail> {
+  const params = new URLSearchParams({ locale });
+  if (audience) params.set("audience", audience);
+  const response = await fetch(`${apiUrl}/exercises/${encodeURIComponent(slug)}?${params}`, { signal });
   if (!response.ok) throw new Error(response.status === 404 ? "This exercise is no longer available." : "Could not load exercise details.");
   return response.json() as Promise<ExerciseDetail>;
 }

@@ -15,6 +15,13 @@ function locales(locale = "en"): Locale[] {
   if (locale !== "en" && locale !== "cs") throw new BadRequestException("locale must be en or cs.");
   return locale === "cs" ? ["cs", "en"] : ["en"];
 }
+/** Segment names map to lowercase audience keys ("Beginner" -> "beginner"). */
+const audienceKey = (segment: string) => segment.trim().toLowerCase().replace(/\s+/g, "-");
+function audienceParam(audience?: string): string | null {
+  if (audience === undefined || audience === "") return null;
+  if (!/^[a-z][a-z0-9-]{0,39}$/.test(audience)) throw new BadRequestException("audience must be a lowercase segment key.");
+  return audience;
+}
 function integer(value: string | undefined, fallback: number, min: number, max: number): number {
   if (value === undefined) return fallback;
   if (!/^\d+$/.test(value) || !Number.isSafeInteger(Number(value)) || Number(value) < min || Number(value) > max) {
@@ -40,12 +47,20 @@ export class ExercisesService {
       if (data.muscleGroups.length < 100) return result;
     }
   }
-  async get(slug: string, locale?: string): Promise<ExerciseDetail> {
+  async get(slug: string, locale?: string, audience?: string): Promise<ExerciseDetail> {
+    const requested = audienceParam(audience);
     const { exercise } = await this.hygraph.query(GetExerciseDocument, { slug, locales: locales(locale) });
     if (!exercise) throw new NotFoundException("Exercise not found.");
-    return { ...summary(exercise), summary: exercise.summary, instructions: exercise.instructions.raw ?? null,
+    // Variants override only their variant-enabled fields (summary, commonMistakes);
+    // an unknown audience falls back to the base entry instead of failing.
+    const variants = exercise.variants.flatMap(variant => variant.segments.flatMap(segment => segment ? [{ key: audienceKey(segment.name), variant }] : []));
+    const match = requested ? variants.find(item => item.key === requested) : undefined;
+    const mistakes = match?.variant.commonMistakes.filter((item): item is string => !!item) ?? [];
+    return { ...summary(exercise), summary: match?.variant.summary ?? exercise.summary, instructions: exercise.instructions.raw ?? null,
       modality: exercise.modality.toLowerCase(), durationMinutes: exercise.durationMinutes,
-      primaryMuscles: exercise.primaryMuscles, equipment: exercise.equipment, commonMistakes: exercise.commonMistakes ?? [] };
+      primaryMuscles: exercise.primaryMuscles, equipment: exercise.equipment,
+      commonMistakes: mistakes.length ? mistakes : exercise.commonMistakes ?? [],
+      audience: match ? requested : null, audiences: [...new Set(variants.map(item => item.key))] };
   }
 }
 
@@ -61,8 +76,8 @@ export class ExercisesController {
   @Get() list(@Query("locale") locale?: string, @Query("muscle") muscle?: string, @Query("limit") limit?: string, @Query("offset") offset?: string) {
     return this.exercises.list(locale, muscle, limit, offset);
   }
-  @Get(":slug") get(@Param("slug") slug: string, @Query("locale") locale?: string) {
-    return this.exercises.get(slug, locale);
+  @Get(":slug") get(@Param("slug") slug: string, @Query("locale") locale?: string, @Query("audience") audience?: string) {
+    return this.exercises.get(slug, locale, audience);
   }
 }
 

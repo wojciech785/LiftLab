@@ -12,6 +12,7 @@ export default function ExercisesPage({locale, initialSlug = ""}: {locale: Conte
   const [offset, setOffset] = useState(0);
   const [retry, setRetry] = useState(0);
   const [slug, setSlug] = useState(initialSlug);
+  const [audience, setAudience] = useState("");
   const [detailState, setDetailState] = useState<{ key: string; detail: ExerciseDetail | null; error: string } | null>(null);
   const detailHeading = useRef<HTMLHeadingElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
@@ -21,7 +22,7 @@ export default function ExercisesPage({locale, initialSlug = ""}: {locale: Conte
   const loading = !current;
   const exercises = current?.exercises ?? [];
   const error = current?.error ?? "";
-  const detailKey = `${slug}/${locale}/${retry}`;
+  const detailKey = `${slug}/${locale}/${audience}/${retry}`;
   const detail = detailState?.key === detailKey ? detailState.detail : null;
   const detailError = detailState?.key === detailKey ? detailState.error : "";
 
@@ -36,11 +37,11 @@ export default function ExercisesPage({locale, initialSlug = ""}: {locale: Conte
   useEffect(() => {
     if (!slug) return;
     const controller = new AbortController();
-    getExercise(slug, locale, controller.signal)
+    getExercise(slug, locale, controller.signal, audience)
       .then(item => { if (!controller.signal.aborted) setDetailState({ key: detailKey, detail: item, error: "" }); })
       .catch(error => { if (!controller.signal.aborted) setDetailState({ key: detailKey, detail: null, error: error instanceof Error ? error.message : "Could not load exercise details." }); });
     return () => controller.abort();
-  }, [slug, locale, retry, detailKey]);
+  }, [slug, locale, audience, retry, detailKey]);
 
   useEffect(() => { if (slug) detailHeading.current?.focus(); }, [slug]);
   const selectedGroup = groups.find(group => group.slug === selected);
@@ -53,7 +54,7 @@ export default function ExercisesPage({locale, initialSlug = ""}: {locale: Conte
       <div aria-live="polite" aria-busy={loading}>
         {loading ? <p className="notice">Loading exercises…</p> : error ? <div className="notice" role="alert"><p>{error}</p><button onClick={() => setRetry(value => value + 1)}>Try again</button></div> : !exercises.length ? <p className="notice">{selected ? "No exercises are available for this muscle group yet." : "The exercise library is getting ready. Check back soon."}</p> : <><div className="cards">{exercises.slice(0, PAGE_SIZE).map(exercise => <article key={exercise.slug}><p>{exercise.difficulty}</p><h3>{exercise.title}</h3><span>{groups.find(group => group.slug === exercise.primaryMuscle)?.name ?? exercise.primaryMuscle}</span><button className="detail-button" onClick={event => { opener.current = event.currentTarget; setSlug(exercise.slug); }}>View exercise<span className="sr-only">: {exercise.title}</span> →</button></article>)}</div><nav className="pagination" aria-label="Exercise pages"><button disabled={offset === 0} onClick={() => { setOffset(Math.max(0, offset - PAGE_SIZE)); closeDetail(); }}>Previous</button><span>Page {offset / PAGE_SIZE + 1}</span><button disabled={exercises.length <= PAGE_SIZE || offset + PAGE_SIZE > 10000} onClick={() => { setOffset(offset + PAGE_SIZE); closeDetail(); }}>Next</button></nav></>}
       </div>
-      {slug && <section className="exercise-detail" aria-labelledby="detail-title"><button onClick={closeDetail}>Close details</button><h2 id="detail-title" tabIndex={-1} ref={detailHeading}>{detail?.title ?? "Exercise details"}</h2><div aria-live="polite">{detailError ? <div role="alert"><p>{detailError}</p><button onClick={() => setRetry(value => value + 1)}>Try again</button></div> : !detail ? <p>Loading exercise…</p> : <><p>{detail.summary}</p><dl><dt>Difficulty</dt><dd>{detail.difficulty}</dd><dt>Modality</dt><dd>{detail.modality}</dd><dt>Primary muscles</dt><dd>{detail.primaryMuscles.map(group => group.name).join(", ") || "Not specified"}</dd><dt>Equipment</dt><dd>{detail.equipment.map(item => item.name).join(", ") || "Not specified"}</dd>{detail.durationMinutes !== null && <><dt>Estimated duration</dt><dd>{detail.durationMinutes} minutes</dd></>}</dl><h3>Instructions</h3><div className="instructions"><RichText value={detail.instructions} /></div>{detail.commonMistakes.length > 0 && <><h3>Common mistakes</h3><ul className="common-mistakes">{detail.commonMistakes.map(mistake => <li key={mistake}>{mistake}</li>)}</ul></>}</>}</div></section>}
+      {slug && <section className="exercise-detail" aria-labelledby="detail-title"><button onClick={closeDetail}>Close details</button><h2 id="detail-title" tabIndex={-1} ref={detailHeading}>{detail?.title ?? "Exercise details"}</h2><div aria-live="polite">{detailError ? <div role="alert"><p>{detailError}</p><button onClick={() => setRetry(value => value + 1)}>Try again</button></div> : !detail ? <p>Loading exercise…</p> : <>{detail.audiences.length > 0 && <div className="audience-switch" role="group" aria-label="Show guidance for">{["", ...detail.audiences].map(key => <button key={key || "all"} aria-pressed={audience === key} onClick={() => setAudience(key)}>{key ? key.charAt(0).toUpperCase() + key.slice(1).replace(/-/g, " ") : "Everyone"}</button>)}</div>}<p>{detail.summary}</p><dl><dt>Difficulty</dt><dd>{detail.difficulty}</dd><dt>Modality</dt><dd>{detail.modality}</dd><dt>Primary muscles</dt><dd>{detail.primaryMuscles.map(group => group.name).join(", ") || "Not specified"}</dd><dt>Equipment</dt><dd>{detail.equipment.map(item => item.name).join(", ") || "Not specified"}</dd>{detail.durationMinutes !== null && <><dt>Estimated duration</dt><dd>{detail.durationMinutes} minutes</dd></>}</dl><h3>Instructions</h3><div className="instructions"><RichText value={detail.instructions} /></div>{detail.commonMistakes.length > 0 && <><h3>Common mistakes</h3><ul className="common-mistakes">{detail.commonMistakes.map(mistake => <li key={mistake}>{mistake}</li>)}</ul></>}</>}</div></section>}
     </section>
   </>;
 }

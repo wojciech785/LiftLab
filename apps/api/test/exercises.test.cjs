@@ -43,11 +43,31 @@ test('detail maps the public DTO without exposing CMS internals', async () => {
     assert.deepEqual(variables, { slug: 'squat', locales: ['en'] });
     return { exercise: { id: 'internal', title: 'Squat', slug: 'squat', difficulty: 'BEGINNER',
       primaryMuscles: [], summary: 'Overview', instructions: { raw: { children: [{ type: 'paragraph', children: [{ text: 'Instructions' }] }] } },
-      modality: 'BODYWEIGHT', durationMinutes: null, equipment: [], commonMistakes: ['Knees cave inward'] } };
+      modality: 'BODYWEIGHT', durationMinutes: null, equipment: [], commonMistakes: ['Knees cave inward'], variants: [] } };
   }});
   assert.deepEqual(await service.get('squat'), { title: 'Squat', slug: 'squat', difficulty: 'beginner',
     primaryMuscle: '', primaryMuscles: [], summary: 'Overview', instructions: { children: [{ type: 'paragraph', children: [{ text: 'Instructions' }] }] },
-    modality: 'bodyweight', durationMinutes: null, equipment: [], commonMistakes: ['Knees cave inward'] });
+    modality: 'bodyweight', durationMinutes: null, equipment: [], commonMistakes: ['Knees cave inward'], audience: null, audiences: [] });
+});
+test('audience variant overrides only its variant-enabled fields', async () => {
+  const exercise = { title: 'Calf Raise', slug: 'calf-raise', difficulty: 'BEGINNER', primaryMuscles: [], summary: 'Base summary',
+    instructions: { raw: { children: [] } }, modality: 'BODYWEIGHT', durationMinutes: null, equipment: [], commonMistakes: ['Base mistake'],
+    variants: [
+      { summary: 'Beginner summary', commonMistakes: ['Rushing the reps'], segments: [{ name: 'Beginner' }] },
+      { summary: 'Advanced summary', commonMistakes: [], segments: [{ name: 'Advanced' }] },
+    ] };
+  const service = new ExercisesService({ query: async () => ({ exercise }) });
+  const beginner = await service.get('calf-raise', 'en', 'beginner');
+  assert.equal(beginner.summary, 'Beginner summary');
+  assert.deepEqual(beginner.commonMistakes, ['Rushing the reps']);
+  assert.equal(beginner.audience, 'beginner');
+  assert.deepEqual(beginner.audiences, ['beginner', 'advanced']);
+  const advanced = await service.get('calf-raise', 'en', 'advanced');
+  assert.deepEqual(advanced.commonMistakes, ['Base mistake'], 'an empty variant list falls back to the base');
+  const unknown = await service.get('calf-raise', 'en', 'expert');
+  assert.equal(unknown.summary, 'Base summary');
+  assert.equal(unknown.audience, null);
+  await assert.rejects(service.get('calf-raise', 'en', 'Beginner!'), { status: 400 });
 });
 test('unconfigured content access returns 503', async () => {
   await assert.rejects(new HygraphService({ get: () => undefined }).query('query {}', {}), { status: 503 });

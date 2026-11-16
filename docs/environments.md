@@ -83,7 +83,7 @@ migrations is enough here.
 | Date | Migration | development | master | Diff after promote |
 | --- | --- | --- | --- | --- |
 | 2026-11-10 | 006 Exercise.commonMistakes (optional, localized string list) | Applied 11:36 UTC; tested with en/cs sample data on `goblet-squat` and the 3–140 character rule | Replayed 11:37 UTC | Empty (7,394 schema entries in both) |
-| 2026-11-16 | 007 Exercise variants on `summary`, `commonMistakes` (Enterprise) | Applied as `lift-lab-007-exercise-variants-v2` after a re-clone (see below) | Pending | — |
+| 2026-11-16 | 007 Exercise variants on `summary`, `commonMistakes` (Enterprise) | Applied as `lift-lab-007-exercise-variants-v2` after a re-clone (see below) | Replayed 14:09 UTC via MCP; verified `Exercise.variants: [ExerciseVariant!]!` by introspection | Not run (no network from the sandbox) |
 
 The 2026-11-10 run used the Hygraph MCP (`submit_batch_migration`, dry run
 first) because `apps/api/.env` was not set up; the operations were the exact

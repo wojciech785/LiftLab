@@ -1694,6 +1694,7 @@ export type ExerciseCreateInput = {
   title: string;
   trainingAttributes?: Array<TaxonomyNodeInput> | null | undefined;
   updatedAt?: string | null | undefined;
+  variants?: ExerciseVariantCreateManyInlineInput | null | undefined;
   videoPoster?: AssetCreateOneInlineInput | null | undefined;
   /** videoTranscript input for default locale (en) */
   videoTranscript?: RichContent | null | undefined;
@@ -1983,6 +1984,179 @@ export type ExerciseSetWhereStageInput = {
 /** References ExerciseSet record uniquely */
 export type ExerciseSetWhereUniqueInput = {
   id?: string | number | null | undefined;
+};
+
+export type ExerciseVariantCreateInput = {
+  /** commonMistakes input for default locale (en) */
+  commonMistakes?: Array<string> | null | undefined;
+  createdAt?: string | null | undefined;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: ExerciseVariantCreateLocalizationsInput | null | undefined;
+  main?: ExerciseCreateOneInlineInput | null | undefined;
+  segments?: SegmentCreateManyInlineInput | null | undefined;
+  /** summary input for default locale (en) */
+  summary: string;
+  updatedAt?: string | null | undefined;
+};
+
+export type ExerciseVariantCreateLocalizationDataInput = {
+  commonMistakes?: Array<string> | null | undefined;
+  createdAt?: string | null | undefined;
+  summary: string;
+  updatedAt?: string | null | undefined;
+};
+
+export type ExerciseVariantCreateLocalizationInput = {
+  /** Localization input */
+  data: ExerciseVariantCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ExerciseVariantCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: Array<ExerciseVariantCreateLocalizationInput> | null | undefined;
+};
+
+export type ExerciseVariantCreateManyInlineInput = {
+  /** Create and connect multiple existing ExerciseVariant documents */
+  create?: Array<ExerciseVariantCreateInput> | null | undefined;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type ExerciseVariantWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: boolean | null | undefined;
+};
+
+/** Identifies documents */
+export type ExerciseVariantWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: Array<ExerciseVariantWhereInput> | null | undefined;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: Array<ExerciseVariantWhereInput> | null | undefined;
+  /** Logical OR on all given filters. */
+  OR?: Array<ExerciseVariantWhereInput> | null | undefined;
+  /** Contains search across all appropriate fields. */
+  _search?: string | null | undefined;
+  /** Matches if the field array contains *all* items provided to the filter and order does match */
+  commonMistakes?: Array<string> | null | undefined;
+  /** Matches if the field array contains *all* items provided to the filter */
+  commonMistakes_contains_all?: Array<string> | null | undefined;
+  /** Matches if the field array does not contain any of the items provided to the filter */
+  commonMistakes_contains_none?: Array<string> | null | undefined;
+  /** Matches if the field array contains at least one item provided to the filter */
+  commonMistakes_contains_some?: Array<string> | null | undefined;
+  /** Matches if the field array does not contains *all* items provided to the filter or order does not match */
+  commonMistakes_not?: Array<string> | null | undefined;
+  createdAt?: string | null | undefined;
+  /** All values greater than the given value. */
+  createdAt_gt?: string | null | undefined;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: string | null | undefined;
+  /** All values that are contained in given list. */
+  createdAt_in?: Array<string | null | undefined> | null | undefined;
+  /** All values less than the given value. */
+  createdAt_lt?: string | null | undefined;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: string | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: Array<string | null | undefined> | null | undefined;
+  createdBy?: UserWhereInput | null | undefined;
+  documentInStages_every?: ExerciseVariantWhereStageInput | null | undefined;
+  documentInStages_none?: ExerciseVariantWhereStageInput | null | undefined;
+  documentInStages_some?: ExerciseVariantWhereStageInput | null | undefined;
+  id?: string | number | null | undefined;
+  /** All values containing the given string. */
+  id_contains?: string | number | null | undefined;
+  /** All values ending with the given string. */
+  id_ends_with?: string | number | null | undefined;
+  /** All values that are contained in given list. */
+  id_in?: Array<string | number | null | undefined> | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: string | number | null | undefined;
+  /** All values not containing the given string. */
+  id_not_contains?: string | number | null | undefined;
+  /** All values not ending with the given string */
+  id_not_ends_with?: string | number | null | undefined;
+  /** All values that are not contained in given list. */
+  id_not_in?: Array<string | number | null | undefined> | null | undefined;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: string | number | null | undefined;
+  /** All values starting with the given string. */
+  id_starts_with?: string | number | null | undefined;
+  publishedAt?: string | null | undefined;
+  /** All values greater than the given value. */
+  publishedAt_gt?: string | null | undefined;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: string | null | undefined;
+  /** All values that are contained in given list. */
+  publishedAt_in?: Array<string | null | undefined> | null | undefined;
+  /** All values less than the given value. */
+  publishedAt_lt?: string | null | undefined;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: string | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: Array<string | null | undefined> | null | undefined;
+  publishedBy?: UserWhereInput | null | undefined;
+  scheduledIn_every?: ScheduledOperationWhereInput | null | undefined;
+  scheduledIn_none?: ScheduledOperationWhereInput | null | undefined;
+  scheduledIn_some?: ScheduledOperationWhereInput | null | undefined;
+  segments_every?: SegmentWhereInput | null | undefined;
+  segments_none?: SegmentWhereInput | null | undefined;
+  segments_some?: SegmentWhereInput | null | undefined;
+  summary?: string | null | undefined;
+  /** All values containing the given string. */
+  summary_contains?: string | null | undefined;
+  /** All values ending with the given string. */
+  summary_ends_with?: string | null | undefined;
+  /** All values that are contained in given list. */
+  summary_in?: Array<string | null | undefined> | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  summary_not?: string | null | undefined;
+  /** All values not containing the given string. */
+  summary_not_contains?: string | null | undefined;
+  /** All values not ending with the given string */
+  summary_not_ends_with?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  summary_not_in?: Array<string | null | undefined> | null | undefined;
+  /** All values not starting with the given string. */
+  summary_not_starts_with?: string | null | undefined;
+  /** All values starting with the given string. */
+  summary_starts_with?: string | null | undefined;
+  updatedAt?: string | null | undefined;
+  /** All values greater than the given value. */
+  updatedAt_gt?: string | null | undefined;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: string | null | undefined;
+  /** All values that are contained in given list. */
+  updatedAt_in?: Array<string | null | undefined> | null | undefined;
+  /** All values less than the given value. */
+  updatedAt_lt?: string | null | undefined;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: string | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: Array<string | null | undefined> | null | undefined;
+  updatedBy?: UserWhereInput | null | undefined;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type ExerciseVariantWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: Array<ExerciseVariantWhereStageInput> | null | undefined;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: Array<ExerciseVariantWhereStageInput> | null | undefined;
+  /** Logical OR on all given filters. */
+  OR?: Array<ExerciseVariantWhereStageInput> | null | undefined;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: ExerciseVariantWhereComparatorInput | null | undefined;
+  /** Specify the stage to compare with */
+  stage?: Stage | null | undefined;
 };
 
 /** This contains a set of filters that can be used to compare values internally */
@@ -2325,6 +2499,9 @@ export type ExerciseWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: Array<string | null | undefined> | null | undefined;
   updatedBy?: UserWhereInput | null | undefined;
+  variants_every?: ExerciseVariantWhereInput | null | undefined;
+  variants_none?: ExerciseVariantWhereInput | null | undefined;
+  variants_some?: ExerciseVariantWhereInput | null | undefined;
   videoPoster?: AssetWhereInput | null | undefined;
   youtubeVideoId?: string | null | undefined;
   /** All values containing the given string. */
@@ -3331,6 +3508,170 @@ export type ScheduledReleaseWhereInput = {
   updatedBy?: UserWhereInput | null | undefined;
 };
 
+export type SegmentCreateInput = {
+  createdAt?: string | null | undefined;
+  description?: string | null | undefined;
+  name: string;
+  updatedAt?: string | null | undefined;
+  variantsExercise?: ExerciseVariantCreateManyInlineInput | null | undefined;
+};
+
+export type SegmentCreateManyInlineInput = {
+  /** Connect multiple existing Segment documents */
+  connect?: Array<SegmentWhereUniqueInput> | null | undefined;
+  /** Create and connect multiple existing Segment documents */
+  create?: Array<SegmentCreateInput> | null | undefined;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type SegmentWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: boolean | null | undefined;
+};
+
+/** Identifies documents */
+export type SegmentWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: Array<SegmentWhereInput> | null | undefined;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: Array<SegmentWhereInput> | null | undefined;
+  /** Logical OR on all given filters. */
+  OR?: Array<SegmentWhereInput> | null | undefined;
+  /** Contains search across all appropriate fields. */
+  _search?: string | null | undefined;
+  createdAt?: string | null | undefined;
+  /** All values greater than the given value. */
+  createdAt_gt?: string | null | undefined;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: string | null | undefined;
+  /** All values that are contained in given list. */
+  createdAt_in?: Array<string | null | undefined> | null | undefined;
+  /** All values less than the given value. */
+  createdAt_lt?: string | null | undefined;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: string | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: Array<string | null | undefined> | null | undefined;
+  createdBy?: UserWhereInput | null | undefined;
+  description?: string | null | undefined;
+  /** All values containing the given string. */
+  description_contains?: string | null | undefined;
+  /** All values ending with the given string. */
+  description_ends_with?: string | null | undefined;
+  /** All values that are contained in given list. */
+  description_in?: Array<string | null | undefined> | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  description_not?: string | null | undefined;
+  /** All values not containing the given string. */
+  description_not_contains?: string | null | undefined;
+  /** All values not ending with the given string */
+  description_not_ends_with?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  description_not_in?: Array<string | null | undefined> | null | undefined;
+  /** All values not starting with the given string. */
+  description_not_starts_with?: string | null | undefined;
+  /** All values starting with the given string. */
+  description_starts_with?: string | null | undefined;
+  documentInStages_every?: SegmentWhereStageInput | null | undefined;
+  documentInStages_none?: SegmentWhereStageInput | null | undefined;
+  documentInStages_some?: SegmentWhereStageInput | null | undefined;
+  id?: string | number | null | undefined;
+  /** All values containing the given string. */
+  id_contains?: string | number | null | undefined;
+  /** All values ending with the given string. */
+  id_ends_with?: string | number | null | undefined;
+  /** All values that are contained in given list. */
+  id_in?: Array<string | number | null | undefined> | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: string | number | null | undefined;
+  /** All values not containing the given string. */
+  id_not_contains?: string | number | null | undefined;
+  /** All values not ending with the given string */
+  id_not_ends_with?: string | number | null | undefined;
+  /** All values that are not contained in given list. */
+  id_not_in?: Array<string | number | null | undefined> | null | undefined;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: string | number | null | undefined;
+  /** All values starting with the given string. */
+  id_starts_with?: string | number | null | undefined;
+  name?: string | null | undefined;
+  /** All values containing the given string. */
+  name_contains?: string | null | undefined;
+  /** All values ending with the given string. */
+  name_ends_with?: string | null | undefined;
+  /** All values that are contained in given list. */
+  name_in?: Array<string | null | undefined> | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: string | null | undefined;
+  /** All values not containing the given string. */
+  name_not_contains?: string | null | undefined;
+  /** All values not ending with the given string */
+  name_not_ends_with?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  name_not_in?: Array<string | null | undefined> | null | undefined;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: string | null | undefined;
+  /** All values starting with the given string. */
+  name_starts_with?: string | null | undefined;
+  publishedAt?: string | null | undefined;
+  /** All values greater than the given value. */
+  publishedAt_gt?: string | null | undefined;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: string | null | undefined;
+  /** All values that are contained in given list. */
+  publishedAt_in?: Array<string | null | undefined> | null | undefined;
+  /** All values less than the given value. */
+  publishedAt_lt?: string | null | undefined;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: string | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: Array<string | null | undefined> | null | undefined;
+  publishedBy?: UserWhereInput | null | undefined;
+  scheduledIn_every?: ScheduledOperationWhereInput | null | undefined;
+  scheduledIn_none?: ScheduledOperationWhereInput | null | undefined;
+  scheduledIn_some?: ScheduledOperationWhereInput | null | undefined;
+  updatedAt?: string | null | undefined;
+  /** All values greater than the given value. */
+  updatedAt_gt?: string | null | undefined;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: string | null | undefined;
+  /** All values that are contained in given list. */
+  updatedAt_in?: Array<string | null | undefined> | null | undefined;
+  /** All values less than the given value. */
+  updatedAt_lt?: string | null | undefined;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: string | null | undefined;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: string | null | undefined;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: Array<string | null | undefined> | null | undefined;
+  updatedBy?: UserWhereInput | null | undefined;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type SegmentWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: Array<SegmentWhereStageInput> | null | undefined;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: Array<SegmentWhereStageInput> | null | undefined;
+  /** Logical OR on all given filters. */
+  OR?: Array<SegmentWhereStageInput> | null | undefined;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: SegmentWhereComparatorInput | null | undefined;
+  /** Specify the stage to compare with */
+  stage?: Stage | null | undefined;
+};
+
+/** References Segment record uniquely */
+export type SegmentWhereUniqueInput = {
+  id?: string | number | null | undefined;
+  name?: string | null | undefined;
+};
+
 export type SeoMetadataCreateInput = {
   /** description input for default locale (en) */
   description?: string | null | undefined;
@@ -4205,7 +4546,7 @@ export type GetExerciseQueryVariables = Exact<{
 }>;
 
 
-export type GetExerciseQuery = { exercise: { title: string, slug: string, difficulty: Difficulty, summary: string, modality: ExerciseModality, durationMinutes: number | null, commonMistakes: Array<string>, primaryMuscles: Array<{ name: string, slug: string }>, instructions: { raw: RichContent }, equipment: Array<{ name: string, slug: string }> } | null };
+export type GetExerciseQuery = { exercise: { title: string, slug: string, difficulty: Difficulty, summary: string, modality: ExerciseModality, durationMinutes: number | null, commonMistakes: Array<string>, primaryMuscles: Array<{ name: string, slug: string }>, instructions: { raw: RichContent }, equipment: Array<{ name: string, slug: string }>, variants: Array<{ summary: string, commonMistakes: Array<string>, segments: Array<{ name: string }> }> } | null };
 
 export type ListMuscleGroupsQueryVariables = Exact<{
   locales: Array<Locale> | Locale;
@@ -4235,7 +4576,7 @@ export const ArticleListDocument = {"kind":"Document","definitions":[{"kind":"Op
 export const ProgrammeDetailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProgrammeDetail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locales"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workoutProgramme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locales"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"goal"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"durationWeeks"}},{"kind":"Field","name":{"kind":"Name","value":"sessionsPerWeek"}},{"kind":"Field","name":{"kind":"Name","value":"overview"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coach"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}},{"kind":"Field","name":{"kind":"Name","value":"heroAsset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"rightsSource"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sessions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"order_ASC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"estimatedMinutes"}},{"kind":"Field","name":{"kind":"Name","value":"warmup"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cooldown"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exerciseSets"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"order_ASC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"sets"}},{"kind":"Field","name":{"kind":"Name","value":"repRange"}},{"kind":"Field","name":{"kind":"Name","value":"tempo"}},{"kind":"Field","name":{"kind":"Name","value":"restSeconds"}},{"kind":"Field","name":{"kind":"Name","value":"coachNote"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exercise"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProgrammeDetailQuery, ProgrammeDetailQueryVariables>;
 export const ArticleDetailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ArticleDetail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locales"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"article"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locales"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}},{"kind":"Field","name":{"kind":"Name","value":"heroAsset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"rightsSource"}}]}},{"kind":"Field","name":{"kind":"Name","value":"relatedExercises"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"relatedProgrammes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contentBlocks"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"RichTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"body"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ExerciseCarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"exercises"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MuscleMapBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"body"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"muscleGroups"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"meshId"}},{"kind":"Field","name":{"kind":"Name","value":"illustration"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"rightsSource"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ComparisonTableBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"caption"}},{"kind":"Field","name":{"kind":"Name","value":"columnHeadings"}},{"kind":"Field","name":{"kind":"Name","value":"rows"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cells"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CoachQuoteBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"coach"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CalloutBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"callout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tone"}},{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"body"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"destination"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ImageGalleryBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"caption"}},{"kind":"Field","name":{"kind":"Name","value":"altTextOverride"}},{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"rightsSource"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ArticleDetailQuery, ArticleDetailQueryVariables>;
 export const ListExercisesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListExercises"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locales"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ExerciseWhereInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exercises"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locales"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"slug_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"primaryMuscles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<ListExercisesQuery, ListExercisesQueryVariables>;
-export const GetExerciseDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetExercise"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locales"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exercise"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locales"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"primaryMuscles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"instructions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"modality"}},{"kind":"Field","name":{"kind":"Name","value":"durationMinutes"}},{"kind":"Field","name":{"kind":"Name","value":"equipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"commonMistakes"}}]}}]}}]} as unknown as DocumentNode<GetExerciseQuery, GetExerciseQueryVariables>;
+export const GetExerciseDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetExercise"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locales"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exercise"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locales"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"primaryMuscles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"instructions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"modality"}},{"kind":"Field","name":{"kind":"Name","value":"durationMinutes"}},{"kind":"Field","name":{"kind":"Name","value":"equipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"commonMistakes"}},{"kind":"Field","name":{"kind":"Name","value":"variants"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"30"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"commonMistakes"}},{"kind":"Field","name":{"kind":"Name","value":"segments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetExerciseQuery, GetExerciseQueryVariables>;
 export const ListMuscleGroupsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListMuscleGroups"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locales"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"muscleGroups"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locales"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"slug_ASC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"meshId"}},{"kind":"Field","name":{"kind":"Name","value":"illustration"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"rightsSource"}}]}}]}}]}}]} as unknown as DocumentNode<ListMuscleGroupsQuery, ListMuscleGroupsQueryVariables>;
 export const IntentMusclesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"IntentMuscles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slugs"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"muscleGroups"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug_in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slugs"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"3"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<IntentMusclesQuery, IntentMusclesQueryVariables>;
 export const SaveWorkoutIntentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SaveWorkoutIntent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WorkoutIntentCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createWorkoutIntent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<SaveWorkoutIntentMutation, SaveWorkoutIntentMutationVariables>;
