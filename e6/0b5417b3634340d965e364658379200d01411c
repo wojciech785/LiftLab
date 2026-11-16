@@ -1,0 +1,19 @@
+docs/operations.md
+  s_013045f426ad0d::t_f229a40a8c407c 61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "e60b5417b3634340d965e364658379200d01411c",
+  "prompts": {},
+  "sessions": {
+    "s_013045f426ad0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_013045f426ad0d",
+        "model": "unknown"
+      },
+      "human_author": "wojciech785 <wojciech.zaorski@hygraph.com>"
+    }
+  }
+}
