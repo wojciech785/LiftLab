@@ -83,6 +83,7 @@ migrations is enough here.
 | Date | Migration | development | master | Diff after promote |
 | --- | --- | --- | --- | --- |
 | 2026-11-10 | 006 Exercise.commonMistakes (optional, localized string list) | Applied 11:36 UTC; tested with en/cs sample data on `goblet-squat` and the 3–140 character rule | Replayed 11:37 UTC | Empty (7,394 schema entries in both) |
+| 2026-11-16 | 007 Exercise variants on `summary`, `commonMistakes` (Enterprise) | Applied as `lift-lab-007-exercise-variants-v2` after a re-clone (see below) | Pending | — |
 
 The 2026-11-10 run used the Hygraph MCP (`submit_batch_migration`, dry run
 first) because `apps/api/.env` was not set up; the operations were the exact
@@ -91,6 +92,16 @@ environments' introspection showed 14 additions in development (all from
 `commonMistakes`) and nothing master-only, so no deletion risk.
 
 Gotchas:
+- After recreating the project (2026-11-12), `development` was still the clone
+  of the empty project: migration 007 failed with `could not find field parent
+  for id: "Exercise"`. Re-clone `development` from master (with content)
+  whenever master was rebuilt.
+- Variants on a field with a visibility condition require the controlling field
+  to be variant-enabled too (`Conditional variant-enabled fields require the base
+  field to be variant-enabled`), so `progressionLevel` (shown for `modality` =
+  BODYWEIGHT) stays shared.
+- A failed batch migration still uses up its name in that environment; retry with
+  `HYGRAPH_MIGRATION_NAME=<name>-v2`.
 - Introspection results can be cached briefly after a migration; change the
   query text (e.g. add an operation name) to get a fresh result.
 - A schema snapshot taken with a token whose default stage is DRAFT prints
