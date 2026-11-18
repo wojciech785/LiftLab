@@ -333,7 +333,7 @@ Detailed plan in §14. Order chosen so the cheapest, configuration-only items pr
 - [x] 7.2 Audit logs: recording since the project flag was enabled (2026-11-16, visible 2026-11-18), retention 30 days. Procedure, known events and verification log in `docs/operations.md` (§14.2).
 - [x] 7.3 Variants (2026-11-16): segments Beginner/Advanced, migration 007 (`summary`, `commonMistakes`), Standing Calf Raise variants en + cs, `?audience=` API and audience switch. Second brand dropped (§14.3 as built).
 - [x] 7.4 Live Preview and Click to Edit for exercises (2026-11-18); programmes/articles not needed yet. See `docs/live-preview.md`.
-- [ ] 7.5 App Framework: enabled 2026-11-18. **In progress:** `apps/hygraph-app` (setup page + Exercise check sidebar) scaffolded and registered; installation fails with "Could not connect to http://localhost:5174/setup" (page serves fine; likely browser blocking http://localhost in the https Studio iframe; next: console errors, then local HTTPS via mkcert). YouTube field and muscle map later (§14.5).
+- [x] 7.5 App Framework (2026-11-18): `apps/hygraph-app` registered and installed in `development`; *Exercise check* sidebar with live per-locale publishing checks. Gotchas (zoid import under Vite, form field names, string-list subscription bug) in `docs/app-framework.md`. YouTube field and muscle map not built (§14.5).
 
 ### Phase 6 — Reflection
 

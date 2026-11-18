@@ -126,8 +126,9 @@ the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` en
 - **Enterprise features (SDD §14 / Phase 7):** done — Variants (migration 007, `?audience=`),
   Live Preview + Click to Edit (`docs/live-preview.md`, draft token + preview secret, never
   reads drafts without the secret). Audit Logs recording (retention 30 days).
-  In progress — App Framework (`apps/hygraph-app`, `npm run dev:app`, port 5174; Studio cannot
-  connect yet, see SDD 7.5). Waiting on Hygraph — Backup & Recovery (backup config + AWS trigger).
+  App Framework (`apps/hygraph-app`, `npm run dev:app`, port 5174, installed in development;
+  read `docs/app-framework.md` before touching it — zoid alias, no StrictMode, form field names).
+  Deferred — Backup & Recovery (backup config + AWS trigger, see docs/operations.md).
   Work **one step at a time**: explain what the step does in Hygraph, do it, then stop so the user
   can verify it manually in Studio before moving on (learning goal).
 - Not started: exercise photos/video,
