@@ -330,10 +330,10 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 Detailed plan in §14. Order chosen so the cheapest, configuration-only items prove the account first.
 
 - [ ] 7.1 Recovery tools: Backup & Recovery needs per-project enablement by Hygraph (requested 2026-11-16) (§14.1).
-- [ ] 7.2 Audit logs: menu visible but **not recording** (2026-11-16); enablement requested from Hygraph. Procedure + known events ready in `docs/operations.md` (§14.2).
+- [x] 7.2 Audit logs: recording since the project flag was enabled (2026-11-16, visible 2026-11-18), retention 30 days. Procedure, known events and verification log in `docs/operations.md` (§14.2).
 - [x] 7.3 Variants (2026-11-16): segments Beginner/Advanced, migration 007 (`summary`, `commonMistakes`), Standing Calf Raise variants en + cs, `?audience=` API and audience switch. Second brand dropped (§14.3 as built).
 - [x] 7.4 Live Preview and Click to Edit for exercises (2026-11-18); programmes/articles not needed yet. See `docs/live-preview.md`.
-- [ ] 7.5 App Framework: not visible on the account yet (requested 2026-11-16); Lift Lab editor app with a YouTube tutorial field and a muscle-map/publish-check sidebar (§14.5).
+- [ ] 7.5 App Framework: enabled 2026-11-18. **In progress:** `apps/hygraph-app` (setup page + Exercise check sidebar) scaffolded and registered; installation fails with "Could not connect to http://localhost:5174/setup" (page serves fine; likely browser blocking http://localhost in the https Studio iframe; next: console errors, then local HTTPS via mkcert). YouTube field and muscle map later (§14.5).
 
 ### Phase 6 — Reflection
 
