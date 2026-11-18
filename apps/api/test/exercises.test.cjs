@@ -69,6 +69,36 @@ test('audience variant overrides only its variant-enabled fields', async () => {
   assert.equal(unknown.audience, null);
   await assert.rejects(service.get('calf-raise', 'en', 'Beginner!'), { status: 400 });
 });
+test('preview reads DRAFT with the preview secret and exposes the entry id', async () => {
+  const exercise = { id: 'entry-1', title: 'Squat', slug: 'squat', difficulty: 'BEGINNER', primaryMuscles: [], summary: 'Draft',
+    instructions: { raw: null }, modality: 'BODYWEIGHT', durationMinutes: null, equipment: [], commonMistakes: [], variants: [] };
+  const service = new ExercisesService({
+    query: () => assert.fail('preview must not use the published token'),
+    preview: async (secret, query, variables) => {
+      assert.equal(secret, 's3cret');
+      assert.match(print(query), /stage: DRAFT/);
+      assert.deepEqual(variables, { slug: 'squat', locales: ['en'] });
+      return { exercise };
+    } });
+  const result = await service.get('squat', 'en', undefined, 's3cret');
+  assert.equal(result.entryId, 'entry-1');
+  assert.equal(result.summary, 'Draft');
+});
+test('preview is off without config and rejects a wrong secret', async () => {
+  const off = new HygraphService({ get: key => key === 'HYGRAPH_CONTENT_API_URL' ? 'https://example.test' : undefined });
+  await assert.rejects(off.preview('x', 'query {}', {}), { status: 503 });
+  const secret = 'a'.repeat(32);
+  const values = { HYGRAPH_CONTENT_API_URL: 'https://example.test', HYGRAPH_PREVIEW_TOKEN: 'draft-token', HYGRAPH_PREVIEW_SECRET: secret };
+  const on = new HygraphService({ get: key => values[key], getOrThrow: key => values[key] });
+  await assert.rejects(on.preview('wrong', 'query {}', {}), { status: 403 });
+  await assert.rejects(on.preview('b'.repeat(32), 'query {}', {}), { status: 403 });
+  const original = global.fetch;
+  global.fetch = async (_url, options) => {
+    assert.equal(options.headers.Authorization, 'Bearer draft-token');
+    return { ok: true, json: async () => ({ data: { ok: true } }) };
+  };
+  try { assert.deepEqual(await on.preview(secret, 'query {}', {}), { ok: true }); } finally { global.fetch = original; }
+});
 test('unconfigured content access returns 503', async () => {
   await assert.rejects(new HygraphService({ get: () => undefined }).query('query {}', {}), { status: 503 });
 });

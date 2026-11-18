@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import App from "./App";
 import { getArticle, getArticles, getExercise, getExercises, getMuscleGroups } from "./api/client";
 
-vi.mock("./api/client", () => ({ getExercise: vi.fn(), getExercises: vi.fn(), getMuscleGroups: vi.fn(), getArticle: vi.fn(), getArticles: vi.fn(), getProgramme: vi.fn(), getProgrammes: vi.fn(), PAGE_SIZE: 12 }));
+vi.mock("./api/client", () => ({ getExercise: vi.fn(), getExercises: vi.fn(), getMuscleGroups: vi.fn(), getArticle: vi.fn(), getArticles: vi.fn(), getProgramme: vi.fn(), getProgrammes: vi.fn(), isPreview: () => false, PAGE_SIZE: 12 }));
 const item = { title: "Squat", slug: "squat", difficulty: "beginner" as const, primaryMuscle: "quadriceps" };
 beforeEach(() => {
   window.history.replaceState(null, "", "/");
@@ -52,6 +52,18 @@ describe("exercise browser", () => {
     expect(screen.getByText("Rushing the reps")).toBeTruthy();
     expect(getExercise).toHaveBeenLastCalledWith("squat", "en", expect.any(AbortSignal), "beginner");
     expect(screen.getByRole("button", { name: "Beginner" }).getAttribute("aria-pressed")).toBe("true");
+  });
+  it("marks Click to Edit targets only for preview responses showing the base entry", async () => {
+    const user = userEvent.setup();
+    const preview = { ...item, summary: "Draft summary", instructions: null, modality: "bodyweight", durationMinutes: null, primaryMuscles: [], equipment: [], commonMistakes: ["Rushing"], audience: null, audiences: ["beginner"], entryId: "entry-1" };
+    vi.mocked(getExercise).mockImplementation(async (_slug, _locale, _signal, audience) => audience ? { ...preview, audience } : preview);
+    const { container } = render(<App />);
+    await user.click(await screen.findByRole("button", { name: /View exercise: Squat/ }));
+    await screen.findByText("Draft summary");
+    expect([...container.querySelectorAll("[data-hygraph-entry-id='entry-1']")].map(el => el.getAttribute("data-hygraph-field-api-id"))).toEqual(["title", "summary", "instructions", "commonMistakes"]);
+    expect(container.querySelector("li[data-hygraph-list-index='0']")?.textContent).toBe("Rushing");
+    await user.click(screen.getByRole("button", { name: "Beginner" }));
+    await waitFor(() => expect(container.querySelector("[data-hygraph-entry-id]")).toBeNull());
   });
   it("filters the library from the body map and keeps the list control in sync", async () => {
     vi.mocked(getMuscleGroups).mockResolvedValue([{ name: "Quadriceps", slug: "quadriceps", meshId: "quadriceps" }, { name: "Chest", slug: "chest", meshId: "chest" }]);

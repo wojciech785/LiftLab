@@ -1,10 +1,11 @@
-import { BadRequestException, Controller, Get, Injectable, Module, NotFoundException, Param, Query } from "@nestjs/common";
+import { BadRequestException, Controller, Get, Header, Headers, Injectable, Module, NotFoundException, Param, Query } from "@nestjs/common";
 import type { ExerciseDetail, ExerciseSummary, MuscleGroupOption } from "@lift-lab/shared-types";
 
 import { HygraphModule, HygraphService } from "../hygraph/hygraph.module";
 
-import { GetExerciseDocument, ListExercisesDocument, ListMuscleGroupsDocument } from "../hygraph/generated/operations";
-import type { ListExercisesQuery, Locale } from "../hygraph/generated/operations";
+import { GetExerciseDocument, GetExercisePreviewDocument, ListExercisesDocument, ListMuscleGroupsDocument } from "../hygraph/generated/operations";
+import type { GetExerciseQuery, ListExercisesQuery, Locale } from "../hygraph/generated/operations";
+type ContentExerciseDetail = NonNullable<GetExerciseQuery["exercise"]>;
 type ContentExercise = ListExercisesQuery["exercises"][number];
 const summary = (entry: ContentExercise): ExerciseSummary => ({
   title: entry.title, slug: entry.slug,
@@ -47,9 +48,19 @@ export class ExercisesService {
       if (data.muscleGroups.length < 100) return result;
     }
   }
-  async get(slug: string, locale?: string, audience?: string): Promise<ExerciseDetail> {
+  /** previewSecret is set only for Live Preview requests; they read DRAFT content and expose the entry id. */
+  async get(slug: string, locale?: string, audience?: string, previewSecret?: string): Promise<ExerciseDetail> {
     const requested = audienceParam(audience);
-    const { exercise } = await this.hygraph.query(GetExerciseDocument, { slug, locales: locales(locale) });
+    const variables = { slug, locales: locales(locale) };
+    let exercise: ContentExerciseDetail | null | undefined;
+    let entryId: string | undefined;
+    if (previewSecret === undefined) {
+      exercise = (await this.hygraph.query(GetExerciseDocument, variables)).exercise;
+    } else {
+      const draft = (await this.hygraph.preview(previewSecret, GetExercisePreviewDocument, variables)).exercise;
+      exercise = draft;
+      entryId = draft?.id;
+    }
     if (!exercise) throw new NotFoundException("Exercise not found.");
     // Variants override only their variant-enabled fields (summary, commonMistakes);
     // an unknown audience falls back to the base entry instead of failing.
@@ -60,7 +71,8 @@ export class ExercisesService {
       modality: exercise.modality.toLowerCase(), durationMinutes: exercise.durationMinutes,
       primaryMuscles: exercise.primaryMuscles, equipment: exercise.equipment,
       commonMistakes: mistakes.length ? mistakes : exercise.commonMistakes ?? [],
-      audience: match ? requested : null, audiences: [...new Set(variants.map(item => item.key))] };
+      audience: match ? requested : null, audiences: [...new Set(variants.map(item => item.key))],
+      ...(entryId ? { entryId } : {}) };
   }
 }
 
@@ -76,8 +88,10 @@ export class ExercisesController {
   @Get() list(@Query("locale") locale?: string, @Query("muscle") muscle?: string, @Query("limit") limit?: string, @Query("offset") offset?: string) {
     return this.exercises.list(locale, muscle, limit, offset);
   }
-  @Get(":slug") get(@Param("slug") slug: string, @Query("locale") locale?: string, @Query("audience") audience?: string) {
-    return this.exercises.get(slug, locale, audience);
+  @Get(":slug") @Header("Cache-Control", "no-store")
+  get(@Param("slug") slug: string, @Query("locale") locale?: string, @Query("audience") audience?: string,
+    @Headers("x-lift-lab-preview") previewSecret?: string) {
+    return this.exercises.get(slug, locale, audience, previewSecret);
   }
 }
 

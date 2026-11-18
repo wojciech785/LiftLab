@@ -23,6 +23,8 @@ export type ExerciseDetail = ExerciseSummary & {
   audience: string | null;
   /** Audiences with a published variant for this exercise, for the audience switch. */
   audiences: string[];
+  /** Hygraph entry id; present only in Live Preview responses, for Click to Edit attributes. */
+  entryId?: string;
 };
 
 export type ContentLink = { title: string; slug: string };

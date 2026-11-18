@@ -123,9 +123,10 @@ the source of truth for schema. Never publish `WorkoutIntent` or `mcp-test-*` en
 - No `docs/schema-changelog.md` (migration files + `hygraph/README.md` serve this role).
 - Webhook handling was removed from the BFF on purpose; `HYGRAPH_WEBHOOK_SECRET` in the SDD
   env list is obsolete.
-- **Planned, waiting for an Enterprise dev account (2026-11-12):** App Framework, Backup & Recovery,
-  Audit Logs, Variants, Live Preview + Click to Edit — plan in SDD §14 / Phase 7. Don't start until
-  the user confirms the account; then begin with §14.0 prerequisites.
+- **Enterprise features (SDD §14 / Phase 7):** done — Variants (migration 007, `?audience=`),
+  Live Preview + Click to Edit (`docs/live-preview.md`, draft token + preview secret, never
+  reads drafts without the secret). Waiting on Hygraph — Audit Logs (enabled, no rows yet),
+  Backup & Recovery (needs backup config + AWS trigger), App Framework (not visible).
   Work **one step at a time**: explain what the step does in Hygraph, do it, then stop so the user
   can verify it manually in Studio before moving on (learning goal).
 - Not started: exercise photos/video,

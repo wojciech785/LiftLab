@@ -3,6 +3,10 @@ import type { ArticleDetail, ArticleSummary, ExerciseDetail, ExerciseSummary, Mu
 const apiUrl = import.meta.env.VITE_API_URL ?? "/api";
 
 export type ContentLocale = "en" | "cs";
+
+/** Secret from the Studio preview URL (`?preview=…`); empty outside Live Preview. Sent only to our API. */
+export function previewSecret(): string { return new URLSearchParams(window.location.search).get("preview") ?? ""; }
+export const isPreview = () => previewSecret() !== "";
 export const PAGE_SIZE = 12;
 
 export async function getExercises(locale: ContentLocale, muscle: string, offset: number, signal: AbortSignal): Promise<ExerciseSummary[]> {
@@ -22,7 +26,8 @@ export async function getMuscleGroups(locale: ContentLocale, signal: AbortSignal
 export async function getExercise(slug: string, locale: ContentLocale, signal: AbortSignal, audience = ""): Promise<ExerciseDetail> {
   const params = new URLSearchParams({ locale });
   if (audience) params.set("audience", audience);
-  const response = await fetch(`${apiUrl}/exercises/${encodeURIComponent(slug)}?${params}`, { signal });
+  const secret = previewSecret();
+  const response = await fetch(`${apiUrl}/exercises/${encodeURIComponent(slug)}?${params}`, { signal, ...(secret ? { headers: { "X-Lift-Lab-Preview": secret } } : {}) });
   if (!response.ok) throw new Error(response.status === 404 ? "This exercise is no longer available." : "Could not load exercise details.");
   return response.json() as Promise<ExerciseDetail>;
 }

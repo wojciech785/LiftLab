@@ -3,12 +3,18 @@ query ListExercises($locales: [Locale!]!, $first: Int!, $skip: Int!, $where: Exe
     title slug difficulty primaryMuscles { name slug }
   }
 }
+fragment ExerciseDetailFields on Exercise {
+  title slug difficulty primaryMuscles { name slug }
+  summary instructions { raw } modality durationMinutes equipment { name slug } commonMistakes
+  variants(first: 30) { summary commonMistakes segments { name } }
+}
 query GetExercise($slug: String!, $locales: [Locale!]!) {
-  exercise(where: {slug: $slug}, stage: PUBLISHED, locales: $locales) {
-    title slug difficulty primaryMuscles { name slug }
-    summary instructions { raw } modality durationMinutes equipment { name slug } commonMistakes
-    variants(first: 30) { summary commonMistakes segments { name } }
-  }
+  exercise(where: {slug: $slug}, stage: PUBLISHED, locales: $locales) { ...ExerciseDetailFields }
+}
+# Live Preview only: draft content plus the entry id for Click to Edit. Sent with
+# the server-only preview token after the preview secret check (HygraphService.preview).
+query GetExercisePreview($slug: String!, $locales: [Locale!]!) {
+  exercise(where: {slug: $slug}, stage: DRAFT, locales: $locales) { id ...ExerciseDetailFields }
 }
 query ListMuscleGroups($locales: [Locale!]!, $skip: Int!) {
   muscleGroups(stage: PUBLISHED, locales: $locales, first: 100, skip: $skip, orderBy: slug_ASC) {

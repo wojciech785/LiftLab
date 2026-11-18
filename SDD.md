@@ -313,7 +313,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 
 ### Phase 4 — Production CMS features
 
-- [ ] Add Live Preview and click-to-edit — **back in scope (2026-11-12)**, moved to Phase 7 / §14.4 (needs Enterprise dev account).
+- [x] Add Live Preview and click-to-edit — done for exercises in Phase 7 / §14.4 (2026-11-18).
 - [x] Localise selected content to Czech (all starter exercises, muscle groups, programmes, articles and asset alt text have `cs`).
 - [ ] Add audience variants and demonstrate a Lift Lab Home second-brand view — **back in scope (2026-11-12)**, moved to Phase 7 / §14.3 (Enterprise feature).
 - [x] Make, diff, and promote a schema change across environments (migration 006 `Exercise.commonMistakes`: development → diff → master, diff empty afterwards; API/web show it).
@@ -332,7 +332,7 @@ Detailed plan in §14. Order chosen so the cheapest, configuration-only items pr
 - [ ] 7.1 Recovery tools: Backup & Recovery needs per-project enablement by Hygraph (requested 2026-11-16) (§14.1).
 - [ ] 7.2 Audit logs: menu visible but **not recording** (2026-11-16); enablement requested from Hygraph. Procedure + known events ready in `docs/operations.md` (§14.2).
 - [x] 7.3 Variants (2026-11-16): segments Beginner/Advanced, migration 007 (`summary`, `commonMistakes`), Standing Calf Raise variants en + cs, `?audience=` API and audience switch. Second brand dropped (§14.3 as built).
-- [ ] 7.4 Live Preview and click-to-edit for exercises, programmes and articles (§14.4).
+- [x] 7.4 Live Preview and Click to Edit for exercises (2026-11-18); programmes/articles not needed yet. See `docs/live-preview.md`.
 - [ ] 7.5 App Framework: not visible on the account yet (requested 2026-11-16); Lift Lab editor app with a YouTube tutorial field and a muscle-map/publish-check sidebar (§14.5).
 
 ### Phase 6 — Reflection
@@ -442,6 +442,8 @@ Studio:
 - Configure preview URLs for Exercise, WorkoutProgramme, Article. First try `http://localhost:5173` (Chrome treats localhost as secure); if the iframe is blocked, use a temporary HTTPS tunnel (Cloudflare Tunnel/ngrok) and add it to `allowedOrigins` and `WEB_ORIGIN`.
 
 Done when: an editor changes a draft exercise, sees it in Live Preview without publishing, and clicking the title/instructions jumps to the field in Studio. Public pages still show only published content.
+
+**As built (2026-11-18)** — simpler than the cookie plan above: Studio URL `http://localhost:5173/?preview=<secret>&locale={locale}#/exercises/{slug}`; the web app forwards the secret as `X-Lift-Lab-Preview`; the API checks it in constant time and runs a separate `GetExercisePreview` (DRAFT + `id`) with the draft token. SDK core `Preview` class (lazy-loaded), `subscribe('save')` refetches. Exercise only; Click to Edit off while a variant is shown. Details: `docs/live-preview.md`.
 
 ### 14.5 App Framework — "Lift Lab editor tools" app
 
