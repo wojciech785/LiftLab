@@ -329,7 +329,7 @@ Start with audience variants for `beginner` and `experienced`. Variant fields wi
 
 Detailed plan in §14. Order chosen so the cheapest, configuration-only items prove the account first.
 
-- [ ] 7.1 Recovery tools: Backup & Recovery needs per-project enablement by Hygraph (requested 2026-11-16) (§14.1).
+- [ ] 7.1 Recovery tools: **deferred (2026-11-18)** until we confirm it is needed. Backup & Recovery is not a toggle: per the Core team runbook it needs a backup config row plus an AWS EventBridge rule (AWS dev access) per config; dev-1 is a shared Aurora stack, so the nightly cluster-clone flow is a question for the owners. Details in `docs/operations.md`. Our migration/snapshot recovery toolkit stays the recovery path (§14.1).
 - [x] 7.2 Audit logs: recording since the project flag was enabled (2026-11-16, visible 2026-11-18), retention 30 days. Procedure, known events and verification log in `docs/operations.md` (§14.2).
 - [x] 7.3 Variants (2026-11-16): segments Beginner/Advanced, migration 007 (`summary`, `commonMistakes`), Standing Calf Raise variants en + cs, `?audience=` API and audience switch. Second brand dropped (§14.3 as built).
 - [x] 7.4 Live Preview and Click to Edit for exercises (2026-11-18); programmes/articles not needed yet. See `docs/live-preview.md`.

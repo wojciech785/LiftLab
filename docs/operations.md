@@ -5,7 +5,7 @@ Current project `cmw8okmtc003y07w272tdlgtw` (Hygraph dev deployment, **Enterpris
 | Enterprise feature | Status (2026-11-18) |
 | --- | --- |
 | Audit Logs | **Recording** since the `audit_logs_enabled` flag was set (2026-11-16); events confirmed in Studio on 2026-11-18. Retention 30 days (`audit_logs_config.retention_days`). See verification log below. |
-| Backup & Recovery | Not yet enabled (needs custom per-project setup by Hygraph); the recovery toolkit below remains in force |
+| Backup & Recovery | **Deferred** (2026-11-18) until we confirm we need it; the recovery toolkit below remains in force. See "Backup & Recovery enablement" below. |
 
 ## Recovery toolkit
 
@@ -61,6 +61,25 @@ Open questions: retention period and export/API access (not documented; check in
 - **2026-11-16 (later):** found the switch in the dev-1 management DB: `management.project.audit_logs_enabled` was `false` (plan `96fe41a1…` already allows 90-day retention and `ENVIRONMENTS_AUTOMATIC_BACKUPS` = 1). Set it to `true` for Lift Lab (~10:30 UTC). Test event 10:31:17 UTC (update + publish MuscleGroup `core`) still produced 0 rows in `content.cmw8okmtc003y07w272tdlgtw.audit_logs` (`audit_logs_config.retention_days` = 0, which other ingesting projects also have). Ingestion works for other dev-1 projects (latest 2026-11-12), so the likely cause is a cached project setting. **Pending:** retest later with one new event + `select count(*), max(ts) from cmw8okmtc003y07w272tdlgtw.audit_logs;`; if still 0, ask the audit-log owners in Slack. Lesson: never loop over all tenant schemas in one transaction on the shared cluster (lock table exhaustion).
 - **2026-11-16 (later):** set `cmw8okmtc003y07w272tdlgtw.audit_logs_config.retention_days` from 0 to 30. Test event 11:05:53 UTC (update + publish MuscleGroup `calves`) still showed 0 rows right afterwards.
 - **2026-11-18:** Audit Logs explorer in Studio **shows events**. No further change was made, so ingestion picked up the flag with a delay (cached project setting). Remaining: tick the known-events table above in Studio (filters by type/action/user) and note any event that is missing.
+
+## Backup & Recovery enablement (deferred)
+
+Automatic environment backups are configured by Hygraph, not in Studio. From the Core team runbook
+"AutomaticEnvironmentBackup Release Enablement" (Notion), checked against Lift Lab on dev-1 (2026-11-18):
+
+| Step | Where | Lift Lab |
+| --- | --- | --- |
+| Enterprise plan | management DB | done |
+| `ENVIRONMENTS_AUTOMATIC_BACKUPS` limit > 0 | management DB | done (1) |
+| `management.environment_backup_config` row for master (cron `0 2 * * ? *`, TTL 86400) | management DB, runbook DO block with project UUID `34088f24-24ad-4017-a3cc-8b9675ed70e9` | not done |
+| AWS Batch resources (`envBackup:provisionResources`) | autobahn Pulumi | probably present (6 configs on dev-1, all from 2024) |
+| EventBridge rule per backup config (`aws-bridge-rule.sh -s <stack> -c … -b <config id> -p lift-lab`) | AWS dev account, `autobahn/deployment/dev` | not done, needs AWS access |
+| NewRelic log forwarding + alerts | infra | optional for a test project |
+| Studio flag `enableBackupAndRecovery` | LaunchDarkly | on globally since 2024-09-16 |
+
+The config row alone would show a schedule in Studio but no backup would run. Open question for the
+owners: dev-1 runs on Aurora, whose flow clones the whole cluster nightly per stack; is that wanted on
+a shared dev stack for one test project?
 
 ## Audit trail without Enterprise audit logs (backup source)
 
