@@ -1,0 +1,21 @@
+SDD.md
+  s_a121c2a3548931::t_d19381c8c2379c 332
+docs/operations.md
+  s_a121c2a3548931::t_b976f6fa591b6c 8,65-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "cdce854ccfa43498411e87a852325f55b3e7848f",
+  "prompts": {},
+  "sessions": {
+    "s_a121c2a3548931": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_a121c2a3548931",
+        "model": "unknown"
+      },
+      "human_author": "wojciech785 <wojciech.zaorski@hygraph.com>"
+    }
+  }
+}
