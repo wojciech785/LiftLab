@@ -1,0 +1,57 @@
+CLAUDE.md
+  s_44745c9752ae85::t_158b53857e7b88 126-129
+SDD.md
+  s_44745c9752ae85::t_ad85ad0bcac6b9 316,335,446-447
+apps/api/.env.example
+  s_44745c9752ae85::t_df904787600ba2 17-21
+apps/api/src/exercises/exercises.module.ts
+  s_44745c9752ae85::t_960a8e061efb29 1,6-8,51-52,54-63,74-75,91-94
+apps/api/src/hygraph/generated/operations.ts
+  s_44745c9752ae85::t_9a6c59d267d0fd 4543-4544,4553-4560,4583,4589-4590
+apps/api/src/hygraph/hygraph.module.ts
+  s_44745c9752ae85::t_b398469db60516 1-2,15-27
+apps/api/src/hygraph/operations/exercises.graphql
+  s_44745c9752ae85::t_7d7cbabb5cb63c 6-10,12-17
+apps/api/test/exercises.test.cjs
+  s_44745c9752ae85::t_160cee312e047b 72-101
+apps/web/.env.example
+  s_44745c9752ae85::t_59d020983b988f 3-7
+apps/web/package.json
+  s_44745c9752ae85::t_f20eb9eec74934 13
+apps/web/src/App.test.tsx
+  s_44745c9752ae85::t_292ea47edeed75 8,56-67
+apps/web/src/App.tsx
+  s_44745c9752ae85::t_1b260cb8fd02e2 1-2,9-13,22-24,36,40
+apps/web/src/ExercisesPage.tsx
+  s_44745c9752ae85::t_5759b1adfc46c3 8,25,44,49-53,62
+apps/web/src/api/client.ts
+  s_44745c9752ae85::t_b36c3aba0a6e58 6-9,29-30
+apps/web/src/components/preview/PreviewBridge.tsx
+  s_44745c9752ae85::t_ca708a433fe62b 1-24
+apps/web/src/styles/global.css
+  s_44745c9752ae85::t_b73541bd89fc99 1
+apps/web/src/vite-env.d.ts
+  s_44745c9752ae85::t_a38f2dda73fcf8 2-7
+docs/live-preview.md
+  s_44745c9752ae85::t_f9582e9ea755ff 1-62
+package-lock.json
+  s_44745c9752ae85::t_9a53add0a9fe20 68,2980-2996,9604-9609
+packages/shared-types/src/index.ts
+  s_44745c9752ae85::t_b8df337c0a71cb 26-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "35715cef0b27359da65c98f29e0060823f8f518f",
+  "prompts": {},
+  "sessions": {
+    "s_44745c9752ae85": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_44745c9752ae85",
+        "model": "unknown"
+      },
+      "human_author": "wojciech785 <wojciech.zaorski@hygraph.com>"
+    }
+  }
+}
