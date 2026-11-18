@@ -1,0 +1,27 @@
+CLAUDE.md
+  s_14488d6b22c931::t_1e5fe60f9fd6c8 129-131
+SDD.md
+  s_14488d6b22c931::t_543ec509cd0f7e 336
+apps/hygraph-app/src/ExerciseCheck.tsx
+  s_14488d6b22c931::t_113085a203e335 5-10,12,25-26,29-33,35,38-62,67-70
+apps/hygraph-app/vite.config.ts
+  s_14488d6b22c931::t_bca653f17902a5 7-16
+docs/app-framework.md
+  s_14488d6b22c931::t_361d5649aaf9c0 1-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "8269fe9b9809fa54582b30241510a9c9363d786e",
+  "prompts": {},
+  "sessions": {
+    "s_14488d6b22c931": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_14488d6b22c931",
+        "model": "unknown"
+      },
+      "human_author": "wojciech785 <wojciech.zaorski@hygraph.com>"
+    }
+  }
+}
