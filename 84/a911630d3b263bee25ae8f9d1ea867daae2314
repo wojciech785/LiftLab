@@ -1,0 +1,23 @@
+CLAUDE.md
+  s_ee37191c182717::t_45455f9fc99d4e 128-130
+SDD.md
+  s_ee37191c182717::t_c5d2ecb90b352c 333,336
+docs/operations.md
+  s_ee37191c182717::t_212fe737efc9fa 5,7,62-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "84a911630d3b263bee25ae8f9d1ea867daae2314",
+  "prompts": {},
+  "sessions": {
+    "s_ee37191c182717": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_ee37191c182717",
+        "model": "unknown"
+      },
+      "human_author": "wojciech785 <wojciech.zaorski@hygraph.com>"
+    }
+  }
+}
